@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>F:\GoblinXNAv3.6\GoblinXNAv3.6\data\Fonts\DebugFont.spritefont</Source>
+      <Name>DebugFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\Content\DebugFont.xnb</Output>
+      <Time>2011-07-15T13:25:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>F:\GoblinXNAv3.6\GoblinXNAv3.6\data\Shaders\PostScreenShadowBlur.fx</Source>
+      <Name>PostScreenShadowBlur</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\Content\PostScreenShadowBlur.xnb</Output>
+      <Time>2011-07-15T13:26:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>F:\GoblinXNAv3.6\GoblinXNAv3.6\data\Shaders\ShadowMap.fx</Source>
+      <Name>ShadowMap</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\Content\ShadowMap.xnb</Output>
+      <Time>2011-07-15T13:26:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>F:\GoblinXNAv3.6\GoblinXNAv3.6\data\Textures\ShadowDistanceFadeoutMap.dds</Source>
+      <Name>ShadowDistanceFadeoutMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="GenerateMipmaps">True</Data>
+        <Data Key="TextureFormat">DxtCompressed</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\Content\ShadowDistanceFadeoutMap.xnb</Output>
+      <Time>2011-07-15T13:26:44-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>F:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\Content\</RootDirectory>
+      <LoggerRootDirectory>F:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\</LoggerRootDirectory>
+      <IntermediateDirectory>F:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2009-05-28T00:16:14-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2009-05-28T00:16:06-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2009-05-28T00:16:16-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2009-05-28T00:16:26-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2009-05-28T00:16:12-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2009-05-28T00:16:06-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-08-18T12:03:56.3544745-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
