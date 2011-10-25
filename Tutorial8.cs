@@ -68,7 +68,11 @@ namespace Tutorial8___Optical_Marker_Tracking
         GraphicsDeviceManager graphics;
 
         Scene scene;
-        MarkerNode groundMarkerNode, toolbarMarkerNode, cylinderMarkerNode;
+        MarkerNode groundMarkerNode, toolbarMarkerNode, cylinderMarkerNode100, 
+            cylinderMarkerNode101, cylinderMarkerNode102, cylinderMarkerNode103, cylinderMarkerNode104, 
+            cylinderMarkerNode105, cylinderMarkerNode106, cylinderMarkerNode107, cylinderMarkerNode108, 
+            cylinderMarkerNode109, cylinderMarkerNode110, cylinderMarkerNode111, cylinderMarkerNode112, 
+            cylinderMarkerNode113, cylinderMarkerNode114;
         GeometryNode boxNode;
         bool useStaticImage = false;
 
@@ -280,33 +284,294 @@ namespace Tutorial8___Optical_Marker_Tracking
             ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(pair, BoxSphereCollision);
             
             int[] first = new int[1];
+            int[] two = new int[1];
+            int[] three = new int[1];
+            int[] four = new int[1];
+            int[] five = new int[1];
+            int[] six = new int[1];
+            int[] seven = new int[1];
+            int[] eight = new int[1];
+            int[] nine = new int[1];
+            int[] ten = new int[1];
+            int[] eleven = new int[1];
+            int[] twelve = new int[1];
+            int[] thirteen = new int[1];
+            int[] fourteen = new int[1];
+            int[] fifteen = new int[1];
 
             first[0] = 100;
-            /*
-            ids[1] = 51;
+            two[0] = 101;
+            three[0] = 102;
+            four[0] = 103;
+            five[0] = 104;
+            six[0] = 105;
+            seven[0] = 106;
+            eight[0] = 107;
+            nine[0] = 108;
+            ten[0] = 109;
+            eleven[0] = 110;
+            twelve[0] = 111;
+            thirteen[0] = 112;
+            fourteen[0] = 113;
+            fifteen[0] = 114;
+          
 
-            ids[2] = 52;
+            //Marker 100
+            cylinderMarkerNode100 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML100.xml", first);
+            GeometryNode cylinderNode1 = new GeometryNode("Cylinder");
 
-            ids[3] = 53;
-            */
+            cylinderNode1.Model = new Cylinder(3, 3, 6, 10);
 
+            cylinderNode1.Material = sphereMaterial;
 
-            cylinderMarkerNode = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML100.xml", first);
-            GeometryNode cylinderNode = new GeometryNode("Cylinder");
+            TransformNode cylinderTransNode1 = new TransformNode();
 
-            cylinderNode.Model = new Cylinder(3, 3, 6, 10);
+            cylinderTransNode1.Translation = new Vector3(0, 0, 3);
 
-            cylinderNode.Material = sphereMaterial;
+            cylinderMarkerNode100.AddChild(cylinderTransNode1);
 
-            TransformNode cylinderTransNode = new TransformNode();
+            cylinderTransNode1.AddChild(cylinderNode1);
 
-            cylinderTransNode.Translation = new Vector3(0, 0, 3);
+            //Marker 101
+            cylinderMarkerNode101 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML101.xml", two);
+            GeometryNode cylinderNode2 = new GeometryNode("Cylinder");
 
-            cylinderMarkerNode.AddChild(cylinderTransNode);
+            cylinderNode2.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderTransNode.AddChild(cylinderNode);
+            cylinderNode2.Material = sphereMaterial;
 
-            scene.RootNode.AddChild(cylinderMarkerNode);
+            TransformNode cylinderTransNode2 = new TransformNode();
+
+            cylinderTransNode2.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode101.AddChild(cylinderTransNode2);
+
+            cylinderTransNode2.AddChild(cylinderNode2);
+
+            //Marker 102
+            cylinderMarkerNode102 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML102.xml", three);
+            GeometryNode cylinderNode3 = new GeometryNode("Cylinder");
+
+            cylinderNode3.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode3.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode3 = new TransformNode();
+
+            cylinderTransNode3.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode102.AddChild(cylinderTransNode3);
+
+            cylinderTransNode3.AddChild(cylinderNode3);
+
+            //Marker 103
+            cylinderMarkerNode103 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML103.xml", four);
+            GeometryNode cylinderNode3 = new GeometryNode("Cylinder");
+
+            cylinderNode3.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode3.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode2 = new TransformNode();
+
+            cylinderTransNode3.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode103.AddChild(cylinderTransNode3);
+
+            cylinderTransNode3.AddChild(cylinderNode2);
+
+            //Marker 104
+            cylinderMarkerNode104 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML104.xml", five);
+            GeometryNode cylinderNode4 = new GeometryNode("Cylinder");
+
+            cylinderNode4.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode4.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode4 = new TransformNode();
+
+            cylinderTransNode4.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode104.AddChild(cylinderTransNode4);
+
+            cylinderTransNode4.AddChild(cylinderNode4);
+
+            //Marker 105
+            cylinderMarkerNode105 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML105.xml", six);
+            GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+
+            cylinderNode5.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode5.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode5 = new TransformNode();
+
+            cylinderTransNode5.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode105.AddChild(cylinderTransNode5);
+
+            cylinderTransNode5.AddChild(cylinderNode5);
+
+            //Marker 106
+            cylinderMarkerNode106 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML106.xml", seven);
+            GeometryNode cylinderNode6 = new GeometryNode("Cylinder");
+
+            cylinderNode6.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode6.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode6 = new TransformNode();
+
+            cylinderTransNode6.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode106.AddChild(cylinderTransNode6);
+
+            cylinderTransNode6.AddChild(cylinderNode6);
+
+            //Marker 107
+            cylinderMarkerNode107 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML107.xml", eight);
+            GeometryNode cylinderNode7 = new GeometryNode("Cylinder");
+
+            cylinderNode7.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode7.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode7 = new TransformNode();
+
+            cylinderTransNode7.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode107.AddChild(cylinderTransNode7);
+
+            cylinderTransNode7.AddChild(cylinderNode7);
+
+            //Marker 108
+            cylinderMarkerNode108 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML108.xml", nine);
+            GeometryNode cylinderNode8 = new GeometryNode("Cylinder");
+
+            cylinderNode8.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode8.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode8 = new TransformNode();
+
+            cylinderTransNode8.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode108.AddChild(cylinderTransNode8);
+
+            cylinderTransNode8.AddChild(cylinderNode8);
+
+            //Marker 109
+            cylinderMarkerNode109 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML109.xml", ten);
+            GeometryNode cylinderNode9 = new GeometryNode("Cylinder");
+
+            cylinderNode9.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode9.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode9 = new TransformNode();
+
+            cylinderTransNode9.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode109.AddChild(cylinderTransNode9);
+
+            cylinderTransNode9.AddChild(cylinderNode9);
+
+            //Marker 110
+            cylinderMarkerNode110 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML110.xml", eleven);
+            GeometryNode cylinderNode10 = new GeometryNode("Cylinder");
+
+            cylinderNode10.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode10.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode10 = new TransformNode();
+
+            cylinderTransNode10.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode110.AddChild(cylinderTransNode10);
+
+            cylinderTransNode10.AddChild(cylinderNode10);
+
+            //Marker 111
+            cylinderMarkerNode111 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML111.xml", twelve);
+            GeometryNode cylinderNode11 = new GeometryNode("Cylinder");
+
+            cylinderNode11.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode11.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode11 = new TransformNode();
+
+            cylinderTransNode11.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode111.AddChild(cylinderTransNode11);
+
+            cylinderTransNode11.AddChild(cylinderNode11);
+
+            //Marker 112
+            cylinderMarkerNode112 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML112.xml", thirteen);
+            GeometryNode cylinderNode12 = new GeometryNode("Cylinder");
+
+            cylinderNode12.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode12.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode12 = new TransformNode();
+
+            cylinderTransNode12.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode112.AddChild(cylinderTransNode12);
+
+            cylinderTransNode12.AddChild(cylinderNode12);
+
+            //Marker 113
+            cylinderMarkerNode113 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML113.xml", fourteen);
+            GeometryNode cylinderNode13 = new GeometryNode("Cylinder");
+
+            cylinderNode13.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode13.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode13 = new TransformNode();
+
+            cylinderTransNode13.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode113.AddChild(cylinderTransNode13);
+
+            cylinderTransNode13.AddChild(cylinderNode13);
+
+            //Marker 114
+            cylinderMarkerNode114 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML114.xml", fifteen);
+            GeometryNode cylinderNode14 = new GeometryNode("Cylinder");
+
+            cylinderNode14.Model = new Cylinder(3, 3, 6, 10);
+
+            cylinderNode14.Material = sphereMaterial;
+
+            TransformNode cylinderTransNode14 = new TransformNode();
+
+            cylinderTransNode14.Translation = new Vector3(0, 0, 3);
+
+            cylinderMarkerNode114.AddChild(cylinderTransNode14);
+
+            cylinderTransNode14.AddChild(cylinderNode14);
+
+            scene.RootNode.AddChild(cylinderMarkerNode100);
+            scene.RootNode.AddChild(cylinderMarkerNode101);
+            scene.RootNode.AddChild(cylinderMarkerNode102);
+            scene.RootNode.AddChild(cylinderMarkerNode103);
+            scene.RootNode.AddChild(cylinderMarkerNode104);
+            scene.RootNode.AddChild(cylinderMarkerNode105);
+            scene.RootNode.AddChild(cylinderMarkerNode106);
+            scene.RootNode.AddChild(cylinderMarkerNode107);
+            scene.RootNode.AddChild(cylinderMarkerNode108);
+            scene.RootNode.AddChild(cylinderMarkerNode109);
+            scene.RootNode.AddChild(cylinderMarkerNode110);
+            scene.RootNode.AddChild(cylinderMarkerNode111);
+            scene.RootNode.AddChild(cylinderMarkerNode112);
+            scene.RootNode.AddChild(cylinderMarkerNode113);
+            scene.RootNode.AddChild(cylinderMarkerNode114);
+            
         }
 
         /// <summary>

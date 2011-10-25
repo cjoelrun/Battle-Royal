@@ -75,3 +75,5 @@ G:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\obj
 G:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.exe
 G:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.pdb
 F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\ALVARConfigFromXML100.xml
+C:\Users\Chelsea\Desktop\ui\br\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.exe
+C:\Users\Chelsea\Desktop\ui\br\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.pdb
