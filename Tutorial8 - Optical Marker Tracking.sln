@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial8 - Optical Marker Tracking", "Tutorial8 - Optical Marker Tracking.csproj", "{E1805CB8-0610-4687-8998-9A075ABF65DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1805CB8-0610-4687-8998-9A075ABF65DB}.Debug|x86.ActiveCfg = Debug|x86
+		{E1805CB8-0610-4687-8998-9A075ABF65DB}.Debug|x86.Build.0 = Debug|x86
+		{E1805CB8-0610-4687-8998-9A075ABF65DB}.Release|x86.ActiveCfg = Release|x86
+		{E1805CB8-0610-4687-8998-9A075ABF65DB}.Release|x86.Build.0 = Release|x86
+		{642C39F6-F903-4916-8525-BB3A2A10122E}.Debug|x86.ActiveCfg = Debug|x86
+		{642C39F6-F903-4916-8525-BB3A2A10122E}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
