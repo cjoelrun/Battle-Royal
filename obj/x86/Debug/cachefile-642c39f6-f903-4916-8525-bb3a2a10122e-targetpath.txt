@@ -1,4 +1,0 @@
-Content\DebugFont.xnb
-Content\PostScreenShadowBlur.xnb
-Content\ShadowMap.xnb
-Content\ShadowDistanceFadeoutMap.xnb
