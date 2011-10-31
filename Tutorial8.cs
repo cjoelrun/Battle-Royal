@@ -73,11 +73,21 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode105, cylinderMarkerNode106, cylinderMarkerNode107, cylinderMarkerNode108, 
             cylinderMarkerNode109, cylinderMarkerNode110, cylinderMarkerNode111, cylinderMarkerNode112, 
             cylinderMarkerNode113, cylinderMarkerNode114;
+      
+      MarkerNode cylinderMarkerNode115, cylinderMarkerNode116, cylinderMarkerNode117,
+            cylinderMarkerNode118, cylinderMarkerNode119, cylinderMarkerNode120, cylinderMarkerNode121,
+            cylinderMarkerNode122, cylinderMarkerNode123, cylinderMarkerNode124, cylinderMarkerNode125,
+            cylinderMarkerNode126, cylinderMarkerNode127, cylinderMarkerNode128, cylinderMarkerNode129; 
 
-        MarkerNode cylinderMarkerNode145, cylinderMarkerNode146, cylinderMarkerNode147,
+      MarkerNode cylinderMarkerNode130, cylinderMarkerNode131, cylinderMarkerNode132,
+	cylinderMarkerNode159, cylinderMarkerNode134, cylinderMarkerNode135, cylinderMarkerNode136, 
+	cylinderMarkerNode137,cylinderMarkerNode138, cylinderMarkerNode139, cylinderMarkerNode140, 
+	cylinderMarkerNode141, cylinderMarkerNode142, cylinderMarkerNode143, cylinderMarkerNode144;
+
+      MarkerNode cylinderMarkerNode145, cylinderMarkerNode146, cylinderMarkerNode147,
             cylinderMarkerNode148, cylinderMarkerNode149, cylinderMarkerNode150, cylinderMarkerNode151,
             cylinderMarkerNode152, cylinderMarkerNode153, cylinderMarkerNode154, cylinderMarkerNode155,
-            cylinderMarkerNode156, cylidnerMarkerNode157, cylinderMarkerNode158, cylinderMarkerNode159; 
+            cylinderMarkerNode156, cylinderMarkerNode157, cylinderMarkerNode158, cylinderMarkerNode159; 
 
         GeometryNode boxNode;
         bool useStaticImage = false;
