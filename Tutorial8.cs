@@ -68,20 +68,20 @@ namespace Tutorial8___Optical_Marker_Tracking
         GraphicsDeviceManager graphics;
 
         Scene scene;
-        MarkerNode groundMarkerNode, toolbarMarkerNode, cylinderMarkerNode100, 
-            cylinderMarkerNode101, cylinderMarkerNode102, cylinderMarkerNode103, cylinderMarkerNode104, 
-            cylinderMarkerNode105, cylinderMarkerNode106, cylinderMarkerNode107, cylinderMarkerNode108, 
-            cylinderMarkerNode109, cylinderMarkerNode110, cylinderMarkerNode111, cylinderMarkerNode112, 
+        MarkerNode groundMarkerNode, toolbarMarkerNode, cylinderMarkerNode100,
+            cylinderMarkerNode101, cylinderMarkerNode102, cylinderMarkerNode103, cylinderMarkerNode104,
+            cylinderMarkerNode105, cylinderMarkerNode106, cylinderMarkerNode107, cylinderMarkerNode108,
+            cylinderMarkerNode109, cylinderMarkerNode110, cylinderMarkerNode111, cylinderMarkerNode112,
             cylinderMarkerNode113, cylinderMarkerNode114;
-      
+
         MarkerNode cylinderMarkerNode115, cylinderMarkerNode116, cylinderMarkerNode117,
             cylinderMarkerNode118, cylinderMarkerNode119, cylinderMarkerNode120, cylinderMarkerNode121,
             cylinderMarkerNode122, cylinderMarkerNode123, cylinderMarkerNode124, cylinderMarkerNode125,
-            cylinderMarkerNode126, cylinderMarkerNode127, cylinderMarkerNode128, cylinderMarkerNode129; 
+            cylinderMarkerNode126, cylinderMarkerNode127, cylinderMarkerNode128, cylinderMarkerNode129;
 
         GeometryNode boxNode;
         bool useStaticImage = false;
-
+        GeometryNode[] blah = new GeometryNode[30];
         public Tutorial8()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -117,9 +117,8 @@ namespace Tutorial8___Optical_Marker_Tracking
              *              health (int) - health of monster
              *              
              * */
-            public Card(int marker, char type, TransformNode model, int atk, int health)
+            public Card(char type, TransfromNode model, int atk, int health)
             {
-                markerNum = marker;
                 this.type = type;
                 this.model = model;
                 attackPower = atk;
@@ -131,12 +130,6 @@ namespace Tutorial8___Optical_Marker_Tracking
             public char getType()
             {
                 return type;
-            }
-
-            //getMarkerNum fetches markerNum and returns it
-            public int getMarkerNum()
-            {
-                return markerNum;
             }
 
             //getModel fetches model and returns it
@@ -179,8 +172,18 @@ namespace Tutorial8___Optical_Marker_Tracking
                     ko = true;
                 }
             }
-        }
 
+            public void applyBuff(int amount)
+            {
+                attackPower += amount;
+            }
+            public void removeBuff(int amount)
+            {
+                attackPower -= amount;
+            }
+
+        }
+        Card[] cards = new Card[30];
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -290,7 +293,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         private void CreateGround()
         {
             GeometryNode groundNode = new GeometryNode("Ground");
-                
+
             groundNode.Model = new Box(95, 59, 0.1f);
 
             // Set this ground model to act as an occluder so that it appears transparent
@@ -381,8 +384,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             // called when the pair collides
             NewtonPhysics.CollisionPair pair = new NewtonPhysics.CollisionPair(boxNode.Physics, sphereNode.Physics);
             ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(pair, BoxSphereCollision);
-            
-            int[] zero = new int [1];
+
+            int[] zero = new int[1];
             int[] first = new int[1];
             int[] two = new int[1];
             int[] three = new int[1];
@@ -461,6 +464,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode0.AddChild(cylinderNode0);
 
+            //add to Card array here: generic monster card here
+            cards[0] = new Card('M', cylinderTransNode100, 100, 100);
+
             //Marker 101
             cylinderMarkerNode101 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML101.xml", first);
             GeometryNode cylinderNode1 = new GeometryNode("Cylinder");
@@ -476,6 +482,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode101.AddChild(cylinderTransNode1);
 
             cylinderTransNode1.AddChild(cylinderNode1);
+
+            //add to Card array here: generic monster card here
+            cards[1] = new Card('M', cylinderTransNode101, 100, 100);
 
             //Marker 102
             cylinderMarkerNode102 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML102.xml", two);
@@ -493,6 +502,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode2.AddChild(cylinderNode2);
 
+            //add to Card array here: generic monster card here
+            cards[2] = new Card('M', cylinderTransNode102, 100, 100);
+
             //Marker 103
             cylinderMarkerNode103 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML103.xml", three);
             GeometryNode cylinderNode3 = new GeometryNode("Cylinder");
@@ -508,6 +520,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode103.AddChild(cylinderTransNode3);
 
             cylinderTransNode3.AddChild(cylinderNode3);
+
+            //add to Card array here: generic monster card here
+            cards[3] = new Card('M', cylinderTransNode103, 100, 100);
 
             //Marker 104
             cylinderMarkerNode104 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML104.xml", four);
@@ -525,6 +540,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode4.AddChild(cylinderNode4);
 
+            //add to Card array here: generic monster card here
+            cards[4] = new Card('M', cylinderTransNode104, 100, 100);
+
             //Marker 105
             cylinderMarkerNode105 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML105.xml", five);
             GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
@@ -540,6 +558,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode105.AddChild(cylinderTransNode5);
 
             cylinderTransNode5.AddChild(cylinderNode5);
+
+            //add to Card array here: generic monster card here
+            cards[5] = new Card('M', cylinderTransNode105, 100, 100);
 
             //Marker 106
             cylinderMarkerNode106 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML106.xml", six);
@@ -557,6 +578,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode6.AddChild(cylinderNode6);
 
+            //add to Card array here: generic monster card here
+            cards[6] = new Card('M', cylinderTransNode6, 100, 100);
+
             //Marker 107
             cylinderMarkerNode107 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML107.xml", seven);
             GeometryNode cylinderNode7 = new GeometryNode("Cylinder");
@@ -572,6 +596,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode107.AddChild(cylinderTransNode7);
 
             cylinderTransNode7.AddChild(cylinderNode7);
+
+            //add to Card array here: generic monster card here
+            cards[7] = new Card('M', cylinderTransNode107, 100, 100);
 
             //Marker 108
             cylinderMarkerNode108 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML108.xml", eight);
@@ -589,6 +616,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode8.AddChild(cylinderNode8);
 
+            //add to Card array here: generic monster card here
+            cards[8] = new Card('M', cylinderTransNode108, 100, 100);
+
             //Marker 109
             cylinderMarkerNode109 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML109.xml", nine);
             GeometryNode cylinderNode9 = new GeometryNode("Cylinder");
@@ -604,6 +634,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode109.AddChild(cylinderTransNode9);
 
             cylinderTransNode9.AddChild(cylinderNode9);
+
+            //add to Card array here: generic monster card here
+            cards[9] = new Card('M', cylinderTransNode109, 100, 100);
 
             //The following line is to be placed before the 110th node to hange color to Blue
             sphereMaterial.Diffuse = new Vector4(0, 0, 0.5f, 1);
@@ -624,6 +657,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode10.AddChild(cylinderNode10);
 
+            //add to Card array here: generic spell card here
+            cards[10] = new Card('S', cylinderTransNode110, 100, 100);
+
             //Marker 111
             cylinderMarkerNode111 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML111.xml", eleven);
             GeometryNode cylinderNode11 = new GeometryNode("Cylinder");
@@ -639,6 +675,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode111.AddChild(cylinderTransNode11);
 
             cylinderTransNode11.AddChild(cylinderNode11);
+
+            //add to Card array here: generic spell card here
+            cards[11] = new Card('S', cylinderTransNode111, 100, 100);
 
             //Marker 112
             cylinderMarkerNode112 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML112.xml", twelve);
@@ -656,6 +695,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode12.AddChild(cylinderNode12);
 
+            //add to Card array here: generic spell card here
+            cards[12] = new Card('S', cylinderTransNode112, 100, 100);
+
             //Marker 113
             cylinderMarkerNode113 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML113.xml", thirteen);
             GeometryNode cylinderNode13 = new GeometryNode("Cylinder");
@@ -671,6 +713,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode113.AddChild(cylinderTransNode13);
 
             cylinderTransNode13.AddChild(cylinderNode13);
+
+            //add to Card array here: generic spell card here
+            cards[13] = new Card('S', cylinderTransNode113, 100, 100);
 
             //Marker 114
             cylinderMarkerNode114 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML114.xml", fourteen);
@@ -688,6 +733,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode14.AddChild(cylinderNode14);
 
+            //add to Card array here: generic spell card here
+            cards[14] = new Card('S', cylinderTransNode114, 100, 100);
+
             //Marker 115
             cylinderMarkerNode115 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML115.xml", fifteen);
             GeometryNode cylinderNode15 = new GeometryNode("Cylinder");
@@ -704,6 +752,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode15.AddChild(cylinderNode15);
 
+            //add to Card array here: generic spell card here
+            cards[15] = new Card('S', cylinderTransNode115, 100, 100);
+
             //Marker 116
             cylinderMarkerNode116 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML116.xml", sixteen);
             GeometryNode cylinderNode16 = new GeometryNode("Cylinder");
@@ -716,9 +767,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode16.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode16.AddChild(cylinderNode16);
+
             cylinderMarkerNode116.AddChild(cylinderTransNode16);
 
-            cylinderTransNode16.AddChild(cylinderNode16);
+            //add to Card array here: generic spell card here
+            cards[16] = new Card('S', cylinderTransNode116, 100, 100);
 
             //Marker 117
             cylinderMarkerNode117 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML117.xml", seventeen);
@@ -732,9 +786,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode17.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode17.AddChild(cylinderNode17);
+
             cylinderMarkerNode117.AddChild(cylinderTransNode17);
 
-            cylinderTransNode17.AddChild(cylinderNode17);
+            //add to Card array here: generic spell card here
+            cards[17] = new Card('S', cylinderTransNode117, 100, 100);
 
             //Marker 118
             cylinderMarkerNode118 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML118.xml", eighteen);
@@ -748,9 +805,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode18.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode18.AddChild(cylinderNode18);
+
             cylinderMarkerNode118.AddChild(cylinderTransNode18);
 
-            cylinderTransNode18.AddChild(cylinderNode18);
+            //add to Card array here: generic spell card here
+            cards[18] = new Card('S', cylinderTransNode118, 100, 100);
 
             //Marker 119
             cylinderMarkerNode119 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML119.xml", nineteen);
@@ -764,9 +824,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode19.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode19.AddChild(cylinderNode19);
+
             cylinderMarkerNode119.AddChild(cylinderTransNode19);
 
-            cylinderTransNode19.AddChild(cylinderNode19);
+            //add to Card array here: generic spell card here
+            cards[19] = new Card('S', cylinderTransNode119, 100, 100);
 
             //changing color to Red
             sphereMaterial.Diffuse = new Vector4(0.5f, 0, 0, 1);
@@ -783,9 +846,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode20.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode20.AddChild(cylinderNode20);
+
             cylinderMarkerNode120.AddChild(cylinderTransNode20);
 
-            cylinderTransNode20.AddChild(cylinderNode20);
+            //add to Card array here: generic trap card here
+            cards[20] = new Card('T', cylinderTransNode120, 0, 100);
 
             //Marker 121
             cylinderMarkerNode121 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML121.xml", twentyone);
@@ -799,9 +865,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode21.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode21.AddChild(cylinderNode21);
+
             cylinderMarkerNode121.AddChild(cylinderTransNode21);
 
-            cylinderTransNode21.AddChild(cylinderNode21);
+            //add to Card array here: generic trap card here
+            cards[21] = new Card('T', cylinderTransNode121, 0, 100);
 
             //Marker 122
             cylinderMarkerNode122 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML122.xml", twentytwo);
@@ -815,9 +884,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode22.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode22.AddChild(cylinderNode22);
+
             cylinderMarkerNode122.AddChild(cylinderTransNode22);
 
-            cylinderTransNode22.AddChild(cylinderNode22);
+            //add to Card array here: generic trap card here
+            cards[22] = new Card('T', cylinderTransNode122, 0, 100);
 
             //Marker 123
             cylinderMarkerNode123 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML123.xml", twentythree);
@@ -831,9 +903,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode23.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode23.AddChild(cylinderNode23);
+
             cylinderMarkerNode123.AddChild(cylinderTransNode23);
 
-            cylinderTransNode23.AddChild(cylinderNode23);
+            //add to Card array here: generic trap card here
+            cards[23] = new Card('T', cylinderTransNode123, 0, 100);
 
             //Marker 124
             cylinderMarkerNode124 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML124.xml", twentyfour);
@@ -847,9 +922,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode24.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode24.AddChild(cylinderNode24);
+
             cylinderMarkerNode124.AddChild(cylinderTransNode24);
 
-            cylinderTransNode24.AddChild(cylinderNode24);
+            //add to Card array here: generic trap card here
+            cards[24] = new Card('T', cylinderTransNode124, 0, 100);
 
             //Marker 125
             cylinderMarkerNode125 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML125.xml", twentyfive);
@@ -863,9 +941,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode25.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode25.AddChild(cylinderNode25);
+
             cylinderMarkerNode125.AddChild(cylinderTransNode25);
 
-            cylinderTransNode25.AddChild(cylinderNode25);
+            //add to Card array here: generic trap card here
+            cards[25] = new Card('T', cylinderTransNode125, 0, 100);
 
             //Marker 126
             cylinderMarkerNode126 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML126.xml", twentysix);
@@ -879,9 +960,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode26.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode26.AddChild(cylinderNode26);
+
             cylinderMarkerNode126.AddChild(cylinderTransNode26);
 
-            cylinderTransNode26.AddChild(cylinderNode26);
+            //add to Card array here: generic trap card here
+            cards[26] = new Card('T', cylinderTransNode126, 0, 100);
 
             //Marker 127
             cylinderMarkerNode127 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML127.xml", twentyseven);
@@ -895,9 +979,13 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode27.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode27.AddChild(cylinderNode27);
+
             cylinderMarkerNode127.AddChild(cylinderTransNode27);
 
-            cylinderTransNode27.AddChild(cylinderNode27);
+
+            //add to Card array here: generic trap card here
+            cards[27] = new Card('T', cylinderTransNode127, 0, 100);
 
             //Marker 128
             cylinderMarkerNode128 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML128.xml", twentyeight);
@@ -911,9 +999,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode28.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode28.AddChild(cylinderNode28);
+
             cylinderMarkerNode128.AddChild(cylinderTransNode28);
 
-            cylinderTransNode28.AddChild(cylinderNode28);
+            //add to Card array here: generic trap card here
+            cards[28] = new Card('T', cylinderTransNode128, 0, 100);
 
             //Marker 129
             cylinderMarkerNode129 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML129.xml", twentynine);
@@ -927,56 +1018,60 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderTransNode29.Translation = new Vector3(0, 0, 3);
 
+            cylinderTransNode29.AddChild(cylinderNode29);
+
             cylinderMarkerNode129.AddChild(cylinderTransNode29);
 
-            cylinderTransNode29.AddChild(cylinderNode29);
-			
-			
-			GeometryNode[] blah = new GeometryNode[30];
-			blah[0] = cylinderNode0;
-			blah[1] = cylinderNode1;
-			blah[2] = cylinderNode2;
-			blah[3] = cylinderNode3;
-			blah[4] = cylinderNode4;
-			blah[5] = cylinderNode5;
-			blah[6] = cylinderNode6;
-			blah[7] = cylinderNode7;
-			blah[8] = cylinderNode8;
-			blah[9] = cylinderNode9;
-			blah[10] = cylinderNode10;
-			blah[11] = cylinderNode11;
-			blah[12] = cylinderNode12;
-			blah[13] = cylinderNode13;
-			blah[14] = cylinderNode14;
-			blah[15] = cylinderNode15;
-			blah[16] = cylinderNode16;
-			blah[17] = cylinderNode17;
-			blah[18] = cylinderNode18;
-			blah[19] = cylinderNode19;
-			blah[20] = cylinderNode20;
-			blah[21] = cylinderNode21;
-			blah[22] = cylinderNode22;
-			blah[23] = cylinderNode23;
-			blah[24] = cylinderNode24;
-			blah[25] = cylinderNode25;
-			blah[26] = cylinderNode26;
-			blah[27] = cylinderNode27;
-			blah[28] = cylinderNode28;
-			blah[29] = cylinderNode29;
-			
-			NewtonPhysics.CollisionPair[] blah2 = new NewtonPhysics.CollisionPair[435];
-			int k = 0;
-			
-			for(int i = 0; i<30; i++){
-				for(int j=i+1; j<30; j++){
-					blah2[k] = new NewtonPhysics.CollisionPair(blah[i].Physics, blah[j].Physics);
-					k++;
-				}
-			}
-			
-			for(int i = 0; i<blah2.Length; i++){
-				((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(blah2[i], arCollision);
-			}
+            //add to Card array here: generic trap card here
+            cards[29] = new Card('T', cylinderTransNode129, 0, 100);
+
+            blah[0] = cylinderNode0;
+            blah[1] = cylinderNode1;
+            blah[2] = cylinderNode2;
+            blah[3] = cylinderNode3;
+            blah[4] = cylinderNode4;
+            blah[5] = cylinderNode5;
+            blah[6] = cylinderNode6;
+            blah[7] = cylinderNode7;
+            blah[8] = cylinderNode8;
+            blah[9] = cylinderNode9;
+            blah[10] = cylinderNode10;
+            blah[11] = cylinderNode11;
+            blah[12] = cylinderNode12;
+            blah[13] = cylinderNode13;
+            blah[14] = cylinderNode14;
+            blah[15] = cylinderNode15;
+            blah[16] = cylinderNode16;
+            blah[17] = cylinderNode17;
+            blah[18] = cylinderNode18;
+            blah[19] = cylinderNode19;
+            blah[20] = cylinderNode20;
+            blah[21] = cylinderNode21;
+            blah[22] = cylinderNode22;
+            blah[23] = cylinderNode23;
+            blah[24] = cylinderNode24;
+            blah[25] = cylinderNode25;
+            blah[26] = cylinderNode26;
+            blah[27] = cylinderNode27;
+            blah[28] = cylinderNode28;
+            blah[29] = cylinderNode29;
+
+            NewtonPhysics.CollisionPair[] blah2 = new NewtonPhysics.CollisionPair[435];
+            int k = 0;
+
+            for (int i = 0; i < 30; i++)
+            {
+                for (int j = i + 1; j < 30; j++)
+                {
+                    blah2[k] = new NewtonPhysics.CollisionPair(blah[i].Physics, blah[j].Physics);
+                    k++;
+                }
+            }
+
+            for (int i = 0; i < blah2.Length; i++)
+            {
+                ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(blah2[i], arCollision);
+            }
 
             scene.RootNode.AddChild(cylinderMarkerNode100);
             scene.RootNode.AddChild(cylinderMarkerNode101);
@@ -1009,7 +1104,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             scene.RootNode.AddChild(cylinderMarkerNode127);
             scene.RootNode.AddChild(cylinderMarkerNode128);
             scene.RootNode.AddChild(cylinderMarkerNode129);
-            
+
         }
 
         /// <summary>
@@ -1023,7 +1118,53 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         private void arCollision(NewtonPhysics.CollisionPair pair)
         {
-            Console.WriteLine("We have a collision!");
+            //Console.WriteLine("We have a collision!");
+            int index1 = -1, index2 = -1;
+
+            for (int x = 0; x < 30; x++)
+            {
+                if (pair.CollisionObject1.Equals(blah[x].Physics))
+                    index1 = x;
+                else if (pair.CollisionObject2.Equals(blah[x].Physics))
+                    index2 = x;
+                if (index1 != -1 && index2 != -1)
+                    break;
+            }
+            if ((index1 == -1 || index2 == -1) && x == 30)
+            {
+                //error!
+                return;
+            }
+            Card cardOne = cards[index1];
+            Card cardTwo = cards[index2];
+            if (cardOne.getType() == 'M' && cardTwo.getType() == 'M')
+            {
+                //monster v. monster logic here
+            }
+            else if ((cardOne.getType() == 'M' && cardTwo.getType() == 'T') ||
+                    (cardOne.getType() == 'T' && cardTwo.getType() == 'M'))
+            {
+                //moneter v. trap logic here
+            }
+            else if ((cardOne.getType() == 'M' && cardTwo.getType() == 'S') ||
+                    (cardOne.getType() == 'S' && cardTwo.getType() == 'M'))
+            {
+                //monster v. spell logic here
+            }
+            else if (cardOne.getType() == 'S' && cardTwo.getType() == 'S')
+            {
+                //spell v. spell logic here
+            }
+            else if ((cardOne.getType() == 'S' && cardTwo.getType() == 'T') ||
+                    (cardOne.getType() == 'T' && cardTwo.getType() == 'S'))
+            {
+                //spell v. trap logic here
+            }
+            else if (cardOne.getType() == 'T' && cardTwo.getType() == 'T')
+            {
+                //trap v. trap logic here
+            }
+
         }
 
         /// <summary>
@@ -1073,15 +1214,15 @@ namespace Tutorial8___Optical_Marker_Tracking
                     // half of each dimension of the 8x8x8 box model.  The approach used here requires that
                     // the ground marker array remains visible at all times.
                     Vector3 shiftVector = new Vector3(4, -4, 4);
-                    Matrix mat = Matrix.CreateTranslation(shiftVector) * 
-                        toolbarMarkerNode.WorldTransformation * 
+                    Matrix mat = Matrix.CreateTranslation(shiftVector) *
+                        toolbarMarkerNode.WorldTransformation *
                         Matrix.Invert(groundMarkerNode.WorldTransformation);
 
                     // Modify the transformation in the physics engine
                     ((NewtonPhysics)scene.PhysicsEngine).SetTransform(boxNode.Physics, mat);
                 }
                 else
-                    ((NewtonPhysics)scene.PhysicsEngine).SetTransform(boxNode.Physics, 
+                    ((NewtonPhysics)scene.PhysicsEngine).SetTransform(boxNode.Physics,
                         Matrix.CreateTranslation(Vector3.One * 4));
             }
 
