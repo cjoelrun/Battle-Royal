@@ -102,7 +102,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             /*model will store the data pertaining to the display of the monster
              * on the marker representing this paricular Card.*/
             TransformNode model;
-            static int defaultatk; 
+            static int baseAtk;
+            int lastAtk;
             int attackPower;
             int health;
             bool ko;
@@ -125,7 +126,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                 this.type = type;
                 this.model = model;
                 attackPower = atk;
-                defaultatk = atk;
+                baseAtk = atk;
+                lastAtk = atk;
                 this.health = health;
                 ko = false;
                 this.name = name;
@@ -175,7 +177,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 health -= amount;
                 if (health <= 0)
                 {
-                    ko = true;
+                    destroy();
                 }
             }
 
@@ -186,11 +188,23 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             public void buff(int amount)
             {
+                lastAtk = attackPower;
                 attackPower += amount;
             }
             public void debuff(int amount)
             {
+                lastAtk = attackPower;
                 attackPower -= amount;
+            }
+
+            public void setDefault()
+            {
+                attackPower = baseAtk;
+            }
+
+            public void setLast()
+            {
+                attackPower = lastAtk;
             }
 
             public string getName()
@@ -202,8 +216,21 @@ namespace Tutorial8___Optical_Marker_Tracking
             {
                 return effect;
             }
+
+            public int getHealth()
+            {
+                return health;
+            }
+
+            public void destroy()
+            {
+                ko = true;
+                health = 0;
+            }
+
         }
         Card[] cards = new Card[30];
+        string trapFlag = "none"; 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -890,7 +917,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode121.AddChild(cylinderTransNode21);
 
             //add to Card array here: generic trap card here
-            cards[21] = new Card('T', cylinderTransNode121, 0, 100, "Return from the Different Dimension", "Your opponent may not attack for the remainder of their turn.");
+            cards[21] = new Card('T', cylinderTransNode121, 0, 100, "Return from the Different Dimension",
+                "Your opponent may not attack for the remainder of their turn.");
 
             //Marker 122
             cylinderMarkerNode122 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML122.xml", twentytwo);
@@ -928,7 +956,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode123.AddChild(cylinderTransNode23);
 
             //add to Card array here: generic trap card here
-            cards[23] = new Card('T', cylinderTransNode123, 0, 100, "Beckoning Light", "Your opponent may not activate a trap during your next turn.");
+            cards[23] = new Card('T', cylinderTransNode123, 0, 100, "Beckoning Light",
+                "Your opponent may not activate a trap during your next turn.");
 
             //Marker 124
             cylinderMarkerNode124 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML124.xml", twentyfour);
@@ -947,7 +976,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode124.AddChild(cylinderTransNode24);
 
             //add to Card array here: generic trap card here
-            cards[24] = new Card('T', cylinderTransNode124, 0, 100, "Miraculous Descent", "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
+            cards[24] = new Card('T', cylinderTransNode124, 0, 100, "Miraculous Descent",
+                "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
 
             //Marker 125
             cylinderMarkerNode125 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML125.xml", twentyfive);
@@ -966,7 +996,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode125.AddChild(cylinderTransNode25);
 
             //add to Card array here: generic trap card here
-            cards[25] = new Card('T', cylinderTransNode125, 0, 100, "Miraculous Descent", "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
+            cards[25] = new Card('T', cylinderTransNode125, 0, 100, "Miraculous Descent",
+                "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
 
             //Marker 126
             cylinderMarkerNode126 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML126.xml", twentysix);
@@ -985,7 +1016,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode126.AddChild(cylinderTransNode26);
 
             //add to Card array here: generic trap card here
-            cards[26] = new Card('T', cylinderTransNode126, 0, 100, "Solemn Judgment", "Your opponent may not activate spells until the end of their turn.");
+            cards[26] = new Card('T', cylinderTransNode126, 0, 100, "Solemn Judgment",
+                "Your opponent may not activate spells until the end of their turn.");
 
             //Marker 127
             cylinderMarkerNode127 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML127.xml", twentyseven);
@@ -1005,7 +1037,8 @@ namespace Tutorial8___Optical_Marker_Tracking
 
 
             //add to Card array here: generic trap card here
-            cards[27] = new Card('T', cylinderTransNode127, 0, 100, "Power Break", "Reduce a monster's attack by 500 for the remainder of your opponent's turn.");
+            cards[27] = new Card('T', cylinderTransNode127, 0, 100, "Power Break",
+                "Reduce a monster's attack by 500 for the remainder of your opponent's turn.");
 
             //Marker 128
             cylinderMarkerNode128 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML128.xml", twentyeight);
@@ -1024,7 +1057,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode128.AddChild(cylinderTransNode28);
 
             //add to Card array here: generic trap card here
-            cards[28] = new Card('T', cylinderTransNode128, 0, 100, "Reinforcements", "Increase a target monster's attack by 400 for the remainder of your opponent's turn.");
+            cards[28] = new Card('T', cylinderTransNode128, 0, 100, "Reinforcements",
+                "Increase a target monster's attack by 400 for the remainder of your opponent's turn.");
 
             //Marker 129
             cylinderMarkerNode129 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML129.xml", twentynine);
@@ -1043,7 +1077,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode129.AddChild(cylinderTransNode29);
 
             //add to Card array here: generic trap card here
-            cards[29] = new Card('T', cylinderTransNode129, 0, 100, "Earthshaker", "For the remainder of your opponent's turn, reduce the attack of a monster to 0.");
+            cards[29] = new Card('T', cylinderTransNode129, 0, 100, "Earthshaker",
+                "For the remainder of your opponent's turn, reduce the attack of a monster to 0.");
 
             blah[0] = cylinderNode0;
             blah[1] = cylinderNode1;
@@ -1161,10 +1196,13 @@ namespace Tutorial8___Optical_Marker_Tracking
             {
                 //monster v. monster logic here
             }
-            else if ((cardOne.getType() == 'M' && cardTwo.getType() == 'T') ||
-                    (cardOne.getType() == 'T' && cardTwo.getType() == 'M'))
+            //all trap collisions handled here. 
+            else if (cardOne.getType()=='T' || cardTwo.getType()=='T')
             {
-                //moneter v. trap logic here
+                if (cardOne.getType() == 'T')
+                    processTrap(cardOne, cardTwo);
+                else
+                    processTrap(cardTwo, cardOne);
             }
             else if ((cardOne.getType() == 'M' && cardTwo.getType() == 'S') ||
                     (cardOne.getType() == 'S' && cardTwo.getType() == 'M'))
@@ -1175,16 +1213,64 @@ namespace Tutorial8___Optical_Marker_Tracking
             {
                 //spell v. spell logic here
             }
-            else if ((cardOne.getType() == 'S' && cardTwo.getType() == 'T') ||
-                    (cardOne.getType() == 'T' && cardTwo.getType() == 'S'))
-            {
-                //spell v. trap logic here
-            }
-            else if (cardOne.getType() == 'T' && cardTwo.getType() == 'T')
-            {
-                //trap v. trap logic here
-            }
 
+        }
+
+        private void processTrap(Card trap, Card target)
+        {
+            if (trapFlag != "none")
+                return;
+            string name = trap.getName();
+            if (target.getType() == 'M')
+            {
+                if (name == "Divine Punishment")
+                {
+                    target.destroy();
+                    trapFlag = "DP";
+                }
+                else if (name == "Power Break")
+                {
+                    target.debuff(500);
+                    trapFlag = "PB";
+                }
+                else if (name == "Reinforcements")
+                {
+                    target.buff(400);
+                    trapFlag = "RE";
+                }
+                else if (name == "Earthshaker")
+                {
+                    target.debuff(target.getAttackPower());
+                    trapFlag = "ES";
+                }
+            }
+            else if (target.getType() == 'S')
+            {
+                if (name == "Torrential Tribute")
+                {
+                    target.destroy();
+                    trapFlag = "TT";
+                }
+            }
+            else
+            {
+                if (name == "Solemn Judgment")
+                {
+                    trapFlag = "SJ";
+                }
+                else if (name == "Miraculous Descent")
+                {
+                    trapFlag = "MD";
+                }
+                else if (name == "Return from the Different Dimension")
+                {
+                    trapFlag = "RD";
+                }
+                else if (name == "Beckoning Light")
+                {
+                    trapFlag = "BL";
+                }
+            }
         }
 
         /// <summary>
