@@ -82,6 +82,15 @@ namespace Tutorial8___Optical_Marker_Tracking
         GeometryNode boxNode;
         bool useStaticImage = false;
         GeometryNode[] blah = new GeometryNode[30];
+        Card p1Monster1;
+        Card p1Monster2;
+        Card p1Monster3;
+        Card p2Monster1;
+        Card p2Monster2;
+        Card p2Monster3;
+        boolean p1Turn = true;
+        boolean p1NoTrap = true;
+        boolean p2NoTrap = true;
         public Tutorial8()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -106,6 +115,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             int lastAtk;
             int attackPower;
             int health;
+            int defaultHealth;
             bool ko;
 
             string name;
@@ -129,6 +139,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 baseAtk = atk;
                 lastAtk = atk;
                 this.health = health;
+                defaultHealth = health;
                 ko = false;
                 this.name = name;
                 this.effect = effect;
@@ -181,6 +192,17 @@ namespace Tutorial8___Optical_Marker_Tracking
                 }
             }
 
+            public int setHealth(int amount)
+            {
+                health += amount;
+                if (health > defaultHealth)
+                    health = defaultHealth;
+            }
+            public int getDefaultHealth()
+            {
+                return defaultHealth;
+            }
+
             public int getAttackPower()
             {
                 return attackPower;
@@ -230,7 +252,9 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         }
         Card[] cards = new Card[30];
-        string trapFlag = "none"; 
+        string trapFlag = "none";
+        string spellFlag = "none";
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -705,7 +729,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode10.AddChild(cylinderNode10);
 
             //add to Card array here: generic spell card here
-            cards[10] = new Card('S', cylinderTransNode110, 100, 100, "", "");
+            cards[10] = new Card('S', cylinderTransNode110, 100, 100, "Cards from the Sky", "All of your monsters are healed for 100 hp.");
 
             //Marker 111
             cylinderMarkerNode111 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML111.xml", eleven);
@@ -724,7 +748,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode11.AddChild(cylinderNode11);
 
             //add to Card array here: generic spell card here
-            cards[11] = new Card('S', cylinderTransNode111, 100, 100, "", "");
+            cards[11] = new Card('S', cylinderTransNode111, 100, 100, "Valhalla, Hall of the Fallen", "All of your monsters are completly healed.");
 
             //Marker 112
             cylinderMarkerNode112 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML112.xml", twelve);
@@ -743,7 +767,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode12.AddChild(cylinderNode12);
 
             //add to Card array here: generic spell card here
-            cards[12] = new Card('S', cylinderTransNode112, 100, 100, "", "");
+            cards[12] = new Card('S', cylinderTransNode112, 100, 100, "Terraforming", "All of your monsters are healed for 1 hp.");
 
             //Marker 113
             cylinderMarkerNode113 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML113.xml", thirteen);
@@ -762,7 +786,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode13.AddChild(cylinderNode13);
 
             //add to Card array here: generic spell card here
-            cards[13] = new Card('S', cylinderTransNode113, 100, 100, "", "");
+            cards[13] = new Card('S', cylinderTransNode113, 100, 100, "Smashing Ground", "All of your monsters are healed for 20 hp.");
 
             //Marker 114
             cylinderMarkerNode114 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML114.xml", fourteen);
@@ -781,7 +805,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode14.AddChild(cylinderNode14);
 
             //add to Card array here: generic spell card here
-            cards[14] = new Card('S', cylinderTransNode114, 100, 100, "", "");
+            cards[14] = new Card('S', cylinderTransNode114, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
 
             //Marker 115
             cylinderMarkerNode115 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML115.xml", fifteen);
@@ -800,7 +824,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode15.AddChild(cylinderNode15);
 
             //add to Card array here: generic spell card here
-            cards[15] = new Card('S', cylinderTransNode115, 100, 100, "", "");
+            cards[15] = new Card('S', cylinderTransNode115, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
 
             //Marker 116
             cylinderMarkerNode116 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML116.xml", sixteen);
@@ -819,7 +843,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode116.AddChild(cylinderTransNode16);
 
             //add to Card array here: generic spell card here
-            cards[16] = new Card('S', cylinderTransNode116, 100, 100, "", "");
+            cards[16] = new Card('S', cylinderTransNode116, 100, 100, "Celestial Transformation", "All of your monsters are healed for half of their hp.");
 
             //Marker 117
             cylinderMarkerNode117 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML117.xml", seventeen);
@@ -838,7 +862,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode117.AddChild(cylinderTransNode17);
 
             //add to Card array here: generic spell card here
-            cards[17] = new Card('S', cylinderTransNode117, 100, 100, "", "");
+            cards[17] = new Card('S', cylinderTransNode117, 100, 100, "Burial from a Different Dimension", "You're protected from 1 trap.");
 
             //Marker 118
             cylinderMarkerNode118 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML118.xml", eighteen);
@@ -857,7 +881,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode118.AddChild(cylinderTransNode18);
 
             //add to Card array here: generic spell card here
-            cards[18] = new Card('S', cylinderTransNode118, 100, 100, "", "");
+            cards[18] = new Card('S', cylinderTransNode118, 100, 100, "Mausoleum of the Emperor", "All of your monsters are healed for 75% of their HP.");
 
             //Marker 119
             cylinderMarkerNode119 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML119.xml", nineteen);
@@ -876,7 +900,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode119.AddChild(cylinderTransNode19);
 
             //add to Card array here: generic spell card here
-            cards[19] = new Card('S', cylinderTransNode119, 100, 100, "", "");
+            cards[19] = new Card('S', cylinderTransNode119, 100, 100, "The Fountain in the Sky ", "All of your monsters are healed for 25% of their HP.");
 
             //changing color to Red
             sphereMaterial.Diffuse = new Vector4(0.5f, 0, 0, 1);
@@ -1207,11 +1231,10 @@ namespace Tutorial8___Optical_Marker_Tracking
             else if ((cardOne.getType() == 'M' && cardTwo.getType() == 'S') ||
                     (cardOne.getType() == 'S' && cardTwo.getType() == 'M'))
             {
-                //monster v. spell logic here
-            }
-            else if (cardOne.getType() == 'S' && cardTwo.getType() == 'S')
-            {
-                //spell v. spell logic here
+                if (cardOne.getType() == 'S')
+                    processSpell(cardOne, cardTwo);
+                else
+                    processSpell(cardTwo, cardOne);
             }
 
         }
@@ -1220,6 +1243,14 @@ namespace Tutorial8___Optical_Marker_Tracking
         {
             if (trapFlag != "none")
                 return;
+            if (p1Turn)
+            {
+                if (p1NoTrap)
+                    return;
+            }
+            else
+                if (p2NoTrap)
+                    return;
             string name = trap.getName();
             if (target.getType() == 'M')
             {
@@ -1271,6 +1302,148 @@ namespace Tutorial8___Optical_Marker_Tracking
                     trapFlag = "BL";
                 }
             }
+        }
+
+        private void processSpell(Card spell, Card target)
+        {
+            if (spellFlag != "none")
+                return;
+            string name = spell.getName();
+                if (name == "Cards from the Sky")
+                {
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(100);
+                        p1Monster2.setHealth(100);
+                        p1Monster3.setHealth(100);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(100);
+                        p2Monster2.setHealth(100);
+                        p2Monster3.setHealth(100);
+                    }
+                    spellFlag = "CS";
+                }
+                else if (name == "Valhalla, Hall of the Fallen")
+                {
+                    if(p1Turn){
+                        p1Monster1.setHealth(p1Monster1.getDefaultHealth());
+                        p1Monster2.setHealth(p1Monster2.getDefaultHealth());
+                        p1Monster3.setHealth(p1Monster3.getDefaultHealth());
+                    }
+                    else{
+                        p2Monster1.setHealth(p2Monster1.getDefaultHealth());
+                        p2Monster2.setHealth(p2Monster2.getDefaultHealth());
+                        p2Monster3.setHealth(p2Monster3.getDefaultHealth());
+                    }
+                    spellFlag = "V";
+                }
+                else if (name == "Terraforming")
+                {
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(1);
+                        p1Monster2.setHealth(1);
+                        p1Monster3.setHealth(1);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(1);
+                        p2Monster2.setHealth(1);
+                        p2Monster3.setHealth(1);
+                    }
+                    spellFlag = "TF";
+                }
+                else if (name == "Smashing Ground")
+                {
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(20);
+                        p1Monster2.setHealth(20);
+                        p1Monster3.setHealth(20);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(20);
+                        p2Monster2.setHealth(20);
+                        p2Monster3.setHealth(20);
+                    }
+                    spellFlag = "SG";
+                }
+                else if (name == "The Sanctuary in the Sky")
+                {
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(75);
+                        p1Monster2.setHealth(75);
+                        p1Monster3.setHealth(75);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(75);
+                        p2Monster2.setHealth(75);
+                        p2Monster3.setHealth(75);
+                    }
+                    spellFlag = "SS";
+                }
+                else if (name == "Celestial Transformation")
+                {
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(p1Mosnter1.getDefaultHealth()*.5);
+                        p1Monster2.setHealth(p1Monster2.getDefaultHealth()*.5);
+                        p1Monster3.setHealth(p1Monster3.getDefaultHealth()*.5);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(p2Monster1.getDefaultHealth()*.5);
+                        p2Monster2.setHealth(p2Monster2.getDefaultHealth()*.5);
+                        p2Monster3.setHealth(p2Monster3.getDefaultHealth()*.5);
+                    }
+                    spellFlag = "CT";
+                }
+                else if (name == "Burial from a Different Dimension")
+                {
+                    if (p1Turn)
+                        p2NoTrap = true;
+                    else
+                        p1NoTrap = true;
+                    spellFlag = "BDD";
+                }
+                else if (name == "Mausoleum of the Emperor")
+                {
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(p1Mosnter1.getDefaultHealth() * .75);
+                        p1Monster2.setHealth(p1Monster2.getDefaultHealth() * .75);
+                        p1Monster3.setHealth(p1Monster3.getDefaultHealth() * .75);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(p2Monster1.getDefaultHealth() * .75);
+                        p2Monster2.setHealth(p2Monster2.getDefaultHealth() * .75);
+                        p2Monster3.setHealth(p2Monster3.getDefaultHealth() * .75);
+                    }
+                    spellFlag = "ME";
+                }
+                else if (name == "The Fountain in the Sky")
+                {
+                    spellFlag = "FS";
+                    if (p1Turn)
+                    {
+                        p1Monster1.setHealth(p1Mosnter1.getDefaultHealth() * .25);
+                        p1Monster2.setHealth(p1Monster2.getDefaultHealth() * .25);
+                        p1Monster3.setHealth(p1Monster3.getDefaultHealth() * .25);
+                    }
+                    else
+                    {
+                        p2Monster1.setHealth(p2Monster1.getDefaultHealth() * .25);
+                        p2Monster2.setHealth(p2Monster2.getDefaultHealth() * .25);
+                        p2Monster3.setHealth(p2Monster3.getDefaultHealth() * .25);
+                    }
+                    
+                }
         }
 
         /// <summary>
