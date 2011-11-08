@@ -599,7 +599,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode0.AddChild(cylinderNode0);
 
             //add to Card array here: generic monster card here
-            cards[0] = new Card('M', cylinderTransNode100, 100, 100, "", "");
+            cards[0] = new Card('M', cylinderTransNode100, 100, 100, "Tethys, Goddess of Light", "Attack");
 
             //Marker 101
             cylinderMarkerNode101 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML101.xml", first);
@@ -618,7 +618,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode1.AddChild(cylinderNode1);
 
             //add to Card array here: generic monster card here
-            cards[1] = new Card('M', cylinderTransNode101, 100, 100, "", "");
+            cards[1] = new Card('M', cylinderTransNode101, 100, 100, "Athena", "Attack");
 
             //Marker 102
             cylinderMarkerNode102 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML102.xml", two);
@@ -637,7 +637,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode2.AddChild(cylinderNode2);
 
             //add to Card array here: generic monster card here
-            cards[2] = new Card('M', cylinderTransNode102, 100, 100, "", "");
+            cards[2] = new Card('M', cylinderTransNode102, 100, 100, "Victoria", "Attack");
 
             //Marker 103
             cylinderMarkerNode103 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML103.xml", three);
@@ -656,7 +656,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode3.AddChild(cylinderNode3);
 
             //add to Card array here: generic monster card here
-            cards[3] = new Card('M', cylinderTransNode103, 100, 100, "", "");
+            cards[3] = new Card('M', cylinderTransNode103, 100, 100, "The Agent of Force - Mars", "Attack");
 
             //Marker 104
             cylinderMarkerNode104 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML104.xml", four);
@@ -675,7 +675,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode4.AddChild(cylinderNode4);
 
             //add to Card array here: generic monster card here
-            cards[4] = new Card('M', cylinderTransNode104, 100, 100, "", "");
+            cards[4] = new Card('M', cylinderTransNode104, 100, 100, "The Agent of Wisdom - Mercury", "Attack");
 
             //Marker 105
             cylinderMarkerNode105 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML105.xml", five);
@@ -694,7 +694,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode5.AddChild(cylinderNode5);
 
             //add to Card array here: generic monster card here
-            cards[5] = new Card('M', cylinderTransNode105, 100, 100, "", "");
+            cards[5] = new Card('M', cylinderTransNode105, 100, 100, "The Agent of Mystery - Earth", "Attack");
 
             //Marker 106
             cylinderMarkerNode106 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML106.xml", six);
@@ -713,7 +713,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode6.AddChild(cylinderNode6);
 
             //add to Card array here: generic monster card here
-            cards[6] = new Card('M', cylinderTransNode6, 100, 100, "", "");
+            cards[6] = new Card('M', cylinderTransNode6, 100, 100, "The Agent of Miracles - Jupiter", "Attack");
 
             //Marker 107
             cylinderMarkerNode107 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML107.xml", seven);
@@ -732,7 +732,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode7.AddChild(cylinderNode7);
 
             //add to Card array here: generic monster card here
-            cards[7] = new Card('M', cylinderTransNode107, 100, 100, "", "");
+            cards[7] = new Card('M', cylinderTransNode107, 100, 100, "The Agent of Judgment - Saturn", "Attack");
 
             //Marker 108
             cylinderMarkerNode108 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML108.xml", eight);
@@ -751,7 +751,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode8.AddChild(cylinderNode8);
 
             //add to Card array here: generic monster card here
-            cards[8] = new Card('M', cylinderTransNode108, 100, 100, "", "");
+            cards[8] = new Card('M', cylinderTransNode108, 100, 100, "The Agent of Creation - Venus", "Attack");
 
             //Marker 109
             cylinderMarkerNode109 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML109.xml", nine);
@@ -770,7 +770,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode9.AddChild(cylinderNode9);
 
             //add to Card array here: generic monster card here
-            cards[9] = new Card('M', cylinderTransNode109, 100, 100, "", "");
+            cards[9] = new Card('M', cylinderTransNode109, 100, 100, "Master Hyperion", "Attack");
 
             //The following line is to be placed before the 110th node to hange color to Blue
             sphereMaterial.Diffuse = new Vector4(0, 0, 0.5f, 1);
