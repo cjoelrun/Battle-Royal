@@ -60,6 +60,185 @@ using GoblinXNA.UI;
 
 namespace Tutorial8___Optical_Marker_Tracking
 {
+    private class Card
+    {
+        ///variables
+        /*markerNum will store the number of the marker that a particular 
+         *Card object is referenced to.*/
+        static int markerNum;
+
+        /*type will store one of three values: 'M', 'S' or 'T'
+         *defining the card as type monster, spell or trap respectively.*/
+        static char type;
+
+        /*model will store the data pertaining to the display of the monster
+         * on the marker representing this paricular Card.*/
+        MarkerNode model;
+        //TransformNode sprite;
+        static int baseAtk;
+        int lastAtk;
+        int attackPower;
+        int health;
+        int defaultHealth;
+        bool ko;
+        bool trigger;
+        string name;
+        string effect;
+
+        /*
+         * contructor: initializes Card data structure.
+         * parameters:
+         *              marker (int) - marker number that displays card
+         *              type (char) - type of monster, can be 'M', 'S', or 'T'
+         *              model (TransformNode) - TransformNode displayed on read marker
+         *              atk (int) - attack power of monster
+         *              health (int) - health of monster
+         *              
+         * */
+        public Card(char ntype, MarkerNode nmodel, int atk, int nhealth, string nname, string neffect)
+        {
+            type = ntype;
+            model = nmodel;
+            //sprite = nsprite; --> add sprite parameter?
+            attackPower = atk;
+            baseAtk = atk;
+            lastAtk = atk;
+            health = nhealth;
+            defaultHealth = health;
+            ko = false;
+            trigger = false;
+            name = nname;
+            effect = neffect;
+        }
+
+        //getType fetches type and returns it.
+        public char getType()
+        {
+            return type;
+        }
+
+        //getModel fetches model and returns it
+        public MarkerNode getModel()
+        {
+            return model;
+        }
+
+        /* DEBATABLE METHOD:
+         * In the case that the model of the monster would have to be changed somehow
+         * (i.e color of monster needs to be changed),
+         * this method exists to change the model in its entirety.
+         * parameter: newModel (TransformNode)
+         * 
+         * 
+        public void setSprite(TransformNode newSprite)
+        {
+            sprite = newSprite;
+        }*/
+
+        /* isAttackingMonster exists to update damage given to another monster
+         * parameter: target (Card data structure)
+         * NOTE: no need for an isBeingAttacked method since this method will 
+         * always be called by the attacking monster to edit values in the target monster.
+         * */
+        public void attacking(Card target)
+        {
+            setTrigger();
+            target.takeDamage(attackPower);
+        }
+
+        public void setTrigger()
+        {
+            trigger = true;
+        }
+
+        /* takeDamage is used to register damage taken and subtract from the health pool of a given monster.
+         * parameter: amount (int)
+         * return: int value holding amount of damage done to owner of destroyed card. 
+         * */
+        public void takeDamage(int amount)
+        {
+            health -= amount;
+            if (health <= 0)
+            {
+                destroy();
+            }
+        }
+
+        public void setHealth(int amount)
+        {
+            health += amount;
+            if (health > defaultHealth)
+                health = defaultHealth;
+        }
+        public int getDefaultHealth()
+        {
+            return defaultHealth;
+        }
+
+        public int getAttackPower()
+        {
+            return attackPower;
+        }
+
+        public void buff(int amount)
+        {
+            lastAtk = attackPower;
+            attackPower += amount;
+        }
+        public void debuff(int amount)
+        {
+            lastAtk = attackPower;
+            attackPower -= amount;
+        }
+
+        public void setDefault()
+        {
+            attackPower = baseAtk;
+        }
+
+        public void setLast()
+        {
+            attackPower = lastAtk;
+            lastAtk = baseAtk;
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public string getEffect()
+        {
+            return effect;
+        }
+
+        public int getHealth()
+        {
+            return health;
+        }
+
+        public void destroy()
+        {
+            ko = true;
+            health = 0;
+        }
+
+        public void prepNextTurn()
+        {
+            trigger = false;
+        }
+
+        public bool cardTriggered()
+        {
+            return trigger;
+        }
+
+        public bool isKO()
+        {
+            return ko;
+        }
+
+    }
     /// <summary>
     /// This tutorial demonstrates how to use both the ALVAR and ARTag optical marker tracker 
     /// library with our Goblin XNA framework. Please read the README.pdf included with this 
@@ -113,191 +292,13 @@ namespace Tutorial8___Optical_Marker_Tracking
         int p1life = 4, p2life = 4;
         int key = 0;
         string text = "";
+        bool p1Winner = false;
         public Tutorial8()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
-        private struct Card
-        {
-            ///variables
-            /*markerNum will store the number of the marker that a particular 
-             *Card object is referenced to.*/
-            static int markerNum;
-
-            /*type will store one of three values: 'M', 'S' or 'T'
-             *defining the card as type monster, spell or trap respectively.*/
-            static char type;
-
-            /*model will store the data pertaining to the display of the monster
-             * on the marker representing this paricular Card.*/
-            MarkerNode model;
-            //TransformNode sprite;
-            static int baseAtk;
-            int lastAtk;
-            int attackPower;
-            int health;
-            int defaultHealth;
-            bool ko;
-            bool trigger;
-            string name;
-            string effect;
-
-            /*
-             * contructor: initializes Card data structure.
-             * parameters:
-             *              marker (int) - marker number that displays card
-             *              type (char) - type of monster, can be 'M', 'S', or 'T'
-             *              model (TransformNode) - TransformNode displayed on read marker
-             *              atk (int) - attack power of monster
-             *              health (int) - health of monster
-             *              
-             * */
-            public Card(char ntype, MarkerNode nmodel, int atk, int nhealth, string nname, string neffect)
-            {
-                type  = ntype;
-                model = nmodel;
-                //sprite = nsprite; --> add sprite parameter?
-                attackPower = atk;
-                baseAtk = atk;
-                lastAtk = atk;
-                health = nhealth;
-                defaultHealth = health;
-                ko = false;
-                trigger = false; 
-                name = nname;
-                effect = neffect;
-            }
-
-            //getType fetches type and returns it.
-            public char getType()
-            {
-                return type;
-            }
-
-            //getModel fetches model and returns it
-            public MarkerNode getModel()
-            {
-                return model;
-            }
-
-            /* DEBATABLE METHOD:
-             * In the case that the model of the monster would have to be changed somehow
-             * (i.e color of monster needs to be changed),
-             * this method exists to change the model in its entirety.
-             * parameter: newModel (TransformNode)
-             * 
-             * 
-            public void setSprite(TransformNode newSprite)
-            {
-                sprite = newSprite;
-            }*/
-
-            /* isAttackingMonster exists to update damage given to another monster
-             * parameter: target (Card data structure)
-             * NOTE: no need for an isBeingAttacked method since this method will 
-             * always be called by the attacking monster to edit values in the target monster.
-             * */
-            public void attacking(Card target)
-            {
-                setTrigger(); 
-                target.takeDamage(attackPower);
-            }
-
-            public void setTrigger()
-            {
-                trigger = true; 
-            }
-
-            /* takeDamage is used to register damage taken and subtract from the health pool of a given monster.
-             * parameter: amount (int)
-             * return: int value holding amount of damage done to owner of destroyed card. 
-             * */
-            public void takeDamage(int amount)
-            {
-                health -= amount;
-                if (health <= 0)
-                {
-                    destroy();
-                }
-            }
-
-            public void setHealth(int amount)
-            {
-                health += amount;
-                if (health > defaultHealth)
-                    health = defaultHealth;
-            }
-            public int getDefaultHealth()
-            {
-                return defaultHealth;
-            }
-
-            public int getAttackPower()
-            {
-                return attackPower;
-            }
-
-            public void buff(int amount)
-            {
-                lastAtk = attackPower;
-                attackPower += amount;
-            }
-            public void debuff(int amount)
-            {
-                lastAtk = attackPower;
-                attackPower -= amount;
-            }
-
-            public void setDefault()
-            {
-                attackPower = baseAtk;
-            }
-
-            public void setLast()
-            {
-                attackPower = lastAtk;
-                lastAtk = baseAtk;
-            }
-
-            public string getName()
-            {
-                return name;
-            }
-
-            public string getEffect()
-            {
-                return effect;
-            }
-
-            public int getHealth()
-            {
-                return health;
-            }
-
-            public void destroy()
-            {
-                ko = true;
-                health = 0;
-            }
-
-            public void prepNextTurn()
-            {
-                trigger = false;
-            }
-
-            public bool cardTriggered()
-            {
-                return trigger;
-            }
-
-            public bool isKO()
-            {
-                return ko;
-            }
-
-        }
         Card[] cards = new Card[30];
         string p1TrapFlag = "none";
         string p2TrapFlag = "none";
@@ -312,7 +313,8 @@ namespace Tutorial8___Optical_Marker_Tracking
          */
         int state = 1;
         G2DPanel p1Frame, p2Frame;
-        G2DLabel p1LifeLab, p2LifeLab;
+        G2DLabel p1LifeLab, p1m1LifeLab, p1m2LifeLab, p1m3LifeLab; 
+        G2DLabel p2LifeLab, p2m1LifeLab, p2m2LifeLab, m2m3LifeLab;
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -447,63 +449,132 @@ namespace Tutorial8___Optical_Marker_Tracking
         private void Create2DGUI()
         {
             p1Frame = new G2DPanel();
-            p1Frame.Bounds = new Rectangle(0, 0, 100, 100);
+            p1Frame.Bounds = new Rectangle(0, 0, 75, 75);
             p1Frame.Border = GoblinEnums.BorderFactory.LineBorder;
             p1Frame.Transparency = 1.0f;
+            p1Frame.BackgroundColor = Color.CornflowerBlue;
+
+            //Generic Label: P1
             G2DLabel p1Label = new G2DLabel("P1: "); 
-            p1Label.Bounds = new Rectangle(25, 20, 10, 10);
+            p1Label.Bounds = new Rectangle(10, 10, 10, 10);
+            p1Label.TextFont = uiFont;
+            
+            //Life Point Label: P1
             p1LifeLab = new G2DLabel();
-            p1LifeLab.Bounds = new Rectangle(35, 20, 40, 40);
-            p1LifeLab.Text = p1life.ToString();
+            p1LifeLab.Bounds = new Rectangle(25, 10, 20, 40);
+            p1LifeLab.Text = p1life.ToString() + " LP";
+            p1LifeLab.TextFont = uiFont;
+
+            //Generic Label: P1M1
+            G2DLabel p1m1StatLab = new G2DLabel("M1: ");
+            p1m1StatLab.Bounds = new Rectangle(10, 25, 10, 10);
+            p1m1StatLab.TextFont = uiFont;
+
+            //Status Label: P1M1
+            p1m1LifeLab = new G2DLabel();
+            p1m1LifeLab.Bounds = new Rectangle(25, 25, 20, 40);
+            p1m1LifeLab.TextFont = uiFont;
+
+            //Generic Label: P1M2
+            G2DLabel p1m2StatLab = new G2DLabel("M2: ");
+            p1m2StatLab.Bounds = new Rectangle(10, 40, 10, 10);
+            p1m2StatLab.TextFont = uiFont;
+
+            //Status Label: P1M2
+            p1m2LifeLab = new G2DLabel();
+            p1m2LifeLab.Bounds = new Rectangle(25, 40, 20, 40);
+            p1m2LifeLab.TextFont = uiFont;
+
+            //Generic Label: P1M3
+            G2DLabel p1m1StatLab = new G2DLabel("M3: ");
+            p1m3StatLab.Bounds = new Rectangle(10, 55, 10, 10);
+            p1m3StatLab.TextFont = uiFont;
+
+            //Status Label: P1M3
+            p1m3LifeLab = new G2DLabel();
+            p1m3LifeLab.Bounds = new Rectangle(25, 55, 20, 40);
+            p1m3LifeLab.TextFont = uiFont;
+
+            
             p1Frame.AddChild(p1Label);
             p1Frame.AddChild(p1LifeLab);
+            p1Frame.AddChild(p1m1StatLab);
+            p1Frame.AddChild(p1m1LifeLab);
+            p1Frame.AddChild(p1m2StatLab);
+            p1Frame.AddChild(p1m2LifeLab);
+            p1Frame.AddChild(p1m3StatLab);
+            p1Frame.AddChild(p1m3LifeLab);
             scene.UIRenderer.Add2DComponent(p1Frame);
-            p1Frame.BackgroundColor = Color.Red;
+            
+            
             p2Frame = new G2DPanel();
-            p2Frame.Bounds = new Rectangle(300, 0, 100, 100);
+            p2Frame.Bounds = new Rectangle(700, 0, 100, 100);
             p2Frame.Border = GoblinEnums.BorderFactory.LineBorder;
             p2Frame.Transparency = 1.0f;
+            p2Frame.BackgroundColor = Color.CornflowerBlue;
+
+            //Generic Label: P2
             G2DLabel p2Label = new G2DLabel("P2: ");
-            p2Label.Bounds = new Rectangle(25, 20, 10, 10);
+            p2Label.Bounds = new Rectangle(10, 10, 10, 10);
+            p2Label.TextFont = uiFont;
+
+            //Life Point Label: P2
             p2LifeLab = new G2DLabel();
-            p2LifeLab.Bounds = new Rectangle(35, 20, 40, 40);
-            p2LifeLab.Text = p2life.ToString();
+            p2LifeLab.Bounds = new Rectangle(25, 10, 40, 40);
+            p2LifeLab.Text = p2life.ToString() + " LP";
+            p2LifeLab.TextFont = uiFont;
+
+            //Generic Label: P2M1
+            G2DLabel p2m1StatLab = new G2DLabel("M1: ");
+            p2m1StatLab.Bounds = new Rectangle(10, 25, 10, 10);
+            p2m1StatLab.TextFont = uiFont;
+
+            //Status Label: P2M1
+            p2m1LifeLab = new G2DLabel();
+            p2m1LifeLab.Bounds = new Rectangle(25, 25, 20, 40);
+            p2m1LifeLab.TextFont = uiFont;
+
+            //Generic Label: P2M2
+            G2DLabel p2m2StatLab = new G2DLabel("M2: ");
+            p2m2StatLab.Bounds = new Rectangle(10, 40, 10, 10);
+            p2m2StatLab.TextFont = uiFont;
+
+            //Status Label: P2M2
+            p2m2LifeLab = new G2DLabel();
+            p2m2LifeLab.Bounds = new Rectangle(25, 40, 20, 40);
+            p2m2LifeLab.TextFont = uiFont;
+
+            //Generic Label: P2M3
+            G2DLabel p1m1StatLab = new G2DLabel("M3: ");
+            p2m3StatLab.Bounds = new Rectangle(10, 55, 10, 10);
+            p2m3StatLab.TextFont = uiFont;
+
+            //Status Label: P2M3
+            p2m3LifeLab = new G2DLabel();
+            p2m3LifeLab.Bounds = new Rectangle(25, 55, 20, 40);
+            p2m3LifeLab.TextFont = uiFont;
+
+            
             p2Frame.AddChild(p2Label);
             p2Frame.AddChild(p2LifeLab);
+            p2Frame.AddChild(p2m1StatLab);
+            p2Frame.AddChild(p2m1LifeLab);
+            p2Frame.AddChild(p2m2StatLab);
+            p2Frame.AddChild(p2m2LifeLab);
+            p2Frame.AddChild(p2m3StatLab);
+            p2Frame.AddChild(p2m3LifeLab);
             scene.UIRenderer.Add2DComponent(p2Frame);
-            p2Frame.BackgroundColor = Color.Blue;
+
         }
 
         private void CreateObjects()
         {
-            // Create a geometry node with a model of a sphere that will be overlaid on
-            // top of the ground marker array
-            GeometryNode sphereNode = new GeometryNode("Sphere");
-            sphereNode.Model = new Sphere(3, 20, 20);
-
-            // Add this sphere model to the physics engine for collision detection
-            sphereNode.AddToPhysicsEngine = true;
-            sphereNode.Physics.Shape = ShapeType.Sphere;
-            // Make this sphere model cast and receive shadowsf
-            sphereNode.Model.CastShadows = true;
-            sphereNode.Model.ReceiveShadows = true;
-
-            // Create a marker node to track a ground marker array.
-            groundMarkerNode = new MarkerNode(scene.MarkerTracker, "ALVARGroundArray.xml");
-
-            // Since the ground marker's size is 80x52 ARTag units, in order to move the sphere model
-            // to the center of the ground marker, we shift it by 40x26 units and also make it
-            // float from the ground marker's center
-            TransformNode sphereTransNode = new TransformNode();
-            sphereTransNode.Translation = new Vector3(40, 26, 10);
 
             // Create a material to apply to the sphere model
             Material sphereMaterial = new Material();
             sphereMaterial.Diffuse = new Vector4(0, 0.5f, 0, 1);
             sphereMaterial.Specular = Color.Green.ToVector4();
             sphereMaterial.SpecularPower = 10;
-
-            sphereNode.Material = sphereMaterial;
 
             Material sphereMaterial2 = new Material();
             sphereMaterial2.Diffuse = new Vector4(0, 0, 0.5f, 1);
@@ -514,42 +585,6 @@ namespace Tutorial8___Optical_Marker_Tracking
             sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
             sphereMaterial3.Specular = Color.Red.ToVector4();
             sphereMaterial3.SpecularPower = 10;
-
-            // Now add the above nodes to the scene graph in the appropriate order.
-            // Note that only the nodes added below the marker node are affected by 
-            // the marker transformation.
-            scene.RootNode.AddChild(groundMarkerNode);
-            groundMarkerNode.AddChild(sphereTransNode);
-            sphereTransNode.AddChild(sphereNode);
-
-            // Create a geometry node with a model of a box that will be overlaid on
-            // top of the ground marker array initially. (When the toolbar marker array is
-            // detected, it will be overlaid on top of the toolbar marker array.)
-            boxNode = new GeometryNode("Box");
-            boxNode.Model = new Box(8);
-
-            // Add this box model to the physics engine for collision detection
-            boxNode.AddToPhysicsEngine = true;
-            boxNode.Physics.Shape = ShapeType.Box;
-            // Make this box model cast and receive shadows
-            boxNode.Model.CastShadows = true;
-            boxNode.Model.ReceiveShadows = true;
-
-            // Create a marker node to track a toolbar marker array.
-            toolbarMarkerNode = new MarkerNode(scene.MarkerTracker, "Toolbar.txt");
-
-            scene.RootNode.AddChild(toolbarMarkerNode);
-
-            // Create a material to apply to the box model
-            Material boxMaterial = new Material();
-            boxMaterial.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            boxMaterial.Specular = Color.White.ToVector4();
-            boxMaterial.SpecularPower = 10;
-
-            boxNode.Material = boxMaterial;
-
-            // Add this box model node to the ground marker node
-            groundMarkerNode.AddChild(boxNode);
 
             // Create a collision pair and add a collision callback function that will be
             // called when the pair collides
@@ -1316,55 +1351,13 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         }
 
-        /// <summary>
-        /// A callback function that will be called when the box and sphere model collides
-        /// </summary>
-        /// <param name="pair"></param>
-        private void BoxSphereCollision(NewtonPhysics.CollisionPair pair)
-        {
-            Console.WriteLine("Box and Sphere has collided");
-        }
-
-        private void arCollision(NewtonPhysics.CollisionPair pair)
-        {
-            //Console.WriteLine("We have a collision!");
-            int index1 = -1, index2 = -1;
-            int x; 
-            for (x= 0; x < 30; x++)
-            {
-                if (pair.CollisionObject1.Equals(blah[x].Physics))
-                    index1 = x;
-                else if (pair.CollisionObject2.Equals(blah[x].Physics))
-                    index2 = x;
-                if (index1 != -1 && index2 != -1)
-                    break;
-            }
-            if ((index1 == -1 || index2 == -1) && x == 30)
-            {
-                //error!
-                return;
-            }
-            Card cardOne = cards[index1];
-            Card cardTwo = cards[index2];
-            if (cardOne.getType() == 'M' && cardTwo.getType() == 'M')
-            {
-                //monster v. monster logic here
-            }
-            else if ((cardOne.getType() == 'M' && cardTwo.getType() == 'S') ||
-                    (cardOne.getType() == 'S' && cardTwo.getType() == 'M'))
-            {
-                if (cardOne.getType() == 'S')
-                    processSpell(cardOne, cardTwo);
-                else
-                    processSpell(cardTwo, cardOne);
-            }
-
-        }
-
         private void processTrap(Card trap)
         {
             //Traps can only be engaged during the opponent's turn
             //i.e. P1 can only engage traps when P2's turn. 
+
+            if (trap == null)
+                return; 
             if (!p1Turn) //P2 turn
             {
                 if (p1NoTrap) //check if P2 has NoTrap effect active on P1
@@ -1538,8 +1531,10 @@ namespace Tutorial8___Optical_Marker_Tracking
                 }
         }
 
-        private void processSpell(Card spell, Card target)
+        private void processSpell(Card spell)
         {
+            if (spell == null)
+                return;
             if (p1Turn && p1SpellFlag!="none")
                 return;
             else if(p2SpellFlag!="none")
@@ -1698,7 +1693,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         private void endTurn()
         {
-
+            state = 2; 
             if (p1Turn)
             {
                 processTrap(p2Trap);
@@ -1725,96 +1720,124 @@ namespace Tutorial8___Optical_Marker_Tracking
             *      NOTE:"10" is a placeholder number, can (and probably will) be adjusted. 
             */
 
-            //case 1: 
-            if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
+            if (p1Monster1 != null)
             {
-                if (p1Turn)
-                    registerAttack(p1Monster1, p2Monster1);
-                else
-                    registerAttack(p2Monster1, p1Monster1);
+                //case 1
+                if (p2Monster1 != null)
+                {
+                    if ((p1Monster1.getModel().WorldTransformation.Translation -
+                        p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster1, p2Monster1);
+                        else
+                            registerAttack(p2Monster1, p1Monster1);
+                    }
+                }
+                //case 2:
+                if (p2Monster2 != null)
+                {
+                    if ((p1Monster1.getModel().WorldTransformation.Translation -
+                        p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster1, p2Monster2);
+                        else
+                            registerAttack(p2Monster2, p1Monster1);
+                    }
+                }
+                //case 3:
+                if (p2Monster3 != null)
+                {
+                    if ((p1Monster1.getModel().WorldTransformation.Translation -
+                        p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster1, p2Monster3);
+                        else
+                            registerAttack(p2Monster3, p1Monster1);
+                    }
+                }
+            }
+            if (p1Monster2 != null)
+            {
+                //case 4:
+                if (p2Monster1 != null)
+                {
+                    if ((p1Monster2.getModel().WorldTransformation.Translation -
+                        p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster2, p2Monster1);
+                        else
+                            registerAttack(p2Monster1, p1Monster2);
+                    }
+                }
+                //case 5:
+                if (p2Monster2 != null)
+                {
+                    if ((p1Monster2.getModel().WorldTransformation.Translation -
+                        p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster2, p2Monster2);
+                        else
+                            registerAttack(p2Monster2, p1Monster2);
+                    }
+                }
+                //case 6:
+                if (p2Monster3 != null)
+                {
+                    if ((p1Monster2.getModel().WorldTransformation.Translation -
+                        p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster2, p2Monster3);
+                        else
+                            registerAttack(p2Monster3, p1Monster2);
+                    }
+                }
             }
 
-            //case 2: 
-            if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
+            if (p1Monster3 != null)
             {
-                if (p1Turn)
-                    registerAttack(p1Monster1, p2Monster2);
-                else
-                    registerAttack(p2Monster2, p1Monster1);
+                //case 7: 
+                if (p2Monster1 != null)
+                {
+                    if ((p1Monster3.getModel().WorldTransformation.Translation -
+                        p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster3, p2Monster1);
+                        else
+                            registerAttack(p2Monster1, p1Monster3);
+                    }
+                }
+                if (p2Monster2 != null)
+                {
+                    //case 8: 
+                    if ((p1Monster3.getModel().WorldTransformation.Translation -
+                        p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster3, p2Monster2);
+                        else
+                            registerAttack(p2Monster2, p1Monster3);
+                    }
+                }
+                if (p2Monster3 != null)
+                {
+                    //case 9: 
+                    if ((p1Monster3.getModel().WorldTransformation.Translation -
+                        p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
+                    {
+                        if (p1Turn)
+                            registerAttack(p1Monster3, p2Monster3);
+                        else
+                            registerAttack(p2Monster3, p1Monster3);
+                    }
+                }
             }
-
-            //case 3: 
-            if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster1, p2Monster3);
-                else
-                    registerAttack(p2Monster3, p1Monster1);
-            }
-
-            //case 4: 
-            if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster2, p2Monster1);
-                else
-                    registerAttack(p2Monster1, p1Monster2);
-            }
-
-            //case 5: 
-            if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster2, p2Monster2);
-                else
-                    registerAttack(p2Monster2, p1Monster2);
-            }
-
-            //case 6: 
-            if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster2, p2Monster3);
-                else
-                    registerAttack(p2Monster3, p1Monster2);
-            }
-
-            //case 7: 
-            if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster3, p2Monster1);
-                else
-                    registerAttack(p2Monster1, p1Monster3);
-            }
-
-            //case 8: 
-            if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster3, p2Monster2);
-                else
-                    registerAttack(p2Monster2, p1Monster3);
-            }
-
-            //case 9: 
-            if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
-            {
-                if (p1Turn)
-                    registerAttack(p1Monster3, p2Monster3);
-                else
-                    registerAttack(p2Monster3, p1Monster3);
-            }
-
             //if needed, restore defaults.
             if (p1Turn)
             {
@@ -1918,12 +1941,12 @@ namespace Tutorial8___Optical_Marker_Tracking
             if(p1life == 0)
             {
                 state = 4;
-                p1Turn = false;
+                p1Winner = false; 
             }
             else if(p2life ==0)
             {
                 state = 4;
-                p1Turn = true;
+                p1Winner = true;
             }
 
         }
@@ -1950,6 +1973,14 @@ namespace Tutorial8___Optical_Marker_Tracking
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (p1Turn && cylinderMarkerNode131.MarkerFound)
+            {
+                endTurn();
+            }
+            else if (!p1Turn && cylinderMarkerNode130.MarkerFound)
+            {
+                endTurn();
+            }
             if (state == 3)
             {
                 int checker = 10; //when checker = 0, break from state. 
@@ -1962,7 +1993,11 @@ namespace Tutorial8___Optical_Marker_Tracking
                             //change model color to red
                         }
                         else
+                        {
+                            p1life--;
                             checker--;
+                            p1Monster1 = null; 
+                        }
                     }
                     if (p1Monster2.isKO())
                     {
@@ -1971,7 +2006,11 @@ namespace Tutorial8___Optical_Marker_Tracking
                             //change model color to red
                         }
                         else
+                        {
+                            p1life--;
                             checker--;
+                            p1Monster2 = null;
+                        }
                     }
                     if (p1Monster3.isKO())
                     {
@@ -1980,7 +2019,12 @@ namespace Tutorial8___Optical_Marker_Tracking
                             //change model color to red
                         }
                         else
+                        {
+                            p1life--;
+                            p1LifeLab.Text = p1life.ToString() + " LP";
                             checker--;
+                            p1Monster3 = null; 
+                        }
                     }
                     if (p2Monster1.isKO())
                     {
@@ -1989,7 +2033,12 @@ namespace Tutorial8___Optical_Marker_Tracking
                             //change model color to red
                         }
                         else
+                        {
+                            p2life--;
+                            p2LifeLab.Text = p2life.ToString() + " LP";
                             checker--;
+                            p2Monster1 = null;
+                        }
                     }
                     if (p2Monster2.isKO())
                     {
@@ -1998,7 +2047,11 @@ namespace Tutorial8___Optical_Marker_Tracking
                             //change model color to red
                         }
                         else
+                        {
+                            p2life--;
                             checker--;
+                            p2Monster2 = null;
+                        }
                     }
                     if (p2Monster3.isKO())
                     {
@@ -2008,7 +2061,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
+                            p2life--;
                             checker--;
+                            p2Monster3 = null;
                         }
                     }
                     if (p1Spell.isKO())
@@ -2062,9 +2117,12 @@ namespace Tutorial8___Optical_Marker_Tracking
                     if (checker != 0)
                         text = "There are destroyed cards on the board that have not been removed. Please remove them to continue.";
                     else
+                    {
                         text = "";
+                        state = 1; 
+                    }
                     UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
-                        textFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
+                        uiFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
 
                 }
             }
@@ -2089,6 +2147,10 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 monCardPos; 
             for (x = 0; x < 10; x++)
             {
+                if (!(cards[x].getModel().MarkerFound))
+                {
+                    continue; 
+                }
                 monCardPos = cards[x].getModel().WorldTransformation.Translation;
                 if ((m32Pos - monCardPos).Length() <= 10)
                 {
@@ -2122,6 +2184,10 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 spellCardPos;
             for (x = 10; x < 20; x++)
             {
+                if (!(cards[x].getModel().MarkerFound))
+                {
+                    continue;
+                }
                 spellCardPos = cards[x].getModel().WorldTransformation.Translation;
                 if ((m38Pos - spellCardPos).Length() <= 10)
                 {
@@ -2139,6 +2205,8 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 spellCardPos;
             for (x = 20; x < 30; x++)
             {
+                if (!(cards[x].getModel().MarkerFound))
+                    continue;
                 trapCardPos = cards[x].getModel().WorldTransformation.Translation;
                 if ((m40Pos - trapCardPos).Length() <= 10)
                 {
@@ -2149,6 +2217,20 @@ namespace Tutorial8___Optical_Marker_Tracking
                     p2Trap = cards[x];
                 }
             }
+
+            p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
+                p1Monster1.getHealth().ToString() + " HP";
+            p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
+                p1Monster2.getHealth().ToString() + " HP";
+            p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
+                p1Monster3.getHealth().ToString() + " HP";
+
+            p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
+                p2Monster1.getHealth().ToString() + " HP";
+            p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
+                p2Monster2.getHealth().ToString() + " HP";
+            p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
+                p2Monster3.getHealth().ToString() + " HP"; 
             base.Update(gameTime);
         }
 
@@ -2168,40 +2250,21 @@ namespace Tutorial8___Optical_Marker_Tracking
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            // If ground marker array is detected
-            if (groundMarkerNode.MarkerFound)
+            if (state == 4)
             {
-                // If the toolbar marker array is detected, then overlay the box model on top
-                // of the toolbar marker array; otherwise, overlay the box model on top of
-                // the ground marker array
-                if (toolbarMarkerNode.MarkerFound)
+                if (p1Winner)
                 {
-                    // The box model is overlaid on the ground marker array, so in order to
-                    // make the box model appear overlaid on the toolbar marker array, we need
-                    // to offset the ground marker array's transformation. Thus, we multiply
-                    // the toolbar marker array's transformation with the inverse of the ground marker
-                    // array's transformation, which becomes T*G(inv)*G = T*I = T as a result, 
-                    // where T is the transformation of the toolbar marker array, G is the 
-                    // transformation of the ground marker array, and I is the identity matrix. 
-                    // The Vector3(4, 4, 4) is a shift translation to make the box overlaid right 
-                    // on top of the toolbar marker. The top-left corner of the left marker of the 
-                    // toolbar marker array is defined as (0, 0, 0), so in order to make the box model
-                    // appear right on top of the left marker of the toolbar marker array, we shift by
-                    // half of each dimension of the 8x8x8 box model.  The approach used here requires that
-                    // the ground marker array remains visible at all times.
-                    Vector3 shiftVector = new Vector3(4, -4, 4);
-                    Matrix mat = Matrix.CreateTranslation(shiftVector) *
-                        toolbarMarkerNode.WorldTransformation *
-                        Matrix.Invert(groundMarkerNode.WorldTransformation);
-
-                    // Modify the transformation in the physics engine
-                    ((NewtonPhysics)scene.PhysicsEngine).SetTransform(boxNode.Physics, mat);
+                    UI2DRenderer.FillRectangle(new Rectangle(100, 100, 600, 400), null, Color.CornflowerBlue);
+                    UI2DRenderer.WriteText(Vector2.Zero, "Player 1 has won the game!", Color.Black, uiFont,
+                        GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center); 
                 }
                 else
-                    ((NewtonPhysics)scene.PhysicsEngine).SetTransform(boxNode.Physics,
-                        Matrix.CreateTranslation(Vector3.One * 4));
+                {
+                    UI2DRenderer.FillRectangle(new Rectangle(100, 100, 600, 400), null, Color.CornflowerBlue);
+                    UI2DRenderer.WriteText(Vector2.Zero, "Player 2 has won the game!", Color.Black, uiFont,
+                        GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center); 
+                }
             }
-
             // TODO: Add your drawing code here
             //UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
             //    textFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
