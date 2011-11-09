@@ -194,8 +194,13 @@ namespace Tutorial8___Optical_Marker_Tracking
              * */
             public void attacking(Card target)
             {
-                trigger = true; 
+                setTrigger(); 
                 target.takeDamage(attackPower);
+            }
+
+            public void setTrigger()
+            {
+                trigger = true; 
             }
 
             /* takeDamage is used to register damage taken and subtract from the health pool of a given monster.
@@ -1275,63 +1280,6 @@ namespace Tutorial8___Optical_Marker_Tracking
             blah[31] = cylinderNode31;
             blah[32] = cylinderNode32;
 
-
-
-
-            /*if (key == 0)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    for (int j = i + 1; j < 10; j++)
-                    {
-                         ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(new NewtonPhysics.CollisionPair(blah[i].Physics, blah[j].Physics), arCollision);
-                    }
-                }
-                key = 45;
-            }
-
-
-            
-
-            for (int i = 0; i < blah2.Length; i++)
-            {
-                
-            }
-
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode1.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode2.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode3.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode4.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode5.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode6.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode7.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode8.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode9.Physics),
-                arCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode30.Physics, cylinderNode31.Physics),
-                endTurnCollision);
-            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
-                new NewtonPhysics.CollisionPair(cylinderNode32.Physics, cylinderNode31.Physics),
-                endTurnCollision);*/
-
             scene.RootNode.AddChild(cylinderMarkerNode100);
             scene.RootNode.AddChild(cylinderMarkerNode101);
             scene.RootNode.AddChild(cylinderMarkerNode102);
@@ -1746,34 +1694,23 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         private void endTurn()
         {
-            if(pair.CollisionObject1.Equals(blah[30].Physics))
+            if (p1Turn)
             {
-                if(p1Turn)
+                p1Turn = false;
+                if (p1SpellFlag != "none" && p1SpellFlag != "BDD")
                 {
-                    p1Turn = false;
-                    if(p1SpellFlag!="none" && p1SpellFlag!="BDD")
-                    {
-                        p1Spell.destroy();
-                        p1SpellFlag = "none";
-                    }
+                    p1Spell.destroy();
+                    p1SpellFlag = "none";
                 }
-                else
-                    return;
             }
-            else if(pair.CollisionObject1.Equals(blah[32].Physics))
+            else
             {
-                if(!p1Turn)
+                p1Turn = true;
+                if (p2SpellFlag != "none" && p2SpellFlag != "BDD")
                 {
-                    p1Turn = true;
-                    if(p2SpellFlag!="none" && p2SpellFlag!="BDD")
-                    {
-                        p2SpellFlag = "none";
-                        p2Spell.destroy();
-                    }
+                    p2SpellFlag = "none";
+                    p2Spell.destroy();
                 }
-                    
-                else
-                    return;
             }
             //NOTE: At this point, if it WAS P1's turn, p1Turn is now set to false. 
             //Use this property in the rest of the code in this method to restore defaults.
@@ -1890,7 +1827,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 1: 
             if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster1, p2Monster1);
@@ -1900,7 +1837,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 2: 
             if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster1, p2Monster2);
@@ -1910,7 +1847,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 3: 
             if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster1, p2Monster3);
@@ -1920,7 +1857,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 4: 
             if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster2, p2Monster1);
@@ -1930,7 +1867,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 5: 
             if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster2, p2Monster2);
@@ -1940,7 +1877,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 6: 
             if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster2, p2Monster3);
@@ -1950,7 +1887,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 7: 
             if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster1.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster3, p2Monster1);
@@ -1960,7 +1897,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 8: 
             if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster2.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster3, p2Monster2);
@@ -1970,7 +1907,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 9: 
             if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster3.getModel.WorldTransformation.Translation).Length() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster3, p2Monster3);
