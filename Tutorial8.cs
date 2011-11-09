@@ -1746,34 +1746,23 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         private void endTurn()
         {
-            if(pair.CollisionObject1.Equals(blah[30].Physics))
+            if (p1Turn)
             {
-                if(p1Turn)
+                p1Turn = false;
+                if (p1SpellFlag != "none" && p1SpellFlag != "BDD")
                 {
-                    p1Turn = false;
-                    if(p1SpellFlag!="none" && p1SpellFlag!="BDD")
-                    {
-                        p1Spell.destroy();
-                        p1SpellFlag = "none";
-                    }
+                    p1Spell.destroy();
+                    p1SpellFlag = "none";
                 }
-                else
-                    return;
             }
-            else if(pair.CollisionObject1.Equals(blah[32].Physics))
+            else
             {
-                if(!p1Turn)
+                p1Turn = true;
+                if (p2SpellFlag != "none" && p2SpellFlag != "BDD")
                 {
-                    p1Turn = true;
-                    if(p2SpellFlag!="none" && p2SpellFlag!="BDD")
-                    {
-                        p2SpellFlag = "none";
-                        p2Spell.destroy();
-                    }
+                    p2SpellFlag = "none";
+                    p2Spell.destroy();
                 }
-                    
-                else
-                    return;
             }
             //NOTE: At this point, if it WAS P1's turn, p1Turn is now set to false. 
             //Use this property in the rest of the code in this method to restore defaults.
@@ -1890,7 +1879,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 1: 
             if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster1.getModel.WorldTransformation.Translation).Distance() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster1, p2Monster1);
@@ -1900,7 +1889,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 2: 
             if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster2.getModel.WorldTransformation.Translation).Distance() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster1, p2Monster2);
@@ -1910,7 +1899,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 3: 
             if ((p1Monster1.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster3.getModel.WorldTransformation.Translation).Distance() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster1, p2Monster3);
@@ -1920,7 +1909,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 4: 
             if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster1.getModel.WorldTransformation.Translation).Distance() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster2, p2Monster1);
@@ -1930,7 +1919,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 5: 
             if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster2.getModel.WorldTransformation.Translation).Distance() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster2, p2Monster2);
@@ -1940,7 +1929,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 6: 
             if ((p1Monster2.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster3.getModel.WorldTransformation.Translation).Distance <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster2, p2Monster3);
@@ -1950,7 +1939,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 7: 
             if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster1.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster1.getModel.WorldTransformation.Translation).Distance <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster3, p2Monster1);
@@ -1960,7 +1949,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 8: 
             if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster2.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster2.getModel.WorldTransformation.Translation).Distance <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster3, p2Monster2);
@@ -1970,7 +1959,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //case 9: 
             if ((p1Monster3.getModel().WorldTransformation.Translation -
-                p2Monster3.getModel.WorldTransformation.Translation) <= 10)
+                p2Monster3.getModel.WorldTransformation.Translation).Distance() <= 10)
             {
                 if (p1Turn)
                     registerAttack(p1Monster3, p2Monster3);
