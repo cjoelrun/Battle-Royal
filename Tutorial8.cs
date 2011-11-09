@@ -53,6 +53,9 @@ using GoblinXNA.Device.Util;
 using GoblinXNA.Physics;
 using GoblinXNA.Physics.Newton1;
 using GoblinXNA.Helpers;
+using GoblinXNA.UI.UI2D;
+using GoblinXNA.UI;
+
 
 
 namespace Tutorial8___Optical_Marker_Tracking
@@ -90,19 +93,21 @@ namespace Tutorial8___Optical_Marker_Tracking
         Card p2Monster1;
         Card p2Monster2;
         Card p2Monster3;
-        Card p1Magic;
+        Card p1Spell;
         Card p1Trap;
-        Card p2Magic;
+        Card p2Spell;
         Card p2Trap;
-        boolean p1Turn = true;
-        boolean p1NoTrap = false;
-        boolean p2NoTrap = false;
-        boolean p1NoMagic = false;
-        boolean p2NoMagic = false;
-        boolean p1NoAttack = false;
-        boolean p2NoAttack = false;
+        bool p1Turn = true;
+        bool p1NoTrap = false;
+        bool p2NoTrap = false;
+        bool p1NoMagic = false;
+        bool p2NoMagic = false;
+        bool p1NoAttack = false;
+        bool p2NoAttack = false;
         int p1TrapEffectCnt = 0;
         int p2TrapEffectCnt = 0;
+        int p1life = 4, p2life = 4;
+        int key = 0;
         public Tutorial8()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -142,18 +147,18 @@ namespace Tutorial8___Optical_Marker_Tracking
              *              health (int) - health of monster
              *              
              * */
-            public Card(char type, TransfromNode model, int atk, int health, string name, string effect)
+            public Card(char ntype, TransformNode nmodel, int atk, int nhealth, string nname, string neffect)
             {
-                this.type = type;
-                this.model = model;
+                type  = ntype;
+                model = nmodel;
                 attackPower = atk;
                 baseAtk = atk;
                 lastAtk = atk;
-                this.health = health;
+                health = nhealth;
                 defaultHealth = health;
                 ko = false;
-                this.name = name;
-                this.effect = effect;
+                name = nname;
+                effect = neffect;
             }
 
             //getType fetches type and returns it.
@@ -185,16 +190,16 @@ namespace Tutorial8___Optical_Marker_Tracking
              * NOTE: no need for an isBeingAttacked method since this method will 
              * always be called by the attacking monster to edit values in the target monster.
              * */
-            public int attacking(Card target)
+            public void attacking(Card target)
             {
-                return target.takeDamage(attackPower);
+                target.takeDamage(attackPower);
             }
 
             /* takeDamage is used to register damage taken and subtract from the health pool of a given monster.
              * parameter: amount (int)
              * return: int value holding amount of damage done to owner of destroyed card. 
              * */
-            public int takeDamage(int amount)
+            public void takeDamage(int amount)
             {
                 health -= amount;
                 if (health <= 0)
@@ -203,7 +208,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 }
             }
 
-            public int setHealth(int amount)
+            public void setHealth(int amount)
             {
                 health += amount;
                 if (health > defaultHealth)
@@ -316,7 +321,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             // Create the ground that represents the physical ground marker array
             CreateGround();
 
-            Create2DGUI();
+            //Create2DGUI();
 
             // Use per pixel lighting for better quality (If you using non NVidia graphics card,
             // setting this to true may reduce the performance significantly)
@@ -424,7 +429,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             p1LifeLab.Text = p1life.ToString();
             p1Frame.AddChild(p1Label);
             p1Frame.AddChild(p1LifeLab);
-            scene.UI2DRenderer.Add2DComponent(p1Frame);
+            scene.UIRenderer.Add2DComponent(p1Frame);
             p1Frame.BackgroundColor = Color.Red;
             p2Frame = new G2DPanel();
             p2Frame.Bounds = new Rectangle(300, 0, 100, 100);
@@ -437,7 +442,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             p2LifeLab.Text = p2life.ToString();
             p2Frame.AddChild(p2Label);
             p2Frame.AddChild(p2LifeLab);
-            scene.UI2DRenderer.Add2DComponent(p2Frame);
+            scene.UIRenderer.Add2DComponent(p2Frame);
             p2Frame.BackgroundColor = Color.Blue;
         }
 
@@ -471,6 +476,16 @@ namespace Tutorial8___Optical_Marker_Tracking
             sphereMaterial.SpecularPower = 10;
 
             sphereNode.Material = sphereMaterial;
+
+            Material sphereMaterial2 = new Material();
+            sphereMaterial2.Diffuse = new Vector4(0, 0, 0.5f, 1);
+            sphereMaterial2.Specular = Color.Blue.ToVector4();
+            sphereMaterial2.SpecularPower = 10;
+
+            Material sphereMaterial3 = new Material();
+            sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial3.Specular = Color.Red.ToVector4();
+            sphereMaterial3.SpecularPower = 10;
 
             // Now add the above nodes to the scene graph in the appropriate order.
             // Note that only the nodes added below the marker node are affected by 
@@ -599,7 +614,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode0.AddChild(cylinderNode0);
 
             //add to Card array here: generic monster card here
-            cards[0] = new Card('M', cylinderTransNode100, 100, 100, "Tethys, Goddess of Light", "Attack");
+            cards[0] = new Card('M', cylinderTransNode0, 100, 100, "Tethys, Goddess of Light", "Attack");
 
             //Marker 101
             cylinderMarkerNode101 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML101.xml", first);
@@ -618,7 +633,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode1.AddChild(cylinderNode1);
 
             //add to Card array here: generic monster card here
-            cards[1] = new Card('M', cylinderTransNode101, 100, 100, "Athena", "Attack");
+            cards[1] = new Card('M', cylinderTransNode1, 100, 100, "Athena", "Attack");
 
             //Marker 102
             cylinderMarkerNode102 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML102.xml", two);
@@ -637,7 +652,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode2.AddChild(cylinderNode2);
 
             //add to Card array here: generic monster card here
-            cards[2] = new Card('M', cylinderTransNode102, 100, 100, "Victoria", "Attack");
+            cards[2] = new Card('M', cylinderTransNode2, 100, 100, "Victoria", "Attack");
 
             //Marker 103
             cylinderMarkerNode103 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML103.xml", three);
@@ -656,7 +671,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode3.AddChild(cylinderNode3);
 
             //add to Card array here: generic monster card here
-            cards[3] = new Card('M', cylinderTransNode103, 100, 100, "The Agent of Force - Mars", "Attack");
+            cards[3] = new Card('M', cylinderTransNode3, 100, 100, "The Agent of Force - Mars", "Attack");
 
             //Marker 104
             cylinderMarkerNode104 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML104.xml", four);
@@ -675,7 +690,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode4.AddChild(cylinderNode4);
 
             //add to Card array here: generic monster card here
-            cards[4] = new Card('M', cylinderTransNode104, 100, 100, "The Agent of Wisdom - Mercury", "Attack");
+            cards[4] = new Card('M', cylinderTransNode4, 100, 100, "The Agent of Wisdom - Mercury", "Attack");
 
             //Marker 105
             cylinderMarkerNode105 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML105.xml", five);
@@ -694,7 +709,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode5.AddChild(cylinderNode5);
 
             //add to Card array here: generic monster card here
-            cards[5] = new Card('M', cylinderTransNode105, 100, 100, "The Agent of Mystery - Earth", "Attack");
+            cards[5] = new Card('M', cylinderTransNode5, 100, 100, "The Agent of Mystery - Earth", "Attack");
 
             //Marker 106
             cylinderMarkerNode106 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML106.xml", six);
@@ -732,7 +747,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode7.AddChild(cylinderNode7);
 
             //add to Card array here: generic monster card here
-            cards[7] = new Card('M', cylinderTransNode107, 100, 100, "The Agent of Judgment - Saturn", "Attack");
+            cards[7] = new Card('M', cylinderTransNode7, 100, 100, "The Agent of Judgment - Saturn", "Attack");
 
             //Marker 108
             cylinderMarkerNode108 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML108.xml", eight);
@@ -751,7 +766,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode8.AddChild(cylinderNode8);
 
             //add to Card array here: generic monster card here
-            cards[8] = new Card('M', cylinderTransNode108, 100, 100, "The Agent of Creation - Venus", "Attack");
+            cards[8] = new Card('M', cylinderTransNode8, 100, 100, "The Agent of Creation - Venus", "Attack");
 
             //Marker 109
             cylinderMarkerNode109 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML109.xml", nine);
@@ -770,10 +785,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode9.AddChild(cylinderNode9);
 
             //add to Card array here: generic monster card here
-            cards[9] = new Card('M', cylinderTransNode109, 100, 100, "Master Hyperion", "Attack");
-
-            //The following line is to be placed before the 110th node to hange color to Blue
-            sphereMaterial.Diffuse = new Vector4(0, 0, 0.5f, 1);
+            cards[9] = new Card('M', cylinderTransNode9, 100, 100, "Master Hyperion", "Attack");
 
             //Marker 110
             cylinderMarkerNode110 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML110.xml", ten);
@@ -781,7 +793,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode10.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode10.Material = sphereMaterial;
+            cylinderNode10.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode10 = new TransformNode();
 
@@ -792,7 +804,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode10.AddChild(cylinderNode10);
 
             //add to Card array here: generic spell card here
-            cards[10] = new Card('S', cylinderTransNode110, 100, 100, "Cards from the Sky", "All of your monsters are healed for 100 hp.");
+            cards[10] = new Card('S', cylinderTransNode10, 100, 100, "Cards from the Sky", "All of your monsters are healed for 100 hp.");
 
             //Marker 111
             cylinderMarkerNode111 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML111.xml", eleven);
@@ -800,7 +812,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode11.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode11.Material = sphereMaterial;
+            cylinderNode11.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode11 = new TransformNode();
 
@@ -811,7 +823,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode11.AddChild(cylinderNode11);
 
             //add to Card array here: generic spell card here
-            cards[11] = new Card('S', cylinderTransNode111, 100, 100, "Valhalla, Hall of the Fallen", "All of your monsters are completly healed.");
+            cards[11] = new Card('S', cylinderTransNode11, 100, 100, "Valhalla, Hall of the Fallen", "All of your monsters are completly healed.");
 
             //Marker 112
             cylinderMarkerNode112 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML112.xml", twelve);
@@ -819,7 +831,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode12.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode12.Material = sphereMaterial;
+            cylinderNode12.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode12 = new TransformNode();
 
@@ -830,7 +842,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode12.AddChild(cylinderNode12);
 
             //add to Card array here: generic spell card here
-            cards[12] = new Card('S', cylinderTransNode112, 100, 100, "Terraforming", "All of your monsters are healed for 1 hp.");
+            cards[12] = new Card('S', cylinderTransNode12, 100, 100, "Terraforming", "All of your monsters are healed for 1 hp.");
 
             //Marker 113
             cylinderMarkerNode113 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML113.xml", thirteen);
@@ -838,7 +850,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode13.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode13.Material = sphereMaterial;
+            cylinderNode13.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode13 = new TransformNode();
 
@@ -849,7 +861,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode13.AddChild(cylinderNode13);
 
             //add to Card array here: generic spell card here
-            cards[13] = new Card('S', cylinderTransNode113, 100, 100, "Smashing Ground", "All of your monsters are healed for 20 hp.");
+            cards[13] = new Card('S', cylinderTransNode13, 100, 100, "Smashing Ground", "All of your monsters are healed for 20 hp.");
 
             //Marker 114
             cylinderMarkerNode114 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML114.xml", fourteen);
@@ -857,7 +869,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode14.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode14.Material = sphereMaterial;
+            cylinderNode14.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode14 = new TransformNode();
 
@@ -868,7 +880,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode14.AddChild(cylinderNode14);
 
             //add to Card array here: generic spell card here
-            cards[14] = new Card('S', cylinderTransNode114, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
+            cards[14] = new Card('S', cylinderTransNode14, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
 
             //Marker 115
             cylinderMarkerNode115 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML115.xml", fifteen);
@@ -876,7 +888,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode15.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode15.Material = sphereMaterial;
+            cylinderNode15.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode15 = new TransformNode();
 
@@ -887,7 +899,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode15.AddChild(cylinderNode15);
 
             //add to Card array here: generic spell card here
-            cards[15] = new Card('S', cylinderTransNode115, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
+            cards[15] = new Card('S', cylinderTransNode15, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
 
             //Marker 116
             cylinderMarkerNode116 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML116.xml", sixteen);
@@ -895,7 +907,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode16.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode16.Material = sphereMaterial;
+            cylinderNode16.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode16 = new TransformNode();
 
@@ -906,7 +918,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode116.AddChild(cylinderTransNode16);
 
             //add to Card array here: generic spell card here
-            cards[16] = new Card('S', cylinderTransNode116, 100, 100, "Celestial Transformation", "All of your monsters are healed for half of their hp.");
+            cards[16] = new Card('S', cylinderTransNode16, 100, 100, "Celestial Transformation", "All of your monsters are healed for half of their hp.");
 
             //Marker 117
             cylinderMarkerNode117 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML117.xml", seventeen);
@@ -914,7 +926,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode17.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode17.Material = sphereMaterial;
+            cylinderNode17.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode17 = new TransformNode();
 
@@ -925,7 +937,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode117.AddChild(cylinderTransNode17);
 
             //add to Card array here: generic spell card here
-            cards[17] = new Card('S', cylinderTransNode117, 100, 100, "Burial from a Different Dimension", "You're protected from 1 trap.");
+            cards[17] = new Card('S', cylinderTransNode17, 100, 100, "Burial from a Different Dimension", "You're protected from 1 trap.");
 
             //Marker 118
             cylinderMarkerNode118 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML118.xml", eighteen);
@@ -933,7 +945,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode18.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode18.Material = sphereMaterial;
+            cylinderNode18.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode18 = new TransformNode();
 
@@ -944,7 +956,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode118.AddChild(cylinderTransNode18);
 
             //add to Card array here: generic spell card here
-            cards[18] = new Card('S', cylinderTransNode118, 100, 100, "Mausoleum of the Emperor", "All of your monsters are healed for 75% of their HP.");
+            cards[18] = new Card('S', cylinderTransNode18, 100, 100, "Mausoleum of the Emperor", "All of your monsters are healed for 75% of their HP.");
 
             //Marker 119
             cylinderMarkerNode119 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML119.xml", nineteen);
@@ -952,7 +964,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode19.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode19.Material = sphereMaterial;
+            cylinderNode19.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode19 = new TransformNode();
 
@@ -963,10 +975,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode119.AddChild(cylinderTransNode19);
 
             //add to Card array here: generic spell card here
-            cards[19] = new Card('S', cylinderTransNode119, 100, 100, "The Fountain in the Sky ", "All of your monsters are healed for 25% of their HP.");
-
-            //changing color to Red
-            sphereMaterial.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            cards[19] = new Card('S', cylinderTransNode19, 100, 100, "The Fountain in the Sky ", "All of your monsters are healed for 25% of their HP.");
 
             //Marker 120
             cylinderMarkerNode120 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML120.xml", twenty);
@@ -974,7 +983,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode20.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode20.Material = sphereMaterial;
+            cylinderNode20.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode20 = new TransformNode();
 
@@ -985,7 +994,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode120.AddChild(cylinderTransNode20);
 
             //add to Card array here: generic trap card here
-            cards[20] = new Card('T', cylinderTransNode120, 0, 100, "Divine Punishment", 
+            cards[20] = new Card('T', cylinderTransNode20, 0, 100, "Divine Punishment", 
                 "All of your opponent's monsters take damage equal to half of their current health.");
 
             //Marker 121
@@ -994,7 +1003,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode21.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode21.Material = sphereMaterial;
+            cylinderNode21.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode21 = new TransformNode();
 
@@ -1005,7 +1014,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode121.AddChild(cylinderTransNode21);
 
             //add to Card array here: generic trap card here
-            cards[21] = new Card('T', cylinderTransNode121, 0, 100, "Return from the Different Dimension",
+            cards[21] = new Card('T', cylinderTransNode21, 0, 100, "Return from the Different Dimension",
                 "Your opponent may not attack for the remainder of their turn.");
 
             //Marker 122
@@ -1014,7 +1023,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode22.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode22.Material = sphereMaterial;
+            cylinderNode22.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode22 = new TransformNode();
 
@@ -1025,7 +1034,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode122.AddChild(cylinderTransNode22);
 
             //add to Card array here: generic trap card here
-            cards[22] = new Card('T', cylinderTransNode122, 0, 100, "Torrential Tribute", "Destroy a spell card.");
+            cards[22] = new Card('T', cylinderTransNode22, 0, 100, "Torrential Tribute", "Destroy a spell card.");
 
             //Marker 123
             cylinderMarkerNode123 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML123.xml", twentythree);
@@ -1033,7 +1042,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode23.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode23.Material = sphereMaterial;
+            cylinderNode23.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode23 = new TransformNode();
 
@@ -1044,7 +1053,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode123.AddChild(cylinderTransNode23);
 
             //add to Card array here: generic trap card here
-            cards[23] = new Card('T', cylinderTransNode123, 0, 100, "Beckoning Light",
+            cards[23] = new Card('T', cylinderTransNode23, 0, 100, "Beckoning Light",
                 "Your opponent may not activate a trap during your next turn.");
 
             //Marker 124
@@ -1053,7 +1062,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode24.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode24.Material = sphereMaterial;
+            cylinderNode24.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode24 = new TransformNode();
 
@@ -1064,7 +1073,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode124.AddChild(cylinderTransNode24);
 
             //add to Card array here: generic trap card here
-            cards[24] = new Card('T', cylinderTransNode124, 0, 100, "Miraculous Descent",
+            cards[24] = new Card('T', cylinderTransNode24, 0, 100, "Miraculous Descent",
                 "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
 
             //Marker 125
@@ -1073,7 +1082,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode25.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode25.Material = sphereMaterial;
+            cylinderNode25.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode25 = new TransformNode();
 
@@ -1084,7 +1093,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode125.AddChild(cylinderTransNode25);
 
             //add to Card array here: generic trap card here
-            cards[25] = new Card('T', cylinderTransNode125, 0, 100, "Miraculous Descent",
+            cards[25] = new Card('T', cylinderTransNode25, 0, 100, "Miraculous Descent",
                 "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
 
             //Marker 126
@@ -1093,7 +1102,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode26.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode26.Material = sphereMaterial;
+            cylinderNode26.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode26 = new TransformNode();
 
@@ -1104,7 +1113,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode126.AddChild(cylinderTransNode26);
 
             //add to Card array here: generic trap card here
-            cards[26] = new Card('T', cylinderTransNode126, 0, 100, "Solemn Judgment",
+            cards[26] = new Card('T', cylinderTransNode26, 0, 100, "Solemn Judgment",
                 "Your opponent may not activate spells until the end of their turn.");
 
             //Marker 127
@@ -1113,7 +1122,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode27.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode27.Material = sphereMaterial;
+            cylinderNode27.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode27 = new TransformNode();
 
@@ -1125,7 +1134,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
 
             //add to Card array here: generic trap card here
-            cards[27] = new Card('T', cylinderTransNode127, 0, 100, "Power Break",
+            cards[27] = new Card('T', cylinderTransNode27, 0, 100, "Power Break",
                 "Reduce a monster's attack by 500 for the remainder of your opponent's turn.");
 
             //Marker 128
@@ -1134,7 +1143,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode28.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode28.Material = sphereMaterial;
+            cylinderNode28.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode28 = new TransformNode();
 
@@ -1145,7 +1154,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode128.AddChild(cylinderTransNode28);
 
             //add to Card array here: generic trap card here
-            cards[28] = new Card('T', cylinderTransNode128, 0, 100, "Reinforcements",
+            cards[28] = new Card('T', cylinderTransNode28, 0, 100, "Reinforcements",
                 "Increase a target monster's attack by 400 for the remainder of your opponent's turn.");
 
             //Marker 129
@@ -1154,7 +1163,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode29.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode29.Material = sphereMaterial;
+            cylinderNode29.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode29 = new TransformNode();
 
@@ -1165,7 +1174,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode129.AddChild(cylinderTransNode29);
 
             //add to Card array here: generic trap card here
-            cards[29] = new Card('T', cylinderTransNode129, 0, 100, "Earthshaker",
+            cards[29] = new Card('T', cylinderTransNode29, 0, 100, "Earthshaker",
                 "For the remainder of your opponent's turn, reduce the attack of a monster to 0.");
 
             //Marker 30 = Player 1 Collision Marker
@@ -1175,7 +1184,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode30.Model = new Cylinder(3, 3, 6, 10);
 
-            cylinderNode30.Material = sphereMaterial;
+            cylinderNode30.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode30 = new TransformNode();
 
@@ -1253,28 +1262,62 @@ namespace Tutorial8___Optical_Marker_Tracking
             blah[31] = cylinderNode31;
             blah[32] = cylinderNode32;
 
-            NewtonPhysics.CollisionPair[] blah2 = new NewtonPhysics.CollisionPair[435];
-            int k = 0;
 
-            for (int i = 0; i < 30; i++)
+
+
+            /*if (key == 0)
             {
-                for (int j = i + 1; j < 30; j++)
+                for (int i = 0; i < 10; i++)
                 {
-                    blah2[k] = new NewtonPhysics.CollisionPair(blah[i].Physics, blah[j].Physics);
-                    k++;
+                    for (int j = i + 1; j < 10; j++)
+                    {
+                         ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(new NewtonPhysics.CollisionPair(blah[i].Physics, blah[j].Physics), arCollision);
+                    }
                 }
+                key = 45;
             }
+
+
+            
 
             for (int i = 0; i < blah2.Length; i++)
             {
-                ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(blah2[i], arCollision);
+                
             }
+
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode1.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode2.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode3.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode4.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode5.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode6.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode7.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode8.Physics),
+                arCollision);
+            ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
+                new NewtonPhysics.CollisionPair(cylinderNode0.Physics, cylinderNode9.Physics),
+                arCollision);
             ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
                 new NewtonPhysics.CollisionPair(cylinderNode30.Physics, cylinderNode31.Physics),
                 endTurnCollision);
             ((NewtonPhysics)scene.PhysicsEngine).AddCollisionCallback(
                 new NewtonPhysics.CollisionPair(cylinderNode32.Physics, cylinderNode31.Physics),
-                endTurnCollision);
+                endTurnCollision);*/
 
             scene.RootNode.AddChild(cylinderMarkerNode100);
             scene.RootNode.AddChild(cylinderMarkerNode101);
@@ -1323,8 +1366,8 @@ namespace Tutorial8___Optical_Marker_Tracking
         {
             //Console.WriteLine("We have a collision!");
             int index1 = -1, index2 = -1;
-
-            for (int x = 0; x < 30; x++)
+            int x; 
+            for (x= 0; x < 30; x++)
             {
                 if (pair.CollisionObject1.Equals(blah[x].Physics))
                     index1 = x;
@@ -1542,31 +1585,31 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(100);
-                        p1Monster2.setHealth(100);
-                        p1Monster3.setHealth(100);
+                        p1Monster1.setHealth((int)100);
+                        p1Monster2.setHealth((int)100);
+                        p1Monster3.setHealth((int)100);
                         p1SpellFlag = "CS";
                     }
                     else
                     {
-                        p2Monster1.setHealth(100);
-                        p2Monster2.setHealth(100);
-                        p2Monster3.setHealth(100);
+                        p2Monster1.setHealth((int)100);
+                        p2Monster2.setHealth((int)100);
+                        p2Monster3.setHealth((int)100);
                         p2SpellFlag = "CS";
                     }
                 }
                 else if (name == "Valhalla, Hall of the Fallen")
                 {
                     if(p1Turn){
-                        p1Monster1.setHealth(p1Monster1.getDefaultHealth());
-                        p1Monster2.setHealth(p1Monster2.getDefaultHealth());
-                        p1Monster3.setHealth(p1Monster3.getDefaultHealth());
+                        p1Monster1.setHealth((int)p1Monster1.getDefaultHealth());
+                        p1Monster2.setHealth((int)p1Monster2.getDefaultHealth());
+                        p1Monster3.setHealth((int)p1Monster3.getDefaultHealth());
                         p1SpellFlag = "V"; 
                     }
                     else{
-                        p2Monster1.setHealth(p2Monster1.getDefaultHealth());
-                        p2Monster2.setHealth(p2Monster2.getDefaultHealth());
-                        p2Monster3.setHealth(p2Monster3.getDefaultHealth());
+                        p2Monster1.setHealth((int)p2Monster1.getDefaultHealth());
+                        p2Monster2.setHealth((int)p2Monster2.getDefaultHealth());
+                        p2Monster3.setHealth((int)p2Monster3.getDefaultHealth());
                         p2SpellFlag = "V";
                     }
                 }
@@ -1574,16 +1617,16 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(1);
-                        p1Monster2.setHealth(1);
-                        p1Monster3.setHealth(1);
+                        p1Monster1.setHealth((int)1);
+                        p1Monster2.setHealth((int)1);
+                        p1Monster3.setHealth((int)1);
                         p1SpellFlag = "TF";
                     }
                     else
                     {
-                        p2Monster1.setHealth(1);
-                        p2Monster2.setHealth(1);
-                        p2Monster3.setHealth(1);
+                        p2Monster1.setHealth((int)1);
+                        p2Monster2.setHealth((int)1);
+                        p2Monster3.setHealth((int)1);
                         p2SpellFlag = "TF";
                     }
                 }
@@ -1591,16 +1634,16 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(20);
-                        p1Monster2.setHealth(20);
-                        p1Monster3.setHealth(20);
+                        p1Monster1.setHealth((int)20);
+                        p1Monster2.setHealth((int)20);
+                        p1Monster3.setHealth((int)20);
                         p1SpellFlag = "SG";
                     }
                     else
                     {
-                        p2Monster1.setHealth(20);
-                        p2Monster2.setHealth(20);
-                        p2Monster3.setHealth(20);
+                        p2Monster1.setHealth((int)20);
+                        p2Monster2.setHealth((int)20);
+                        p2Monster3.setHealth((int)20);
                         p2SpellFlag = "SG";
                     }
                 }
@@ -1608,16 +1651,16 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(75);
-                        p1Monster2.setHealth(75);
-                        p1Monster3.setHealth(75);
+                        p1Monster1.setHealth((int)75);
+                        p1Monster2.setHealth((int)75);
+                        p1Monster3.setHealth((int)75);
                         p1SpellFlag = "SS";
                     }
                     else
                     {
-                        p2Monster1.setHealth(75);
-                        p2Monster2.setHealth(75);
-                        p2Monster3.setHealth(75);
+                        p2Monster1.setHealth((int)75);
+                        p2Monster2.setHealth((int)75);
+                        p2Monster3.setHealth((int)75);
                         p2SpellFlag = "SS";
                     }
                 }
@@ -1625,16 +1668,16 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(p1Mosnter1.getDefaultHealth()*.5);
-                        p1Monster2.setHealth(p1Monster2.getDefaultHealth()*.5);
-                        p1Monster3.setHealth(p1Monster3.getDefaultHealth()*.5);
+                        p1Monster1.setHealth((int)p1Monster1.getDefaultHealth()/2);
+                        p1Monster2.setHealth((int)p1Monster2.getDefaultHealth()/2);
+                        p1Monster3.setHealth((int)p1Monster3.getDefaultHealth()/2);
                         p1SpellFlag = "CT";
                     }
                     else
                     {
-                        p2Monster1.setHealth(p2Monster1.getDefaultHealth()*.5);
-                        p2Monster2.setHealth(p2Monster2.getDefaultHealth()*.5);
-                        p2Monster3.setHealth(p2Monster3.getDefaultHealth()*.5);
+                        p2Monster1.setHealth((int)p2Monster1.getDefaultHealth()/2);
+                        p2Monster2.setHealth((int)p2Monster2.getDefaultHealth()/2);
+                        p2Monster3.setHealth((int)p2Monster3.getDefaultHealth()/2);
                         p2SpellFlag = "CT";
                     }
                 }
@@ -1655,16 +1698,16 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(p1Mosnter1.getDefaultHealth() * .75);
-                        p1Monster2.setHealth(p1Monster2.getDefaultHealth() * .75);
-                        p1Monster3.setHealth(p1Monster3.getDefaultHealth() * .75);
+                        p1Monster1.setHealth((int)(p1Monster1.getDefaultHealth() * .75));
+                        p1Monster2.setHealth((int)(p1Monster2.getDefaultHealth() * .75));
+                        p1Monster3.setHealth((int)(p1Monster3.getDefaultHealth() * .75));
                         p1SpellFlag = "ME";
                     }
                     else
                     {
-                        p2Monster1.setHealth(p2Monster1.getDefaultHealth() * .75);
-                        p2Monster2.setHealth(p2Monster2.getDefaultHealth() * .75);
-                        p2Monster3.setHealth(p2Monster3.getDefaultHealth() * .75);
+                        p2Monster1.setHealth((int)(p2Monster1.getDefaultHealth() * .75));
+                        p2Monster2.setHealth((int)(p2Monster2.getDefaultHealth() * .75));
+                        p2Monster3.setHealth((int)(p2Monster3.getDefaultHealth() * .75));
                         p2SpellFlag = "ME";
                     }
                 }
@@ -1672,23 +1715,23 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if (p1Turn)
                     {
-                        p1Monster1.setHealth(p1Mosnter1.getDefaultHealth() * .25);
-                        p1Monster2.setHealth(p1Monster2.getDefaultHealth() * .25);
-                        p1Monster3.setHealth(p1Monster3.getDefaultHealth() * .25);
+                        p1Monster1.setHealth((int)(p1Monster1.getDefaultHealth() * .25));
+                        p1Monster2.setHealth((int)(p1Monster2.getDefaultHealth() * .25));
+                        p1Monster3.setHealth((int)(p1Monster3.getDefaultHealth() * .25));
                         p1SpellFlag = "FS";
                     }
                     else
                     {
-                        p2Monster1.setHealth(p2Monster1.getDefaultHealth() * .25);
-                        p2Monster2.setHealth(p2Monster2.getDefaultHealth() * .25);
-                        p2Monster3.setHealth(p2Monster3.getDefaultHealth() * .25);
+                        p2Monster1.setHealth((int)(p2Monster1.getDefaultHealth() * .25));
+                        p2Monster2.setHealth((int)(p2Monster2.getDefaultHealth() * .25));
+                        p2Monster3.setHealth((int)(p2Monster3.getDefaultHealth() * .25));
                         p1SpellFlag = "FS";
                     }
                     
                 }
         }
 
-        private void endTurnCollision(NewtonPhysics.CollisionPair)
+        private void endTurnCollision(NewtonPhysics.CollisionPair pair)
         {
             if(pair.CollisionObject1.Equals(blah[30].Physics))
             {
@@ -1755,7 +1798,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                             */
                             p2NoTrap = false;
                             break;
-                        default: 
                     }
                     p1TrapFlag = "none";
                     p1Trap.destroy();
@@ -1793,7 +1835,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                                 */
                             p1NoTrap = false;
                             break;
-                        default: 
                     }
                     p2TrapFlag = "none";
                     p2Trap.destroy();

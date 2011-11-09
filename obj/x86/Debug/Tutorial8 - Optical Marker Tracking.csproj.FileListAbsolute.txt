@@ -77,3 +77,44 @@ G:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\obj
 F:\GoblinXNAv3.6\GoblinXNAv3.6\bin\ALVARConfigFromXML100.xml
 C:\Users\Chelsea\Desktop\ui\br\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.exe
 C:\Users\Chelsea\Desktop\ui\br\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.pdb
+Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\obj\x86\Debug\ResolveAssemblyReference.cache
+Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.exe
+Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.pdb
+Z:\bin\GoblinXNAv3.6\bin\alvar150.dll
+Z:\bin\GoblinXNAv3.6\bin\alvarplatform150.dll
+Z:\bin\GoblinXNAv3.6\bin\ALVARWrapper.dll
+Z:\bin\GoblinXNAv3.6\bin\cv100.dll
+Z:\bin\GoblinXNAv3.6\bin\cvaux100.dll
+Z:\bin\GoblinXNAv3.6\bin\cvcam100.dll
+Z:\bin\GoblinXNAv3.6\bin\cxcore100.dll
+Z:\bin\GoblinXNAv3.6\bin\cxts001.dll
+Z:\bin\GoblinXNAv3.6\bin\highgui100.dll
+Z:\bin\GoblinXNAv3.6\bin\libguide40.dll
+Z:\bin\GoblinXNAv3.6\bin\ml100.dll
+Z:\bin\GoblinXNAv3.6\bin\Newton.dll
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML100.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML101.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML102.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML103.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML104.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML105.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML106.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML107.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML108.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML109.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML110.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML111.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML112.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML113.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARConfigFromXML114.xml
+Z:\bin\GoblinXNAv3.6\bin\ALVARGroundArray.xml
+Z:\bin\GoblinXNAv3.6\bin\calib.xml
+Z:\bin\GoblinXNAv3.6\bin\testImage800x600.jpg
+Z:\bin\GoblinXNAv3.6\bin\Toolbar.txt
+Z:\bin\GoblinXNAv3.6\bin\Content\DebugFont.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\PostScreenShadowBlur.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\ShadowMap.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\ShadowDistanceFadeoutMap.xnb
+Z:\bin\GoblinXNAv3.6\bin\Tutorial8 - Optical Marker Tracking.exe
+Z:\bin\GoblinXNAv3.6\bin\Tutorial8 - Optical Marker Tracking.pdb

@@ -3,3 +3,4 @@ C:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\Con
 F:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 G:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Chelsea\Desktop\ui\br\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\Content\obj\x86\Debug\ResolveAssemblyReference.cache
