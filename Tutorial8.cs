@@ -181,6 +181,8 @@ namespace Tutorial8___Optical_Marker_Tracking
         {
             lastAtk = attackPower;
             attackPower -= amount;
+            if (attackPower < 0)
+                attackPower = 0;
         }
 
         public void setDefault()
@@ -295,7 +297,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         int state = 1;
         G2DPanel p1Frame, p2Frame;
         G2DLabel p1LifeLab, p1m1LifeLab, p1m2LifeLab, p1m3LifeLab; 
-        G2DLabel p2LifeLab, p2m1LifeLab, p2m2LifeLab, m2m3LifeLab;
+        G2DLabel p2LifeLab, p2m1LifeLab, p2m2LifeLab, p2m3LifeLab;
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
