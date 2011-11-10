@@ -142,13 +142,7 @@ namespace Tutorial8___Optical_Marker_Tracking
          * */
         public void attacking(Card target)
         {
-            setTrigger();
             target.takeDamage(attackPower);
-        }
-
-        public void setTrigger()
-        {
-            trigger = true;
         }
 
         /* takeDamage is used to register damage taken and subtract from the health pool of a given monster.
@@ -221,16 +215,6 @@ namespace Tutorial8___Optical_Marker_Tracking
         {
             ko = true;
             health = 0;
-        }
-
-        public void prepNextTurn()
-        {
-            trigger = false;
-        }
-
-        public bool cardTriggered()
-        {
-            return trigger;
         }
 
         public bool isKO()
@@ -1383,7 +1367,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                 else if(p2TrapFlag!="none")
                     return;
             }
-            trap.setTrigger(); 
             string name = trap.getName();
                 if (name == "Divine Punishment")
                 {
@@ -1534,7 +1517,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                 return;
             else if(p2SpellFlag!="none")
                 return;
-            spell.setTrigger(); 
             string name = spell.getName();
                 if (name == "Cards from the Sky")
                 {
@@ -2232,10 +2214,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         private void registerAttack(Card attacking, Card attacked)
         {
-            if (!attacking.cardTriggered())
-            {
-                attacking.attacking(attacked);
-            }
+            attacking.attacking(attacked);
         }
 
 
