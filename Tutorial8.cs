@@ -1184,7 +1184,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //add to Card array here: generic trap card here
             cards[27] = new Card('T', cylinderMarkerNode127, 0, 100, "Power Break",
-                "Reduce a monster's attack by 500 for the remainder of your opponent's turn.");
+                "Reduce a monster's attack by 50 for the remainder of your opponent's turn.");
 
             //Marker 128
             cylinderMarkerNode128 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML128.xml", twentyeight);
@@ -1204,7 +1204,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //add to Card array here: generic trap card here
             cards[28] = new Card('T', cylinderMarkerNode128, 0, 100, "Reinforcements",
-                "Increase a target monster's attack by 400 for the remainder of your opponent's turn.");
+                "Increase a target monster's attack by 40 for the remainder of your opponent's turn.");
 
             //Marker 129
             cylinderMarkerNode129 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML129.xml", twentynine);
@@ -1386,17 +1386,17 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if(p1Turn)
                     {
-                        p1Monster1.debuff(500);
-                        p1Monster2.debuff(500);
-                        p1Monster3.debuff(500);
+                        p1Monster1.debuff(50);
+                        p1Monster2.debuff(50);
+                        p1Monster3.debuff(50);
                         p2TrapEffectCnt = 1;
                         p2TrapFlag = "PB";
                     }
                     else
                     {
-                        p2Monster1.debuff(500);
-                        p2Monster2.debuff(500);
-                        p2Monster3.debuff(500);
+                        p2Monster1.debuff(50);
+                        p2Monster2.debuff(50);
+                        p2Monster3.debuff(50);
                         p1TrapEffectCnt = 1;
                         p1TrapFlag = "PB";
                     }
@@ -1405,17 +1405,17 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     if(p1Turn)
                     {
-                        p2Monster1.buff(400);
-                        p2Monster2.buff(400);
-                        p2Monster3.buff(400);
+                        p2Monster1.buff(40);
+                        p2Monster2.buff(40);
+                        p2Monster3.buff(40);
                         p2TrapEffectCnt = 1;
                         p2TrapFlag = "RE";
                     }
                     else
                     {
-                        p1Monster1.debuff(400);
-                        p1Monster2.debuff(400);
-                        p1Monster3.debuff(400);
+                        p1Monster1.debuff(40);
+                        p1Monster2.debuff(40);
+                        p1Monster3.debuff(40);
                         p1TrapEffectCnt = 1;
                         p1TrapFlag = "RE";
                     }
@@ -1707,7 +1707,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster1, p2Monster1);
                             if(p2Monster1.isKO())
                             {
-                                p2life += p2Monster1.getHealth();
+                                if(p2TrapFlag!="MD")
+                                    p2life += p2Monster1.getHealth();
                             }
                         }
                         else
@@ -1715,7 +1716,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster1, p1Monster1);
                             if (p1Monster1.isKO())
                             {
-                                p1life += p1Monster1.getHealth();
+                                if(p1TrapFlag!="MD")
+                                    p1life += p1Monster1.getHealth();
                             }
                         }
                     }
@@ -1731,7 +1733,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster1, p2Monster2);
                             if (p2Monster2.isKO())
                             {
-                                p2life += p2Monster2.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster2.getHealth();
                             }
                         }
                         else
@@ -1739,7 +1742,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster2, p1Monster1);
                             if (p1Monster1.isKO())
                             {
-                                p1life += p1Monster1.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster1.getHealth();
                             }
                         }
                     }
@@ -1755,7 +1759,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster1, p2Monster3);
                             if (p2Monster3.isKO())
                             {
-                                p2life += p2Monster3.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster3.getHealth();
                             }
                         }
                         else
@@ -1763,7 +1768,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster3, p1Monster1);
                             if (p1Monster1.isKO())
                             {
-                                p1life += p1Monster1.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster1.getHealth();
                             }
                         }
                     }
@@ -1782,7 +1788,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster2, p2Monster1);
                             if (p2Monster1.isKO())
                             {
-                                p2life += p2Monster1.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster1.getHealth();
                             }
                         }
                         else
@@ -1790,7 +1797,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster1, p1Monster2);
                             if (p1Monster2.isKO())
                             {
-                                p1life += p1Monster2.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster2.getHealth();
                             }
                         }
                     }
@@ -1806,7 +1814,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster2, p2Monster2);
                             if (p2Monster2.isKO())
                             {
-                                p2life += p2Monster2.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster2.getHealth();
                             }
                         }
                         else
@@ -1814,7 +1823,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster2, p1Monster2);
                             if (p1Monster2.isKO())
                             {
-                                p1life += p1Monster2.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster2.getHealth();
                             }
                         }
                     }
@@ -1830,7 +1840,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster2, p2Monster3);
                             if (p2Monster3.isKO())
                             {
-                                p2life += p2Monster3.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster3.getHealth();
                             }
                         }
                         else
@@ -1838,7 +1849,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster3, p1Monster2);
                             if (p1Monster2.isKO())
                             {
-                                p1life += p1Monster2.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster2.getHealth();
                             }
                         }
                     }
@@ -1858,7 +1870,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster3, p2Monster1);
                             if (p2Monster1.isKO())
                             {
-                                p2life += p2Monster1.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster1.getHealth();
                             }
                         }
                         else
@@ -1866,7 +1879,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster1, p1Monster3);
                             if (p1Monster3.isKO())
                             {
-                                p1life += p1Monster3.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster3.getHealth();
                             }
                         }
                     }
@@ -1882,7 +1896,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster3, p2Monster2);
                             if (p2Monster2.isKO())
                             {
-                                p2life += p2Monster2.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster2.getHealth();
                             }
                         }
                         else
@@ -1890,7 +1905,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster2, p1Monster3);
                             if (p1Monster3.isKO())
                             {
-                                p1life += p1Monster3.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster3.getHealth();
                             }
                         }
                     }
@@ -1906,7 +1922,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p1Monster3, p2Monster3);
                             if (p2Monster3.isKO())
                             {
-                                p2life += p2Monster3.getHealth();
+                                if (p2TrapFlag != "MD")
+                                    p2life += p2Monster3.getHealth();
                             }
                         }
                         else
@@ -1914,7 +1931,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             registerAttack(p2Monster3, p1Monster3);
                             if (p1Monster3.isKO())
                             {
-                                p1life += p1Monster3.getHealth();
+                                if (p1TrapFlag != "MD")
+                                    p1life += p1Monster3.getHealth();
                             }
                         }
                     }
