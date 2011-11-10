@@ -424,9 +424,6 @@ namespace Tutorial8___Optical_Marker_Tracking
             groundMaterial.Specular = Color.White.ToVector4();
             groundMaterial.SpecularPower = 20;
 
-            groundNode.Material = groundMaterial;
-
-            groundMarkerNode.AddChild(groundNode);
         }
 
         private void Create2DGUI()
