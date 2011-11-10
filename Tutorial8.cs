@@ -2313,20 +2313,25 @@ namespace Tutorial8___Optical_Marker_Tracking
                     p2Trap = cards[x];
                 }
             }
+            if(p1Monster1!=null)
+                p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
+                    p1Monster1.getHealth().ToString() + " HP";
+            if(p1Monster2!=null)
+                p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
+                    p1Monster2.getHealth().ToString() + " HP";
+            if(p1Monster3!=null)
+                p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
+                    p1Monster3.getHealth().ToString() + " HP";
 
-            p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
-                p1Monster1.getHealth().ToString() + " HP";
-            p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
-                p1Monster2.getHealth().ToString() + " HP";
-            p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
-                p1Monster3.getHealth().ToString() + " HP";
-
-            p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
-                p2Monster1.getHealth().ToString() + " HP";
-            p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
-                p2Monster2.getHealth().ToString() + " HP";
-            p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
-                p2Monster3.getHealth().ToString() + " HP"; 
+            if(p2Monster1!=null)
+                p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
+                    p2Monster1.getHealth().ToString() + " HP";
+            if(p2Monster2!=null)
+                p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
+                    p2Monster2.getHealth().ToString() + " HP";
+            if(p2Monster3!=null)
+                p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
+                    p2Monster3.getHealth().ToString() + " HP"; 
             base.Update(gameTime);
         }
 
