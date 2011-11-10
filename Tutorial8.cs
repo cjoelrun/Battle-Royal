@@ -81,7 +81,6 @@ namespace Tutorial8___Optical_Marker_Tracking
         int health;
         int defaultHealth;
         bool ko;
-        bool trigger;
         string name;
         string effect;
 
@@ -106,7 +105,6 @@ namespace Tutorial8___Optical_Marker_Tracking
             health = nhealth;
             defaultHealth = health;
             ko = false;
-            trigger = false;
             name = nname;
             effect = neffect;
         }
@@ -214,7 +212,6 @@ namespace Tutorial8___Optical_Marker_Tracking
         public void destroy()
         {
             ko = true;
-            health = 0;
         }
 
         public bool isKO()
@@ -273,7 +270,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         bool p2NoAttack = false;
         int p1TrapEffectCnt = 0;
         int p2TrapEffectCnt = 0;
-        int p1life = 4, p2life = 4;
+        int p1life = 40, p2life = 40;
         int key = 0;
         string text = "";
         bool p1Winner = false;
@@ -1706,9 +1703,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster1.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster1, p2Monster1);
+                            if(p2Monster1.isKO())
+                            {
+                                p2life += p2Monster1.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster1, p1Monster1);
+                            if (p1Monster1.isKO())
+                            {
+                                p1life += p1Monster1.getHealth();
+                            }
+                        }
                     }
                 }
                 //case 2:
@@ -1718,9 +1727,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster2.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster1, p2Monster2);
+                            if (p2Monster2.isKO())
+                            {
+                                p2life += p2Monster2.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster2, p1Monster1);
+                            if (p1Monster1.isKO())
+                            {
+                                p1life += p1Monster1.getHealth();
+                            }
+                        }
                     }
                 }
                 //case 3:
@@ -1730,9 +1751,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster3.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster1, p2Monster3);
+                            if (p2Monster3.isKO())
+                            {
+                                p2life += p2Monster3.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster3, p1Monster1);
+                            if (p1Monster1.isKO())
+                            {
+                                p1life += p1Monster1.getHealth();
+                            }
+                        }
                     }
                 }
             }
@@ -1745,9 +1778,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster1.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster2, p2Monster1);
+                            if (p2Monster1.isKO())
+                            {
+                                p2life += p2Monster1.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster1, p1Monster2);
+                            if (p1Monster2.isKO())
+                            {
+                                p1life += p1Monster2.getHealth();
+                            }
+                        }
                     }
                 }
                 //case 5:
@@ -1757,9 +1802,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster2.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster2, p2Monster2);
+                            if (p2Monster2.isKO())
+                            {
+                                p2life += p2Monster2.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster2, p1Monster2);
+                            if (p1Monster2.isKO())
+                            {
+                                p1life += p1Monster2.getHealth();
+                            }
+                        }
                     }
                 }
                 //case 6:
@@ -1769,9 +1826,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster3.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster2, p2Monster3);
+                            if (p2Monster3.isKO())
+                            {
+                                p2life += p2Monster3.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster3, p1Monster2);
+                            if (p1Monster2.isKO())
+                            {
+                                p1life += p1Monster2.getHealth();
+                            }
+                        }
                     }
                 }
             }
@@ -1785,9 +1854,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster1.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster3, p2Monster1);
+                            if (p2Monster1.isKO())
+                            {
+                                p2life += p2Monster1.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster1, p1Monster3);
+                            if (p1Monster3.isKO())
+                            {
+                                p1life += p1Monster3.getHealth();
+                            }
+                        }
                     }
                 }
                 if (p2Monster2 != null)
@@ -1797,9 +1878,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster2.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster3, p2Monster2);
+                            if (p2Monster2.isKO())
+                            {
+                                p2life += p2Monster2.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster2, p1Monster3);
+                            if (p1Monster3.isKO())
+                            {
+                                p1life += p1Monster3.getHealth();
+                            }
+                        }
                     }
                 }
                 if (p2Monster3 != null)
@@ -1809,9 +1902,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Monster3.getModel().WorldTransformation.Translation).Length() <= 10)
                     {
                         if (p1Turn)
+                        {
                             registerAttack(p1Monster3, p2Monster3);
+                            if (p2Monster3.isKO())
+                            {
+                                p2life += p2Monster3.getHealth();
+                            }
+                        }
                         else
+                        {
                             registerAttack(p2Monster3, p1Monster3);
+                            if (p1Monster3.isKO())
+                            {
+                                p1life += p1Monster3.getHealth();
+                            }
+                        }
                     }
                 }
             }
@@ -1971,7 +2076,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
-                            p1life--;
                             checker--;
                             p1Monster1 = null; 
                         }
@@ -1984,7 +2088,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
-                            p1life--;
                             checker--;
                             p1Monster2 = null;
                         }
@@ -1997,7 +2100,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
-                            p1life--;
                             p1LifeLab.Text = p1life.ToString() + " LP";
                             checker--;
                             p1Monster3 = null; 
@@ -2011,7 +2113,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
-                            p2life--;
                             p2LifeLab.Text = p2life.ToString() + " LP";
                             checker--;
                             p2Monster1 = null;
@@ -2025,7 +2126,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
-                            p2life--;
                             checker--;
                             p2Monster2 = null;
                         }
@@ -2038,7 +2138,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                         else
                         {
-                            p2life--;
                             checker--;
                             p2Monster3 = null;
                         }
