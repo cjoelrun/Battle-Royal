@@ -644,18 +644,52 @@ namespace Tutorial8___Optical_Marker_Tracking
             thirtyone[0] = 131;
             thirtytwo[0] = 132;
 
+            ModelLoader loader = new ModelLoader();
+            Model trapModel0 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel1 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel2 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel3 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel4 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel5 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel6 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel7 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel8 = (Model)loader.Load("", "Boxwhite");
+            Model trapModel9 = (Model)loader.Load("", "Boxwhite");
+
+            Model spellModel0 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel1 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel2 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel3 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel4 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel5 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel6 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel7 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel8 = (Model)loader.Load("", "Boxwhite");
+            Model spellModel9 = (Model)loader.Load("", "Boxwhite");
+
+            Model monsterModel0 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel1 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel2 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel3 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel4 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel5 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel6 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel7 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel8 = (Model)loader.Load("", "Boxwhite");
+            Model monsterModel9 = (Model)loader.Load("", "Boxwhite");
 
             //Marker 100
             cylinderMarkerNode100 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML100.xml", zero);
             GeometryNode cylinderNode0 = new GeometryNode("Cylinder");
 
-            cylinderNode0.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode0.Model = monsterModel0;
+            ((Model)cylinderNode0.Model).UseInternalMaterials = false;
+            
 
             cylinderNode0.Material = sphereMaterial;
-
+            
             TransformNode cylinderTransNode0 = new TransformNode();
-
-            cylinderTransNode0.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode0.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode100.AddChild(cylinderTransNode0);
 
@@ -668,13 +702,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode101 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML101.xml", first);
             GeometryNode cylinderNode1 = new GeometryNode("Cylinder");
 
-            cylinderNode1.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode1.Model = monsterModel1;
+            ((Model)cylinderNode1.Model).UseInternalMaterials = false;
 
             cylinderNode1.Material = sphereMaterial;
 
             TransformNode cylinderTransNode1 = new TransformNode();
 
-            cylinderTransNode1.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode1.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode101.AddChild(cylinderTransNode1);
 
@@ -687,13 +722,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode102 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML102.xml", two);
             GeometryNode cylinderNode2 = new GeometryNode("Cylinder");
 
-            cylinderNode2.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode2.Model = monsterModel2;
+            ((Model)cylinderNode2.Model).UseInternalMaterials = false;
 
             cylinderNode2.Material = sphereMaterial;
 
             TransformNode cylinderTransNode2 = new TransformNode();
 
-            cylinderTransNode2.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode2.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode102.AddChild(cylinderTransNode2);
 
@@ -706,13 +742,13 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode103 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML103.xml", three);
             GeometryNode cylinderNode3 = new GeometryNode("Cylinder");
 
-            cylinderNode3.Model = new Cylinder(3, 3, 6, 10);
-
+            cylinderNode3.Model = monsterModel3;
+            ((Model)cylinderNode3.Model).UseInternalMaterials = false;
             cylinderNode3.Material = sphereMaterial;
 
             TransformNode cylinderTransNode3 = new TransformNode();
 
-            cylinderTransNode3.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode3.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode103.AddChild(cylinderTransNode3);
 
@@ -725,13 +761,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode104 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML104.xml", four);
             GeometryNode cylinderNode4 = new GeometryNode("Cylinder");
 
-            cylinderNode4.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode4.Model = monsterModel4;
+            ((Model)cylinderNode4.Model).UseInternalMaterials = false;
 
             cylinderNode4.Material = sphereMaterial;
 
             TransformNode cylinderTransNode4 = new TransformNode();
 
-            cylinderTransNode4.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode4.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode104.AddChild(cylinderTransNode4);
 
@@ -744,13 +781,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode105 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML105.xml", five);
             GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
 
-            cylinderNode5.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode5.Model = monsterModel5;
+            ((Model)cylinderNode5.Model).UseInternalMaterials = false;
 
             cylinderNode5.Material = sphereMaterial;
 
             TransformNode cylinderTransNode5 = new TransformNode();
 
-            cylinderTransNode5.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode5.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode105.AddChild(cylinderTransNode5);
 
@@ -763,13 +801,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode106 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML106.xml", six);
             GeometryNode cylinderNode6 = new GeometryNode("Cylinder");
 
-            cylinderNode6.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode6.Model = monsterModel6;
+            ((Model)cylinderNode6.Model).UseInternalMaterials = false;
 
             cylinderNode6.Material = sphereMaterial;
 
             TransformNode cylinderTransNode6 = new TransformNode();
 
-            cylinderTransNode6.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode6.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode106.AddChild(cylinderTransNode6);
 
@@ -782,13 +821,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode107 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML107.xml", seven);
             GeometryNode cylinderNode7 = new GeometryNode("Cylinder");
 
-            cylinderNode7.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode7.Model = monsterModel7;
+            ((Model)cylinderNode7.Model).UseInternalMaterials = false;
 
             cylinderNode7.Material = sphereMaterial;
 
             TransformNode cylinderTransNode7 = new TransformNode();
 
-            cylinderTransNode7.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode7.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode107.AddChild(cylinderTransNode7);
 
@@ -801,13 +841,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode108 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML108.xml", eight);
             GeometryNode cylinderNode8 = new GeometryNode("Cylinder");
 
-            cylinderNode8.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode8.Model = monsterModel8;
+            ((Model)cylinderNode8.Model).UseInternalMaterials = false;
 
             cylinderNode8.Material = sphereMaterial;
 
             TransformNode cylinderTransNode8 = new TransformNode();
 
-            cylinderTransNode8.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode8.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode108.AddChild(cylinderTransNode8);
 
@@ -820,13 +861,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode109 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML109.xml", nine);
             GeometryNode cylinderNode9 = new GeometryNode("Cylinder");
 
-            cylinderNode9.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode9.Model = monsterModel9;
+            ((Model)cylinderNode9.Model).UseInternalMaterials = false;
 
             cylinderNode9.Material = sphereMaterial;
 
             TransformNode cylinderTransNode9 = new TransformNode();
 
-            cylinderTransNode9.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode9.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode109.AddChild(cylinderTransNode9);
 
@@ -839,13 +881,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode110 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML110.xml", ten);
             GeometryNode cylinderNode10 = new GeometryNode("Cylinder");
 
-            cylinderNode10.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode10.Model = spellModel0;
+            ((Model)cylinderNode10.Model).UseInternalMaterials = false;
 
             cylinderNode10.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode10 = new TransformNode();
 
-            cylinderTransNode10.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode10.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode110.AddChild(cylinderTransNode10);
 
@@ -858,13 +901,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode111 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML111.xml", eleven);
             GeometryNode cylinderNode11 = new GeometryNode("Cylinder");
 
-            cylinderNode11.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode11.Model = spellModel1;
+            ((Model)cylinderNode11.Model).UseInternalMaterials = false;
 
             cylinderNode11.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode11 = new TransformNode();
 
-            cylinderTransNode11.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode11.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode111.AddChild(cylinderTransNode11);
 
@@ -877,13 +921,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode112 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML112.xml", twelve);
             GeometryNode cylinderNode12 = new GeometryNode("Cylinder");
 
-            cylinderNode12.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode12.Model = spellModel2;
+            ((Model)cylinderNode12.Model).UseInternalMaterials = false;
 
             cylinderNode12.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode12 = new TransformNode();
 
-            cylinderTransNode12.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode12.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode112.AddChild(cylinderTransNode12);
 
@@ -896,13 +941,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode113 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML113.xml", thirteen);
             GeometryNode cylinderNode13 = new GeometryNode("Cylinder");
 
-            cylinderNode13.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode13.Model = spellModel3;
+            ((Model)cylinderNode13.Model).UseInternalMaterials = false;
 
             cylinderNode13.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode13 = new TransformNode();
 
-            cylinderTransNode13.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode13.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode113.AddChild(cylinderTransNode13);
 
@@ -915,13 +961,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode114 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML114.xml", fourteen);
             GeometryNode cylinderNode14 = new GeometryNode("Cylinder");
 
-            cylinderNode14.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode14.Model = spellModel4;
+            ((Model)cylinderNode14.Model).UseInternalMaterials = false;
 
             cylinderNode14.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode14 = new TransformNode();
 
-            cylinderTransNode14.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode14.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode114.AddChild(cylinderTransNode14);
 
@@ -934,13 +981,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode115 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML115.xml", fifteen);
             GeometryNode cylinderNode15 = new GeometryNode("Cylinder");
 
-            cylinderNode15.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode15.Model = spellModel5;
+            ((Model)cylinderNode15.Model).UseInternalMaterials = false;
 
             cylinderNode15.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode15 = new TransformNode();
 
-            cylinderTransNode15.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode15.Scale = new Vector3(5, 5, 5);
 
             cylinderMarkerNode115.AddChild(cylinderTransNode15);
 
@@ -953,13 +1001,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode116 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML116.xml", sixteen);
             GeometryNode cylinderNode16 = new GeometryNode("Cylinder");
 
-            cylinderNode16.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode16.Model = spellModel6;
+            ((Model)cylinderNode16.Model).UseInternalMaterials = false;
 
             cylinderNode16.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode16 = new TransformNode();
 
-            cylinderTransNode16.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode16.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode16.AddChild(cylinderNode16);
 
@@ -972,13 +1021,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode117 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML117.xml", seventeen);
             GeometryNode cylinderNode17 = new GeometryNode("Cylinder");
 
-            cylinderNode17.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode17.Model = spellModel7;
+            ((Model)cylinderNode17.Model).UseInternalMaterials = false;
 
             cylinderNode17.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode17 = new TransformNode();
 
-            cylinderTransNode17.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode17.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode17.AddChild(cylinderNode17);
 
@@ -991,13 +1041,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode118 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML118.xml", eighteen);
             GeometryNode cylinderNode18 = new GeometryNode("Cylinder");
 
-            cylinderNode18.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode18.Model = spellModel8;
+            ((Model)cylinderNode18.Model).UseInternalMaterials = false;
 
             cylinderNode18.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode18 = new TransformNode();
 
-            cylinderTransNode18.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode18.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode18.AddChild(cylinderNode18);
 
@@ -1010,13 +1061,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode119 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML119.xml", nineteen);
             GeometryNode cylinderNode19 = new GeometryNode("Cylinder");
 
-            cylinderNode19.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode19.Model = spellModel9;
+            ((Model)cylinderNode19.Model).UseInternalMaterials = false;
 
             cylinderNode19.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode19 = new TransformNode();
 
-            cylinderTransNode19.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode19.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode19.AddChild(cylinderNode19);
 
@@ -1029,13 +1081,13 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode120 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML120.xml", twenty);
             GeometryNode cylinderNode20 = new GeometryNode("Cylinder");
 
-            cylinderNode20.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode20.Model = trapModel0;
+            ((Model)cylinderNode20.Model).UseInternalMaterials = false;
 
             cylinderNode20.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode20 = new TransformNode();
-
-            cylinderTransNode20.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode20.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode20.AddChild(cylinderNode20);
 
@@ -1049,13 +1101,13 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode121 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML121.xml", twentyone);
             GeometryNode cylinderNode21 = new GeometryNode("Cylinder");
 
-            cylinderNode21.Model = new Cylinder(3, 3, 6, 10);
-
+            cylinderNode21.Model = trapModel1;
+            ((Model)cylinderNode21.Model).UseInternalMaterials = false;
             cylinderNode21.Material = sphereMaterial3;
 
-            TransformNode cylinderTransNode21 = new TransformNode();
 
-            cylinderTransNode21.Translation = new Vector3(0, 0, 3);
+            TransformNode cylinderTransNode21 = new TransformNode();
+            cylinderTransNode21.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode21.AddChild(cylinderNode21);
 
@@ -1069,13 +1121,12 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode122 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML122.xml", twentytwo);
             GeometryNode cylinderNode22 = new GeometryNode("Cylinder");
 
-            cylinderNode22.Model = new Cylinder(3, 3, 6, 10);
-
+            cylinderNode22.Model = trapModel2;
+            ((Model)cylinderNode22.Model).UseInternalMaterials = false;
             cylinderNode22.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode22 = new TransformNode();
-
-            cylinderTransNode22.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode22.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode22.AddChild(cylinderNode22);
 
@@ -1088,14 +1139,13 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode123 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML123.xml", twentythree);
             GeometryNode cylinderNode23 = new GeometryNode("Cylinder");
 
-            cylinderNode23.Model = new Cylinder(3, 3, 6, 10);
-
+            cylinderNode23.Model = trapModel3;
+            ((Model)cylinderNode23.Model).UseInternalMaterials = false;
             cylinderNode23.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode23 = new TransformNode();
 
-            cylinderTransNode23.Translation = new Vector3(0, 0, 3);
-
+            cylinderTransNode23.Scale = new Vector3(5, 5, 5);
             cylinderTransNode23.AddChild(cylinderNode23);
 
             cylinderMarkerNode123.AddChild(cylinderTransNode23);
@@ -1108,13 +1158,13 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode124 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML124.xml", twentyfour);
             GeometryNode cylinderNode24 = new GeometryNode("Cylinder");
 
-            cylinderNode24.Model = new Cylinder(3, 3, 6, 10);
-
+            cylinderNode24.Model = trapModel4;
+            ((Model)cylinderNode24.Model).UseInternalMaterials = false;
             cylinderNode24.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode24 = new TransformNode();
 
-            cylinderTransNode24.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode24.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode24.AddChild(cylinderNode24);
 
@@ -1128,13 +1178,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode125 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML125.xml", twentyfive);
             GeometryNode cylinderNode25 = new GeometryNode("Cylinder");
 
-            cylinderNode25.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode25.Model = trapModel5;
+            ((Model)cylinderNode25.Model).UseInternalMaterials = false;
 
             cylinderNode25.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode25 = new TransformNode();
 
-            cylinderTransNode25.Translation = new Vector3(0, 0, 3);
+            cylinderTransNode25.Scale = new Vector3(5, 5, 5);
 
             cylinderTransNode25.AddChild(cylinderNode25);
 
@@ -1148,14 +1199,15 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode126 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML126.xml", twentysix);
             GeometryNode cylinderNode26 = new GeometryNode("Cylinder");
 
-            cylinderNode26.Model = new Cylinder(3, 3, 6, 10);
+            //cylinderNode26.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode26.Model = trapModel6;
+            ((Model)cylinderNode26.Model).UseInternalMaterials = false;
 
             cylinderNode26.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode26 = new TransformNode();
 
-            cylinderTransNode26.Translation = new Vector3(0, 0, 3);
-
+            cylinderTransNode26.Scale = new Vector3(5, 5, 5);
             cylinderTransNode26.AddChild(cylinderNode26);
 
             cylinderMarkerNode126.AddChild(cylinderTransNode26);
@@ -1168,14 +1220,14 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode127 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML127.xml", twentyseven);
             GeometryNode cylinderNode27 = new GeometryNode("Cylinder");
 
-            cylinderNode27.Model = new Cylinder(3, 3, 6, 10);
-
+            //cylinderNode27.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode27.Model = trapModel7;
+            ((Model)cylinderNode27.Model).UseInternalMaterials = false;
             cylinderNode27.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode27 = new TransformNode();
 
-            cylinderTransNode27.Translation = new Vector3(0, 0, 3);
-
+            cylinderTransNode27.Scale = new Vector3(5, 5, 5);
             cylinderTransNode27.AddChild(cylinderNode27);
 
             cylinderMarkerNode127.AddChild(cylinderTransNode27);
@@ -1189,14 +1241,16 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode128 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML128.xml", twentyeight);
             GeometryNode cylinderNode28 = new GeometryNode("Cylinder");
 
-            cylinderNode28.Model = new Cylinder(3, 3, 6, 10);
+            //cylinderNode28.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode28.Model = trapModel8;
+            ((Model)cylinderNode28.Model).UseInternalMaterials = false;
 
             cylinderNode28.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode28 = new TransformNode();
 
-            cylinderTransNode28.Translation = new Vector3(0, 0, 3);
-
+            
+            cylinderTransNode28.Scale = new Vector3(5, 5, 5);
             cylinderTransNode28.AddChild(cylinderNode28);
 
             cylinderMarkerNode128.AddChild(cylinderTransNode28);
@@ -1209,14 +1263,15 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode129 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML129.xml", twentynine);
             GeometryNode cylinderNode29 = new GeometryNode("Cylinder");
 
-            cylinderNode29.Model = new Cylinder(3, 3, 6, 10);
-
+            //cylinderNode29.Model = new Cylinder(3, 3, 6, 10);
+            cylinderNode29.Model = trapModel9;
+            ((Model)cylinderNode29.Model).UseInternalMaterials = false;
             cylinderNode29.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode29 = new TransformNode();
 
-            cylinderTransNode29.Translation = new Vector3(0, 0, 3);
-
+            
+            cylinderTransNode29.Scale = new Vector3(5, 5, 5);
             cylinderTransNode29.AddChild(cylinderNode29);
 
             cylinderMarkerNode129.AddChild(cylinderTransNode29);
@@ -1323,6 +1378,19 @@ namespace Tutorial8___Optical_Marker_Tracking
             scene.RootNode.AddChild(cylinderMarkerNode127);
             scene.RootNode.AddChild(cylinderMarkerNode128);
             scene.RootNode.AddChild(cylinderMarkerNode129);
+
+            scene.RootNode.AddChild(cylinderMarkerNode130);
+            scene.RootNode.AddChild(cylinderMarkerNode131);
+            scene.RootNode.AddChild(cylinderMarkerNode132);
+            scene.RootNode.AddChild(cylinderMarkerNode133);
+            scene.RootNode.AddChild(cylinderMarkerNode134);
+            scene.RootNode.AddChild(cylinderMarkerNode135);
+            scene.RootNode.AddChild(cylinderMarkerNode136);
+            scene.RootNode.AddChild(cylinderMarkerNode137);
+            scene.RootNode.AddChild(cylinderMarkerNode138);
+            scene.RootNode.AddChild(cylinderMarkerNode139);
+            scene.RootNode.AddChild(cylinderMarkerNode140);
+            scene.RootNode.AddChild(cylinderMarkerNode141);
 
         }
 
@@ -1666,11 +1734,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         private void endTurn()
         {
-            state = 2; 
+            state = 3; 
             if (p1Turn)
             {
                 processTrap(p2Trap);
                 processSpell(p1Spell);
+                Console.WriteLine("End of P1 Turn!");
             }
             else
             {
@@ -1699,7 +1768,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster1 != null)
                 {
                     if ((p1Monster1.getModel().WorldTransformation.Translation -
-                        p2Monster1.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster1.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1725,7 +1794,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster2 != null)
                 {
                     if ((p1Monster1.getModel().WorldTransformation.Translation -
-                        p2Monster2.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster2.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1751,7 +1820,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster3 != null)
                 {
                     if ((p1Monster1.getModel().WorldTransformation.Translation -
-                        p2Monster3.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster3.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1780,7 +1849,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster1 != null)
                 {
                     if ((p1Monster2.getModel().WorldTransformation.Translation -
-                        p2Monster1.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster1.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1806,7 +1875,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster2 != null)
                 {
                     if ((p1Monster2.getModel().WorldTransformation.Translation -
-                        p2Monster2.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster2.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1832,7 +1901,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster3 != null)
                 {
                     if ((p1Monster2.getModel().WorldTransformation.Translation -
-                        p2Monster3.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster3.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1862,7 +1931,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (p2Monster1 != null)
                 {
                     if ((p1Monster3.getModel().WorldTransformation.Translation -
-                        p2Monster1.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster1.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1888,7 +1957,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     //case 8: 
                     if ((p1Monster3.getModel().WorldTransformation.Translation -
-                        p2Monster2.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster2.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -1914,7 +1983,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     //case 9: 
                     if ((p1Monster3.getModel().WorldTransformation.Translation -
-                        p2Monster3.getModel().WorldTransformation.Translation).Length() <= 10)
+                        p2Monster3.getModel().WorldTransformation.Translation).Length() <= 20)
                     {
                         if (p1Turn)
                         {
@@ -2034,7 +2103,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     p2Trap.destroy();
                 }
             }
-            state = 3;
+            
 
             //checking for end game at end of each turn: p1Turn reflects winner.
             if(p1life == 0)
@@ -2082,131 +2151,139 @@ namespace Tutorial8___Optical_Marker_Tracking
             }
             if (state == 3)
             {
-                int checker = 10; //when checker = 0, break from state. 
-                while (checker != 0)
+                Console.WriteLine("Entered state 3 clause.");
+                int checker = 0; //when checker = 0, break from state. 
+                if (p1Monster1 != null && p1Monster1.isKO())
                 {
-                    if (p1Monster1.isKO())
+                    if (p1Monster1.getModel().MarkerFound)
                     {
-                        if (p1Monster1.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p1Monster1 = null; 
-                        }
+                        //change model color to red
+                        checker++;
                     }
-                    if (p1Monster2.isKO())
+                    else
                     {
-                        if (p1Monster2.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p1Monster2 = null;
-                        }
+                        p1Monster1 = null;
                     }
-                    if (p1Monster3.isKO())
+                }
+                if (p1Monster2 != null && p1Monster2.isKO())
+                {
+                    if (p1Monster2.getModel().MarkerFound)
                     {
-                        if (p1Monster3.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            p1LifeLab.Text = p1life.ToString() + " LP";
-                            checker--;
-                            p1Monster3 = null; 
-                        }
+                        //change model color to red
+                        checker++;
                     }
-                    if (p2Monster1.isKO())
+                    else
                     {
-                        if (p1Monster1.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            p2LifeLab.Text = p2life.ToString() + " LP";
-                            checker--;
-                            p2Monster1 = null;
-                        }
+                        p1Monster2 = null;
                     }
-                    if (p2Monster2.isKO())
+                }
+
+                if (p1Monster3 != null && p1Monster3.isKO())
+                {
+                    if (p1Monster3.getModel().MarkerFound)
                     {
-                        if (p2Monster2.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p2Monster2 = null;
-                        }
+                        //change model color to red
+                        checker++;
                     }
-                    if (p2Monster3.isKO())
+                    else
                     {
-                        if (p2Monster3.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p2Monster3 = null;
-                        }
+                        p1LifeLab.Text = p1life.ToString() + " LP";
+                        p1Monster3 = null;
                     }
-                    if (p1Spell.isKO())
+                }
+
+                if (p2Monster1 != null && p2Monster1.isKO())
+                {
+                    if (p2Monster1.getModel().MarkerFound)
                     {
-                        if (p1Spell.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p1Spell = null;
-                        }
+                        //change model color to red
+                        checker++;
                     }
-                    if (p1Trap.isKO())
+                    else
                     {
-                        if (p1Trap.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p1Trap = null;
-                        }
+                        p2LifeLab.Text = p2life.ToString() + " LP";
+                        p2Monster1 = null;
                     }
-                    if (p2Spell.isKO())
+                }
+
+                if (p2Monster2 != null && p2Monster2.isKO())
+                {
+                    if (p2Monster2.getModel().MarkerFound)
                     {
-                        if (p2Spell.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p2Spell = null;
-                        }
+                        //change model color to red
+                        checker++;
                     }
-                    if (p2Trap.isKO())
+                    else
                     {
-                        if (p2Trap.getModel().MarkerFound)
-                        {
-                            //change model color to red
-                        }
-                        else
-                        {
-                            checker--;
-                            p2Trap = null;
-                        }
+                        p2Monster2 = null;
                     }
+                }
+
+                if (p2Monster3 != null && p2Monster3.isKO())
+                {
+                    if (p2Monster3.getModel().MarkerFound)
+                    {
+                        //change model color to red
+                        checker++;
+                    }
+                    else
+                    {
+                        p2Monster3 = null;
+                    }
+                }
+
+                if (p1Spell != null && p1Spell.isKO())
+                {
+                    if (p1Spell.getModel().MarkerFound)
+                    {
+                        //change model color to red
+                        checker++;
+                    }
+                    else
+                    {
+                        p1Spell = null;
+                    }
+                }
+
+                if (p1Trap != null && p1Trap.isKO())
+                {
+                    if (p1Trap.getModel().MarkerFound)
+                    {
+                        //change model color to red
+                        checker++;
+                    }
+                    else
+                    {
+                        p1Trap = null;
+                    }
+                }
+
+                if (p2Spell != null && p2Spell.isKO())
+                {
+                    if (p2Spell.getModel().MarkerFound)
+                    {
+                        //change model color to red
+                        checker++;
+                    }
+                    else
+                    {
+                        p2Spell = null;
+                    }
+                }
+
+                if (p2Trap != null && p2Trap.isKO())
+                {
+                    if (p2Trap.getModel().MarkerFound)
+                    {
+                        //change model color to red
+                        checker++;
+                    }
+                    else
+                    {
+                        p2Trap = null;
+                    }
+                }
+                
                     if (checker != 0)
                         text = "There are destroyed cards on the board that have not been removed. Please remove them to continue.";
                     else
@@ -2214,10 +2291,31 @@ namespace Tutorial8___Optical_Marker_Tracking
                         text = "";
                         state = 1; 
                     }
+                    Console.WriteLine("checker = " + checker.ToString());
                     UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
                         uiFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
 
-                }
+                    if (p1Monster1 != null)
+                        p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
+                            p1Monster1.getHealth().ToString() + " HP";
+                    if (p1Monster2 != null)
+                        p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
+                            p1Monster2.getHealth().ToString() + " HP";
+                    if (p1Monster3 != null)
+                        p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
+                            p1Monster3.getHealth().ToString() + " HP";
+
+                    if (p2Monster1 != null)
+                        p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
+                            p2Monster1.getHealth().ToString() + " HP";
+                    if (p2Monster2 != null)
+                        p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
+                            p2Monster2.getHealth().ToString() + " HP";
+                    if (p2Monster3 != null)
+                        p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
+                            p2Monster3.getHealth().ToString() + " HP"; 
+                    return;
+
             }
             /*Checking for player cards via proximity checks
              * Checking:
@@ -2245,27 +2343,27 @@ namespace Tutorial8___Optical_Marker_Tracking
                     continue; 
                 }
                 monCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if ((m32Pos - monCardPos).Length() <= 10)
+                if ((m32Pos - monCardPos).Length() <= 20)
                 {
                     p1Monster1 = cards[x];
                 }
-                else if ((m33Pos - monCardPos).Length() <= 10)
+                else if ((m33Pos - monCardPos).Length() <= 20)
                 {
                     p1Monster2 = cards[x];
                 }
-                else if ((m34Pos - monCardPos).Length() <= 10)
+                else if ((m34Pos - monCardPos).Length() <= 20)
                 {
                     p1Monster3 = cards[x];
                 }
-                else if ((m35Pos - monCardPos).Length() <= 10)
+                else if ((m35Pos - monCardPos).Length() <= 20)
                 {
                     p2Monster1 = cards[x];
                 }
-                else if ((m36Pos - monCardPos).Length() <= 10)
+                else if ((m36Pos - monCardPos).Length() <= 20)
                 {
                     p2Monster2 = cards[x];
                 }
-                else if ((m37Pos - monCardPos).Length() <= 10)
+                else if ((m37Pos - monCardPos).Length() <= 20)
                 {
                     p2Monster3 = cards[x];
                 }
@@ -2282,11 +2380,11 @@ namespace Tutorial8___Optical_Marker_Tracking
                     continue;
                 }
                 spellCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if ((m38Pos - spellCardPos).Length() <= 10)
+                if ((m38Pos - spellCardPos).Length() <= 20)
                 {
                     p1Spell = cards[x];
                 }
-                else if ((m39Pos - spellCardPos).Length() <= 10)
+                else if ((m39Pos - spellCardPos).Length() <= 20)
                 {
                     p2Spell = cards[x];
                 }
@@ -2301,11 +2399,11 @@ namespace Tutorial8___Optical_Marker_Tracking
                 if (!(cards[x].getModel().MarkerFound))
                     continue;
                 trapCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if ((m40Pos - trapCardPos).Length() <= 10)
+                if ((m40Pos - trapCardPos).Length() <= 20)
                 {
                     p1Trap = cards[x];
                 }
-                else if ((m41Pos - trapCardPos).Length() <= 10)
+                else if ((m41Pos - trapCardPos).Length() <= 20)
                 {
                     p2Trap = cards[x];
                 }

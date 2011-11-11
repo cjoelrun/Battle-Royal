@@ -118,3 +118,31 @@ Z:\bin\GoblinXNAv3.6\bin\Content\ShadowMap.xnb
 Z:\bin\GoblinXNAv3.6\bin\Content\ShadowDistanceFadeoutMap.xnb
 Z:\bin\GoblinXNAv3.6\bin\Tutorial8 - Optical Marker Tracking.exe
 Z:\bin\GoblinXNAv3.6\bin\Tutorial8 - Optical Marker Tracking.pdb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxBlack.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxBlue.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxCyan.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxGreen.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxOrange.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxPink.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxPurple.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\BoxRed.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\Boxwhite.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatBlack.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatBlue.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatCyan.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatGreen.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatOrange.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatPink.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatRed.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatWhite.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\HatYellow.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeBlack.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeBlue.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeCyan.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeGreen.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeGrey.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeOrange.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimePink.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimePurple.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeRed.xnb
+Z:\bin\GoblinXNAv3.6\bin\Content\SlimeYellow.xnb
