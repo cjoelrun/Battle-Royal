@@ -424,7 +424,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         private void Create2DGUI()
         {
             p1Frame = new G2DPanel();
-            p1Frame.Bounds = new Rectangle(0, 0, 75, 75);
+            p1Frame.Bounds = new Rectangle(0, 0, 150, 80);
             p1Frame.Border = GoblinEnums.BorderFactory.LineBorder;
             p1Frame.Transparency = 1.0f;
             p1Frame.BackgroundColor = Color.CornflowerBlue;
@@ -483,50 +483,50 @@ namespace Tutorial8___Optical_Marker_Tracking
             
             
             p2Frame = new G2DPanel();
-            p2Frame.Bounds = new Rectangle(700, 0, 100, 100);
+            p2Frame.Bounds = new Rectangle(650, 0, 150, 80);
             p2Frame.Border = GoblinEnums.BorderFactory.LineBorder;
             p2Frame.Transparency = 1.0f;
             p2Frame.BackgroundColor = Color.CornflowerBlue;
 
             //Generic Label: P2
             G2DLabel p2Label = new G2DLabel("P2: ");
-            p2Label.Bounds = new Rectangle(10, 10, 10, 10);
+            p2Label.Bounds = new Rectangle(15, 10, 10, 10);
             p2Label.TextFont = uiFont;
 
             //Life Point Label: P2
             p2LifeLab = new G2DLabel();
-            p2LifeLab.Bounds = new Rectangle(25, 10, 40, 40);
+            p2LifeLab.Bounds = new Rectangle(35, 10, 40, 40);
             p2LifeLab.Text = p2life.ToString() + " LP";
             p2LifeLab.TextFont = uiFont;
 
             //Generic Label: P2M1
             G2DLabel p2m1StatLab = new G2DLabel("M1: ");
-            p2m1StatLab.Bounds = new Rectangle(10, 25, 10, 10);
+            p2m1StatLab.Bounds = new Rectangle(15, 25, 10, 10);
             p2m1StatLab.TextFont = uiFont;
 
             //Status Label: P2M1
             p2m1LifeLab = new G2DLabel();
-            p2m1LifeLab.Bounds = new Rectangle(25, 25, 20, 40);
+            p2m1LifeLab.Bounds = new Rectangle(35, 25, 20, 40);
             p2m1LifeLab.TextFont = uiFont;
 
             //Generic Label: P2M2
             G2DLabel p2m2StatLab = new G2DLabel("M2: ");
-            p2m2StatLab.Bounds = new Rectangle(10, 40, 10, 10);
+            p2m2StatLab.Bounds = new Rectangle(15, 40, 10, 10);
             p2m2StatLab.TextFont = uiFont;
 
             //Status Label: P2M2
             p2m2LifeLab = new G2DLabel();
-            p2m2LifeLab.Bounds = new Rectangle(25, 40, 20, 40);
+            p2m2LifeLab.Bounds = new Rectangle(35, 40, 20, 40);
             p2m2LifeLab.TextFont = uiFont;
 
             //Generic Label: P2M3
             G2DLabel p2m3StatLab = new G2DLabel("M3: ");
-            p2m3StatLab.Bounds = new Rectangle(10, 55, 10, 10);
+            p2m3StatLab.Bounds = new Rectangle(15, 55, 10, 10);
             p2m3StatLab.TextFont = uiFont;
 
             //Status Label: P2M3
             p2m3LifeLab = new G2DLabel();
-            p2m3LifeLab.Bounds = new Rectangle(25, 55, 20, 40);
+            p2m3LifeLab.Bounds = new Rectangle(35, 55, 20, 40);
             p2m3LifeLab.TextFont = uiFont;
 
             
@@ -560,6 +560,41 @@ namespace Tutorial8___Optical_Marker_Tracking
             sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
             sphereMaterial3.Specular = Color.Red.ToVector4();
             sphereMaterial3.SpecularPower = 10;
+
+            Material sphereMaterial4 = new Material();
+            sphereMaterial4.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial4.Specular = Color.Cyan.ToVector4();
+            sphereMaterial4.SpecularPower = 10;
+
+            Material sphereMaterial5 = new Material();
+            sphereMaterial5.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial5.Specular = Color.Magenta.ToVector4();
+            sphereMaterial5.SpecularPower = 10;
+
+            Material sphereMaterial6 = new Material();
+            sphereMaterial6.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial6.Specular = Color.Yellow.ToVector4();
+            sphereMaterial6.SpecularPower = 10;
+
+            Material sphereMaterial7 = new Material();
+            sphereMaterial7.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial7.Specular = Color.DarkGray.ToVector4();
+            sphereMaterial7.SpecularPower = 10;
+
+            Material sphereMaterial8 = new Material();
+            sphereMaterial8.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial8.Specular = Color.Orange.ToVector4();
+            sphereMaterial8.SpecularPower = 10;
+
+            Material sphereMaterial9 = new Material();
+            sphereMaterial9.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial9.Specular = Color.Purple.ToVector4();
+            sphereMaterial9.SpecularPower = 10;
+
+            Material sphereMaterial10 = new Material();
+            sphereMaterial10.Diffuse = new Vector4(0.5f, 0, 0, 1);
+            sphereMaterial10.Specular = Color.Pink.ToVector4();
+            sphereMaterial10.SpecularPower = 10;
 
             int[] zero = new int[1];
             int[] first = new int[1];
@@ -701,7 +736,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode1.Model = monsterModel1;
             ((Model)cylinderNode1.Model).UseInternalMaterials = false;
 
-            cylinderNode1.Material = sphereMaterial;
+            cylinderNode1.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode1 = new TransformNode();
 
@@ -721,7 +756,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode2.Model = monsterModel2;
             ((Model)cylinderNode2.Model).UseInternalMaterials = false;
 
-            cylinderNode2.Material = sphereMaterial;
+            cylinderNode2.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode2 = new TransformNode();
 
@@ -740,7 +775,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode3.Model = monsterModel3;
             ((Model)cylinderNode3.Model).UseInternalMaterials = false;
-            cylinderNode3.Material = sphereMaterial;
+            cylinderNode3.Material = sphereMaterial4;
 
             TransformNode cylinderTransNode3 = new TransformNode();
 
@@ -760,7 +795,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode4.Model = monsterModel4;
             ((Model)cylinderNode4.Model).UseInternalMaterials = false;
 
-            cylinderNode4.Material = sphereMaterial;
+            cylinderNode4.Material = sphereMaterial5;
 
             TransformNode cylinderTransNode4 = new TransformNode();
 
@@ -780,7 +815,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode5.Model = monsterModel5;
             ((Model)cylinderNode5.Model).UseInternalMaterials = false;
 
-            cylinderNode5.Material = sphereMaterial;
+            cylinderNode5.Material = sphereMaterial6;
 
             TransformNode cylinderTransNode5 = new TransformNode();
 
@@ -800,7 +835,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode6.Model = monsterModel6;
             ((Model)cylinderNode6.Model).UseInternalMaterials = false;
 
-            cylinderNode6.Material = sphereMaterial;
+            cylinderNode6.Material = sphereMaterial7;
 
             TransformNode cylinderTransNode6 = new TransformNode();
 
@@ -820,7 +855,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode7.Model = monsterModel7;
             ((Model)cylinderNode7.Model).UseInternalMaterials = false;
 
-            cylinderNode7.Material = sphereMaterial;
+            cylinderNode7.Material = sphereMaterial8;
 
             TransformNode cylinderTransNode7 = new TransformNode();
 
@@ -840,7 +875,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode8.Model = monsterModel8;
             ((Model)cylinderNode8.Model).UseInternalMaterials = false;
 
-            cylinderNode8.Material = sphereMaterial;
+            cylinderNode8.Material = sphereMaterial9;
 
             TransformNode cylinderTransNode8 = new TransformNode();
 
@@ -860,7 +895,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode9.Model = monsterModel9;
             ((Model)cylinderNode9.Model).UseInternalMaterials = false;
 
-            cylinderNode9.Material = sphereMaterial;
+            cylinderNode9.Material = sphereMaterial10;
 
             TransformNode cylinderTransNode9 = new TransformNode();
 
@@ -880,7 +915,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode10.Model = spellModel0;
             ((Model)cylinderNode10.Model).UseInternalMaterials = false;
 
-            cylinderNode10.Material = sphereMaterial2;
+            cylinderNode10.Material = sphereMaterial;
 
             TransformNode cylinderTransNode10 = new TransformNode();
 
@@ -920,7 +955,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode12.Model = spellModel2;
             ((Model)cylinderNode12.Model).UseInternalMaterials = false;
 
-            cylinderNode12.Material = sphereMaterial2;
+            cylinderNode12.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode12 = new TransformNode();
 
@@ -940,7 +975,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode13.Model = spellModel3;
             ((Model)cylinderNode13.Model).UseInternalMaterials = false;
 
-            cylinderNode13.Material = sphereMaterial2;
+            cylinderNode13.Material = sphereMaterial4;
 
             TransformNode cylinderTransNode13 = new TransformNode();
 
@@ -960,7 +995,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode14.Model = spellModel4;
             ((Model)cylinderNode14.Model).UseInternalMaterials = false;
 
-            cylinderNode14.Material = sphereMaterial2;
+            cylinderNode14.Material = sphereMaterial5;
 
             TransformNode cylinderTransNode14 = new TransformNode();
 
@@ -980,7 +1015,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode15.Model = spellModel5;
             ((Model)cylinderNode15.Model).UseInternalMaterials = false;
 
-            cylinderNode15.Material = sphereMaterial2;
+            cylinderNode15.Material = sphereMaterial6;
 
             TransformNode cylinderTransNode15 = new TransformNode();
 
@@ -1000,7 +1035,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode16.Model = spellModel6;
             ((Model)cylinderNode16.Model).UseInternalMaterials = false;
 
-            cylinderNode16.Material = sphereMaterial2;
+            cylinderNode16.Material = sphereMaterial7;
 
             TransformNode cylinderTransNode16 = new TransformNode();
 
@@ -1020,7 +1055,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode17.Model = spellModel7;
             ((Model)cylinderNode17.Model).UseInternalMaterials = false;
 
-            cylinderNode17.Material = sphereMaterial2;
+            cylinderNode17.Material = sphereMaterial8;
 
             TransformNode cylinderTransNode17 = new TransformNode();
 
@@ -1040,7 +1075,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode18.Model = spellModel8;
             ((Model)cylinderNode18.Model).UseInternalMaterials = false;
 
-            cylinderNode18.Material = sphereMaterial2;
+            cylinderNode18.Material = sphereMaterial9;
 
             TransformNode cylinderTransNode18 = new TransformNode();
 
@@ -1060,7 +1095,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode19.Model = spellModel9;
             ((Model)cylinderNode19.Model).UseInternalMaterials = false;
 
-            cylinderNode19.Material = sphereMaterial2;
+            cylinderNode19.Material = sphereMaterial10;
 
             TransformNode cylinderTransNode19 = new TransformNode();
 
@@ -1080,7 +1115,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode20.Model = trapModel0;
             ((Model)cylinderNode20.Model).UseInternalMaterials = false;
 
-            cylinderNode20.Material = sphereMaterial3;
+            cylinderNode20.Material = sphereMaterial;
 
             TransformNode cylinderTransNode20 = new TransformNode();
             cylinderTransNode20.Scale = new Vector3(5, 5, 5);
@@ -1099,7 +1134,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode21.Model = trapModel1;
             ((Model)cylinderNode21.Model).UseInternalMaterials = false;
-            cylinderNode21.Material = sphereMaterial3;
+            cylinderNode21.Material = sphereMaterial2;
 
 
             TransformNode cylinderTransNode21 = new TransformNode();
@@ -1137,7 +1172,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode23.Model = trapModel3;
             ((Model)cylinderNode23.Model).UseInternalMaterials = false;
-            cylinderNode23.Material = sphereMaterial3;
+            cylinderNode23.Material = sphereMaterial4;
 
             TransformNode cylinderTransNode23 = new TransformNode();
 
@@ -1157,7 +1192,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode24.Model = trapModel4;
             ((Model)cylinderNode24.Model).UseInternalMaterials = false;
-            cylinderNode24.Material = sphereMaterial3;
+            cylinderNode24.Material = sphereMaterial5;
 
             TransformNode cylinderTransNode24 = new TransformNode();
 
@@ -1178,7 +1213,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode25.Model = trapModel5;
             ((Model)cylinderNode25.Model).UseInternalMaterials = false;
 
-            cylinderNode25.Material = sphereMaterial3;
+            cylinderNode25.Material = sphereMaterial6;
 
             TransformNode cylinderTransNode25 = new TransformNode();
 
@@ -1196,11 +1231,10 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode126 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML126.xml", twentysix);
             GeometryNode cylinderNode26 = new GeometryNode("Cylinder");
 
-            //cylinderNode26.Model = new Cylinder(3, 3, 6, 10);
             cylinderNode26.Model = trapModel6;
             ((Model)cylinderNode26.Model).UseInternalMaterials = false;
 
-            cylinderNode26.Material = sphereMaterial3;
+            cylinderNode26.Material = sphereMaterial7;
 
             TransformNode cylinderTransNode26 = new TransformNode();
 
@@ -1218,10 +1252,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode127 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML127.xml", twentyseven);
             GeometryNode cylinderNode27 = new GeometryNode("Cylinder");
 
-            //cylinderNode27.Model = new Cylinder(3, 3, 6, 10);
             cylinderNode27.Model = trapModel7;
             ((Model)cylinderNode27.Model).UseInternalMaterials = false;
-            cylinderNode27.Material = sphereMaterial3;
+            cylinderNode27.Material = sphereMaterial8;
 
             TransformNode cylinderTransNode27 = new TransformNode();
 
@@ -1240,11 +1273,10 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode128 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML128.xml", twentyeight);
             GeometryNode cylinderNode28 = new GeometryNode("Cylinder");
 
-            //cylinderNode28.Model = new Cylinder(3, 3, 6, 10);
             cylinderNode28.Model = trapModel8;
             ((Model)cylinderNode28.Model).UseInternalMaterials = false;
 
-            cylinderNode28.Material = sphereMaterial3;
+            cylinderNode28.Material = sphereMaterial9;
 
             TransformNode cylinderTransNode28 = new TransformNode();
 
@@ -1263,10 +1295,9 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode129 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML129.xml", twentynine);
             GeometryNode cylinderNode29 = new GeometryNode("Cylinder");
 
-            //cylinderNode29.Model = new Cylinder(3, 3, 6, 10);
             cylinderNode29.Model = trapModel9;
             ((Model)cylinderNode29.Model).UseInternalMaterials = false;
-            cylinderNode29.Material = sphereMaterial3;
+            cylinderNode29.Material = sphereMaterial10;
 
             TransformNode cylinderTransNode29 = new TransformNode();
 
@@ -2622,6 +2653,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
         protected override void Draw(GameTime gameTime)
         {
             if (state == 4)
@@ -2639,9 +2671,6 @@ namespace Tutorial8___Optical_Marker_Tracking
                         GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center); 
                 }
             }
-            // TODO: Add your drawing code here
-            //UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
-            //    textFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
             base.Draw(gameTime);
         }
     }
