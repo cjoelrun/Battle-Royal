@@ -58,143 +58,20 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.XImporter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoxBlack.fbx">
-      <Name>BoxBlack</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxBlue.fbx">
-      <Name>BoxBlue</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxCyan.fbx">
-      <Name>BoxCyan</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxGreen.fbx">
-      <Name>BoxGreen</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxOrange.fbx">
-      <Name>BoxOrange</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxPink.fbx">
-      <Name>BoxPink</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxPurple.fbx">
-      <Name>BoxPurple</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="BoxRed.fbx">
-      <Name>BoxRed</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Boxwhite.fbx">
       <Name>Boxwhite</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="HatBlack.fbx">
-      <Name>HatBlack</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MagicHat.fbx">
+      <Name>MagicHat</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="HatBlue.fbx">
-      <Name>HatBlue</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatCyan.fbx">
-      <Name>HatCyan</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatGreen.fbx">
-      <Name>HatGreen</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatOrange.fbx">
-      <Name>HatOrange</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatPink.fbx">
-      <Name>HatPink</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatRed.fbx">
-      <Name>HatRed</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatWhite.fbx">
-      <Name>HatWhite</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="HatYellow.fbx">
-      <Name>HatYellow</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeBlack.fbx">
-      <Name>SlimeBlack</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeBlue.fbx">
-      <Name>SlimeBlue</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeCyan.fbx">
-      <Name>SlimeCyan</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeGreen.fbx">
-      <Name>SlimeGreen</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeGrey.fbx">
-      <Name>SlimeGrey</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeOrange.fbx">
-      <Name>SlimeOrange</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimePink.fbx">
-      <Name>SlimePink</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimePurple.fbx">
-      <Name>SlimePurple</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeRed.fbx">
-      <Name>SlimeRed</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="SlimeYellow.fbx">
-      <Name>SlimeYellow</Name>
+    <Compile Include="Slime.fbx">
+      <Name>Slime</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
