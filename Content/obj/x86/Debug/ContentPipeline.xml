@@ -1,115 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
-    <Item>
-      <Source>Z:\bin\GoblinXNAv3.6\data\Fonts\DebugFont.spritefont</Source>
-      <Name>DebugFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\DebugFont.xnb</Output>
-      <Time>2011-07-15T13:25:52-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Z:\bin\GoblinXNAv3.6\data\Shaders\PostScreenShadowBlur.fx</Source>
-      <Name>PostScreenShadowBlur</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\PostScreenShadowBlur.xnb</Output>
-      <Time>2011-07-15T13:26:40-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Z:\bin\GoblinXNAv3.6\data\Shaders\ShadowMap.fx</Source>
-      <Name>ShadowMap</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\ShadowMap.xnb</Output>
-      <Time>2011-07-15T13:26:40-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Z:\bin\GoblinXNAv3.6\data\Textures\ShadowDistanceFadeoutMap.dds</Source>
-      <Name>ShadowDistanceFadeoutMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="GenerateMipmaps">True</Data>
-        <Data Key="TextureFormat">DxtCompressed</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\ShadowDistanceFadeoutMap.xnb</Output>
-      <Time>2011-07-15T13:26:44-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Boxwhite.fbx</Source>
-      <Name>Boxwhite</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\Boxwhite.xnb</Output>
-      <Time>2011-11-10T17:04:11-06:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Boxwhite_0.xml</Key>
-        <Value>2011-11-10T17:04:27-06:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>Boxwhite.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Boxwhite_0.xml</Output>
-      <Time>2011-11-10T17:04:11-06:00</Time>
-    </Item>
-    <Item>
-      <Source>MagicHat.fbx</Source>
-      <Name>MagicHat</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\MagicHat.xnb</Output>
-      <Time>2011-11-10T18:40:14-06:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\MagicHat_0.xml</Key>
-        <Value>2011-11-10T18:40:16-06:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>Slime.fbx</Source>
-      <Name>Slime</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>Z:\bin\GoblinXNAv3.6\bin\Content\Slime.xnb</Output>
-      <Time>2011-11-10T18:40:14-06:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Slime_0.xml</Key>
-        <Value>2011-11-10T18:40:16-06:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>MagicHat.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\MagicHat_0.xml</Output>
-      <Time>2011-11-10T18:40:14-06:00</Time>
-    </Item>
-    <Item>
-      <Source>Slime.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Slime_0.xml</Output>
-      <Time>2011-11-10T18:40:14-06:00</Time>
-    </Item>
-    <BuildSuccessful>true</BuildSuccessful>
+    <BuildSuccessful>false</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\Content\</RootDirectory>
-      <LoggerRootDirectory>Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\</LoggerRootDirectory>
-      <IntermediateDirectory>Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>Z:\bin\GoblinXNAv3.6\bin\Content\</OutputDirectory>
+      <RootDirectory>Z:\bin\Battle-Royale\Content\</RootDirectory>
+      <LoggerRootDirectory>Z:\bin\Battle-Royale\</LoggerRootDirectory>
+      <IntermediateDirectory>Z:\bin\Battle-Royale\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>Z:\bin\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

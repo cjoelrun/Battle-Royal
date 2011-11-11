@@ -121,3 +121,5 @@ Z:\bin\GoblinXNAv3.6\bin\Tutorial8 - Optical Marker Tracking.pdb
 Z:\bin\GoblinXNAv3.6\bin\Content\Boxwhite.xnb
 Z:\bin\GoblinXNAv3.6\bin\Content\MagicHat.xnb
 Z:\bin\GoblinXNAv3.6\bin\Content\Slime.xnb
+Z:\bin\Battle-Royale\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.exe
+Z:\bin\Battle-Royale\obj\x86\Debug\Tutorial8 - Optical Marker Tracking.pdb
