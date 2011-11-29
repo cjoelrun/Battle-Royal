@@ -269,7 +269,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         bool p2NoAttack = false;
         int p1TrapEffectCnt = 0;
         int p2TrapEffectCnt = 0;
-        int p1life = 400, p2life = 400;
+        int p1life = 100, p2life = 100;
         string text = "";
         string badPort = "";
         int prevState;
