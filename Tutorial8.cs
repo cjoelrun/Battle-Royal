@@ -249,6 +249,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         bool useStaticImage = false;
         SpriteFont uiFont;
+        SpriteFont displayFont;
         Card p1Monster1;
         Card p1Monster2;
         Card p1Monster3;
@@ -270,6 +271,8 @@ namespace Tutorial8___Optical_Marker_Tracking
         int p2TrapEffectCnt = 0;
         int p1life = 400, p2life = 400;
         string text = "";
+        string badPort = "";
+        int prevState;
         bool p1Winner = false;
         public Tutorial8()
         {
@@ -286,8 +289,9 @@ namespace Tutorial8___Optical_Marker_Tracking
          *  * 0 = start splash page 
          *  * 1 = turn in progress (game on!)
          *  * 2 = end phase
-         *  * 3 = cleanup phase
+         *  * 3 = cleanup phase -- remove destroyed monsters
          *  * 4 = end game
+         *  * 5 = cleanup phase -- card in wrong port
          */
         int state = 1;
         G2DPanel p1Frame, p2Frame;
@@ -2246,6 +2250,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         protected override void LoadContent()
         {
             uiFont = Content.Load<SpriteFont>("UIFont");
+            displayFont = Content.Load<SpriteFont>("DisplayFont");
             base.LoadContent();
         }
 
@@ -2265,6 +2270,228 @@ namespace Tutorial8___Optical_Marker_Tracking
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (state == 5)
+            {
+                bool flag = true;
+                int counter = 0; // counter = 0, break from state.
+                Vector3 cardPos;
+                switch (badPort)
+                {
+                    case "Player 1 Monster 1":
+                        Vector3 m32Pos = cylinderMarkerNode132.WorldTransformation.Translation;
+                        for (int x = 10; x < 30; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m32Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 1 Monster 2":
+                        Vector3 m33Pos = cylinderMarkerNode133.WorldTransformation.Translation;
+                        for (int x = 10; x < 30; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m33Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 1 Monster 3":
+                        Vector3 m34Pos = cylinderMarkerNode134.WorldTransformation.Translation;
+                        for (int x = 10; x < 30; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m34Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 2 Monster 1":
+                        Vector3 m35Pos = cylinderMarkerNode135.WorldTransformation.Translation;
+                        for (int x = 10; x < 30; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m35Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 2 Monster 2":
+                        Vector3 m36Pos = cylinderMarkerNode136.WorldTransformation.Translation;
+                        for (int x = 10; x < 30; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m36Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 2 Monster 3":
+                        Vector3 m37Pos = cylinderMarkerNode137.WorldTransformation.Translation;
+                        for (int x = 10; x < 30; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m37Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 1 Spell":
+                        Vector3 m38Pos = cylinderMarkerNode138.WorldTransformation.Translation;
+                        for (int x = 0; x < 30; x++)
+                        {
+                            if ((x >= 10 && x < 20)||!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m38Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 2 Spell":
+                        Vector3 m39Pos = cylinderMarkerNode139.WorldTransformation.Translation;
+                        for (int x = 0; x < 30; x++)
+                        {
+                            if ((x >= 10 && x < 20) || !(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m39Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 1 Trap":
+                        Vector3 m40Pos = cylinderMarkerNode139.WorldTransformation.Translation;
+                        for (int x = 0; x < 20; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m40Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                    case "Player 2 Trap":
+                        Vector3 m41Pos = cylinderMarkerNode139.WorldTransformation.Translation;
+                        for (int x = 0; x < 20; x++)
+                        {
+                            if (!(cards[x].getModel().MarkerFound))
+                            {
+                                continue;
+                            }
+                            cardPos = cards[x].getModel().WorldTransformation.Translation;
+                            if ((m41Pos - cardPos).Length() <= 20)
+                            {
+                                counter++;
+                            }
+                        }
+                        if (counter == 0)
+                        {
+                            state = prevState;
+                            flag = false;
+                        }
+                        break;
+                }
+                if (flag)
+                {
+                    text = "There is an invalid card near the " + badPort + " port. Please remove it.";
+                    UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
+                            displayFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
+                }
+                else
+                {
+                    text = "";
+                    UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
+                            displayFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
+                }
+                return;
+            }
             if (p1Turn && cylinderMarkerNode131.MarkerFound)
             {
                 endTurn();
@@ -2440,7 +2667,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     }
                     Console.WriteLine("checker = " + checker.ToString());
                     UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
-                        uiFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
+                        displayFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
 
                     if (p1Monster1 != null)
                         p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
@@ -2492,89 +2719,137 @@ namespace Tutorial8___Optical_Marker_Tracking
                     continue; 
                 }
                 monCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if (p1Monster1==null && (m32Pos - monCardPos).Length() <= 20)
+                if (x < 10)
                 {
-                    if (p1Monster2 == cards[x])
-                        break;
-                    if (p1Monster3 == cards[x])
-                        break;
-                    if (p2Monster1 == cards[x])
-                        break;
-                    if (p2Monster2 == cards[x])
-                        break;
-                    if (p2Monster3 == cards[x])
-                        break;
-                    p1Monster1 = cards[x];
+                    if (p1Monster1 == null && (m32Pos - monCardPos).Length() <= 20)
+                    {
+                        if (p1Monster2 == cards[x])
+                            break;
+                        if (p1Monster3 == cards[x])
+                            break;
+                        if (p2Monster1 == cards[x])
+                            break;
+                        if (p2Monster2 == cards[x])
+                            break;
+                        if (p2Monster3 == cards[x])
+                            break;
+                        p1Monster1 = cards[x];
+                    }
+                    else if (p1Monster2 == null && (m33Pos - monCardPos).Length() <= 20)
+                    {
+                        if (p1Monster1 == cards[x])
+                            break;
+                        if (p1Monster3 == cards[x])
+                            break;
+                        if (p2Monster1 == cards[x])
+                            break;
+                        if (p2Monster2 == cards[x])
+                            break;
+                        if (p2Monster3 == cards[x])
+                            break;
+                        p1Monster2 = cards[x];
+                    }
+                    else if (p1Monster3 == null && (m34Pos - monCardPos).Length() <= 20)
+                    {
+                        if (p1Monster2 == cards[x])
+                            break;
+                        if (p1Monster1 == cards[x])
+                            break;
+                        if (p2Monster1 == cards[x])
+                            break;
+                        if (p2Monster2 == cards[x])
+                            break;
+                        if (p2Monster3 == cards[x])
+                            break;
+                        p1Monster3 = cards[x];
+                    }
+                    else if (p2Monster1 == null && (m35Pos - monCardPos).Length() <= 20)
+                    {
+                        if (p1Monster2 == cards[x])
+                            break;
+                        if (p1Monster3 == cards[x])
+                            break;
+                        if (p1Monster1 == cards[x])
+                            break;
+                        if (p2Monster2 == cards[x])
+                            break;
+                        if (p2Monster3 == cards[x])
+                            break;
+                        p2Monster1 = cards[x];
+                    }
+                    else if (p2Monster2 == null && (m36Pos - monCardPos).Length() <= 20)
+                    {
+                        if (p1Monster2 == cards[x])
+                            break;
+                        if (p1Monster3 == cards[x])
+                            break;
+                        if (p2Monster1 == cards[x])
+                            break;
+                        if (p1Monster1 == cards[x])
+                            break;
+                        if (p2Monster3 == cards[x])
+                            break;
+                        p2Monster2 = cards[x];
+                    }
+                    else if (p2Monster3 == null && (m37Pos - monCardPos).Length() <= 20)
+                    {
+                        if (p1Monster2 == cards[x])
+                            break;
+                        if (p1Monster3 == cards[x])
+                            break;
+                        if (p2Monster1 == cards[x])
+                            break;
+                        if (p2Monster2 == cards[x])
+                            break;
+                        if (p1Monster1 == cards[x])
+                            break;
+                        p2Monster3 = cards[x];
+                    }
                 }
-                else if (p1Monster2 == null && (m33Pos - monCardPos).Length() <= 20)
+                else
                 {
-                    if (p1Monster1 == cards[x])
-                        break;
-                    if (p1Monster3 == cards[x])
-                        break;
-                    if (p2Monster1 == cards[x])
-                        break;
-                    if (p2Monster2 == cards[x])
-                        break;
-                    if (p2Monster3 == cards[x])
-                        break;
-                    p1Monster2 = cards[x];
-                }
-                else if (p1Monster3 == null && (m34Pos - monCardPos).Length() <= 20)
-                {
-                    if (p1Monster2 == cards[x])
-                        break;
-                    if (p1Monster1 == cards[x])
-                        break;
-                    if (p2Monster1 == cards[x])
-                        break;
-                    if (p2Monster2 == cards[x])
-                        break;
-                    if (p2Monster3 == cards[x])
-                        break;
-                    p1Monster3 = cards[x];
-                }
-                else if (p2Monster1 == null && (m35Pos - monCardPos).Length() <= 20)
-                {
-                    if (p1Monster2 == cards[x])
-                        break;
-                    if (p1Monster3 == cards[x])
-                        break;
-                    if (p1Monster1 == cards[x])
-                        break;
-                    if (p2Monster2 == cards[x])
-                        break;
-                    if (p2Monster3 == cards[x])
-                        break;
-                    p2Monster1 = cards[x];
-                }
-                else if (p2Monster2 == null && (m36Pos - monCardPos).Length() <= 20)
-                {
-                    if (p1Monster2 == cards[x])
-                        break;
-                    if (p1Monster3 == cards[x])
-                        break;
-                    if (p2Monster1 == cards[x])
-                        break;
-                    if (p1Monster1 == cards[x])
-                        break;
-                    if (p2Monster3 == cards[x])
-                        break;
-                    p2Monster2 = cards[x];
-                }
-                else if (p2Monster3 == null && (m37Pos - monCardPos).Length() <= 20)
-                {
-                    if (p1Monster2 == cards[x])
-                        break;
-                    if (p1Monster3 == cards[x])
-                        break;
-                    if (p2Monster1 == cards[x])
-                        break;
-                    if (p2Monster2 == cards[x])
-                        break;
-                    if (p1Monster1 == cards[x])
-                        break;
-                    p2Monster3 = cards[x];
+                    if ((m32Pos - monCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 1 Monster 1";
+                        return;
+                    }
+                    else if ((m33Pos - monCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 1 Monster 2";
+                        return;
+                    }
+                    else if ((m34Pos - monCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 1 Monster 3";
+                        return;
+                    }
+                    else if ((m35Pos - monCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 2 Monster 1";
+                        return;
+                    }
+                    else if ((m36Pos - monCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 2 Monster 2";
+                        return;
+                    }
+                    else if ((m37Pos - monCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 2 Monster 3";
+                        return;
+                    }
                 }
             }
 
@@ -2582,20 +2857,40 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 m38Pos = cylinderMarkerNode138.WorldTransformation.Translation;
             Vector3 m39Pos = cylinderMarkerNode139.WorldTransformation.Translation;
             Vector3 spellCardPos;
-            for (x = 10; x < 20; x++)
+            for (x = 0; x < 30; x++)
             {
                 if (!(cards[x].getModel().MarkerFound))
                 {
                     continue;
                 }
                 spellCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if (p1Spell==null && (m38Pos - spellCardPos).Length() <= 20)
+                if (x >= 10 && x < 20)
                 {
-                    p1Spell = cards[x];
+                    if (p1Spell == null && (m38Pos - spellCardPos).Length() <= 20)
+                    {
+                        p1Spell = cards[x];
+                    }
+                    else if (p2Spell == null && (m39Pos - spellCardPos).Length() <= 20)
+                    {
+                        p2Spell = cards[x];
+                    }
                 }
-                else if (p2Spell==null && (m39Pos - spellCardPos).Length() <= 20)
+                else
                 {
-                    p2Spell = cards[x];
+                    if ((m38Pos - spellCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 1 Spell";
+                        return;
+                    }
+                    else if ((m39Pos - spellCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 2 Spell";
+                        return;
+                    }
                 }
             }
 
@@ -2603,18 +2898,38 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 m40Pos = cylinderMarkerNode140.WorldTransformation.Translation;
             Vector3 m41Pos = cylinderMarkerNode141.WorldTransformation.Translation;
             Vector3 trapCardPos;
-            for (x = 20; x < 30; x++)
+            for (x = 0; x < 30; x++)
             {
                 if (!(cards[x].getModel().MarkerFound))
                     continue;
                 trapCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if (p1Trap==null &&(m40Pos - trapCardPos).Length() <= 20)
+                if (x >= 20)
                 {
-                    p1Trap = cards[x];
+                    if (p1Trap == null && (m40Pos - trapCardPos).Length() <= 20)
+                    {
+                        p1Trap = cards[x];
+                    }
+                    else if (p2Trap == null && (m41Pos - trapCardPos).Length() <= 20)
+                    {
+                        p2Trap = cards[x];
+                    }
                 }
-                else if (p2Trap==null && (m41Pos - trapCardPos).Length() <= 20)
+                else
                 {
-                    p2Trap = cards[x];
+                    if ((m40Pos - trapCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 1 Trap";
+                        return;
+                    }
+                    else if ((m41Pos - trapCardPos).Length() <= 20)
+                    {
+                        prevState = state;
+                        state = 5;
+                        badPort = "Player 2 Trap";
+                        return;
+                    }
                 }
             }
             if(p1Monster1!=null)
