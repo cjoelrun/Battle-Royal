@@ -1890,7 +1890,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         if (p1Turn && !p1NoAttack)
                         {
                             registerAttack(p1Monster1, p2Monster1);
-                            if(p2Monster1.isKO())
+                            if (p2Monster1.isKO())
                             {
                                 if (p2TrapFlag != "MD")
                                 {
@@ -1899,18 +1899,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck1;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster1, p1Monster1);
                             if (p1Monster1.isKO())
                             {
-                                if(p1TrapFlag!="MD")
+                                if (p1TrapFlag != "MD")
                                     p1life += p1Monster1.getHealth();
                             }
                             goto nextPart;
                         }
                     }
                 }
+            nextCheck1:
                 //case 2:
                 if (p2Monster2 != null)
                 {
@@ -1927,7 +1930,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck2;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster2, p1Monster1);
                             if (p1Monster1.isKO())
@@ -1939,6 +1944,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck2:
                 //case 3:
                 if (p2Monster3 != null)
                 {
@@ -1955,7 +1961,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck3;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster3, p1Monster1);
                             if (p1Monster1.isKO())
@@ -1968,6 +1976,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     }
                 }
             }
+            nextCheck3:
             if (p1Monster2 != null)
             {
                 //case 4:
@@ -1986,7 +1995,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck4;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster1, p1Monster2);
                             if (p1Monster2.isKO())
@@ -1999,6 +2010,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     }
                 }
                 //case 5:
+            nextCheck4: 
                 if (p2Monster2 != null)
                 {
                     if ((p1Monster2.getModel().WorldTransformation.Translation -
@@ -2014,7 +2026,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck5;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster2, p1Monster2);
                             if (p1Monster2.isKO())
@@ -2026,6 +2040,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck5:
                 //case 6:
                 if (p2Monster3 != null)
                 {
@@ -2042,7 +2057,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck6;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster3, p1Monster2);
                             if (p1Monster2.isKO())
@@ -2055,7 +2072,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     }
                 }
             }
-
+            nextCheck6:
             if (p1Monster3 != null)
             {
                 //case 7: 
@@ -2074,7 +2091,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck7;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster1, p1Monster3);
                             if (p1Monster3.isKO())
@@ -2086,6 +2105,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck7: 
                 if (p2Monster2 != null)
                 {
                     //case 8: 
@@ -2102,7 +2122,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck8;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster2, p1Monster3);
                             if (p1Monster3.isKO())
@@ -2114,6 +2136,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck8:
                 if (p2Monster3 != null)
                 {
                     //case 9: 
@@ -2130,6 +2153,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
+                        else if (p1NoAttack)
+                            goto nextPart;
                         else if (!p2NoAttack && p1NoAttack)
                         {
                             registerAttack(p2Monster3, p1Monster3);
