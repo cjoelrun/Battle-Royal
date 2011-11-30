@@ -268,7 +268,7 @@ namespace Tutorial8___Optical_Marker_Tracking
         bool p2NoAttack = false;
         int p1TrapEffectCnt = 0;
         int p2TrapEffectCnt = 0;
-        int p1life = 100, p2life = 100;
+        int p1life = 50, p2life = 50;
         string text = "";
         bool p1Winner = false;
         public Tutorial8()
@@ -2193,22 +2193,41 @@ namespace Tutorial8___Optical_Marker_Tracking
             //Use this property in the rest of the code in this method to restore defaults.
             p1TrapEffectCnt--;
             p2TrapEffectCnt--;
-            if (p1TrapEffectCnt <= 0)
+            Console.WriteLine("{0} = p2tecnt", p2TrapEffectCnt);
+            if (p1TrapEffectCnt == 0)
             {
+                if (p1TrapFlag != "none")
+                {
+                    p1Trap.destroy();
+                    Console.WriteLine("P1T destroyed.");
+                }
                     p1TrapEffectCnt = 0;
                     switch (p1TrapFlag)
                     {
                         case "none": return;
                         case "PB":
+                            if (p2Monster1 != null)
+                                p2Monster1.setLast();
+                            if (p2Monster2 != null)
+                                p2Monster2.setLast();
+                            if (p2Monster3 != null)
+                                p2Monster3.setLast();
+                            break;
                         case "ES":
-                            p2Monster1.setLast();
-                            p2Monster2.setLast();
-                            p2Monster3.setLast();
+                            if(p2Monster1!=null)
+                                p2Monster1.setLast();
+                            if (p2Monster2 != null)
+                                p2Monster2.setLast();
+                            if (p2Monster3 != null)
+                                p2Monster3.setLast();
                             break;
                         case "RE":
-                            p1Monster1.setLast();
-                            p1Monster2.setLast();
-                            p1Monster3.setLast();
+                            if (p1Monster1 != null)
+                                p1Monster1.setLast();
+                            if (p1Monster2 != null)
+                                p1Monster2.setLast();
+                            if (p1Monster3 != null)
+                                p1Monster3.setLast();
                             break;
                         case "RD":
                             p2NoAttack = false;
@@ -2224,25 +2243,46 @@ namespace Tutorial8___Optical_Marker_Tracking
                             break;
                     }
                     p1TrapFlag = "none";
-                if(p1Trap!=null)
-                    p1Trap.destroy();
+                    
             }
-            if (p2TrapEffectCnt <= 0)
+            else if (p1TrapEffectCnt < 0)
             {
+                p1TrapEffectCnt = 0;
+            }
+            if (p2TrapEffectCnt == 0)
+            {
+                if (p2TrapFlag != "none")
+                {
+                    p2Trap.destroy();
+                    Console.WriteLine("P2T destroyed.");
+                }
                     p2TrapEffectCnt = 0;
                     switch (p2TrapFlag)
                     {
                         case "none": return;
-                        case "PB":
+                        case "PB": 
+                            if (p1Monster1 != null)
+                                p1Monster1.setLast();
+                            if (p1Monster2 != null)
+                                p1Monster2.setLast();
+                            if (p1Monster3 != null)
+                                p1Monster3.setLast();
+                            break;
                         case "ES":
-                            p1Monster1.setLast();
-                            p1Monster2.setLast();
-                            p1Monster3.setLast();
+                            if (p1Monster1 != null)
+                                p1Monster1.setLast();
+                            if (p1Monster2 != null)
+                                p1Monster2.setLast();
+                            if (p1Monster3 != null)
+                                p1Monster3.setLast();
                             break;
                         case "RE":
-                            p2Monster1.setLast();
-                            p2Monster2.setLast();
-                            p2Monster3.setLast();
+                            if (p2Monster1 != null)
+                                p2Monster1.setLast();
+                            if (p2Monster2 != null)
+                                p2Monster2.setLast();
+                            if (p2Monster3 != null)
+                                p2Monster3.setLast();
                             break;
                         case "RD":
                             p1NoAttack = false;
@@ -2259,8 +2299,11 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                     }
                     p2TrapFlag = "none";
-                if(p2Trap!=null)    
-                    p2Trap.destroy();
+            }
+            else if (p2TrapEffectCnt < 0)
+            {
+                Console.WriteLine("asdfkal");
+                p2TrapEffectCnt = 0;
             }
             
 
