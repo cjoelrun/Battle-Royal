@@ -118,6 +118,11 @@ namespace Tutorial8___Optical_Marker_Tracking
             return model;
         }
 
+        public void setModel(MarkerNode blah)
+        {
+            model = blah;
+        }
+
         /* DEBATABLE METHOD:
          * In the case that the model of the monster would have to be changed somehow
          * (i.e color of monster needs to be changed),
@@ -243,13 +248,12 @@ namespace Tutorial8___Optical_Marker_Tracking
 
         MarkerNode cylinderMarkerNode130, cylinderMarkerNode131;
 
-        MarkerNode cylinderMarkerNode132, cylinderMarkerNode133, cylinderMarkerNode134, 
-            cylinderMarkerNode135,cylinderMarkerNode136, cylinderMarkerNode137, cylinderMarkerNode138,
+        MarkerNode cylinderMarkerNode132, cylinderMarkerNode133, cylinderMarkerNode134,
+            cylinderMarkerNode135, cylinderMarkerNode136, cylinderMarkerNode137, cylinderMarkerNode138,
             cylinderMarkerNode139, cylinderMarkerNode140, cylinderMarkerNode141;
 
         bool useStaticImage = false;
         SpriteFont uiFont;
-        SpriteFont displayFont;
         Card p1Monster1;
         Card p1Monster2;
         Card p1Monster3;
@@ -271,8 +275,6 @@ namespace Tutorial8___Optical_Marker_Tracking
         int p2TrapEffectCnt = 0;
         int p1life = 100, p2life = 100;
         string text = "";
-        string badPort = "";
-        int prevState;
         bool p1Winner = false;
         public Tutorial8()
         {
@@ -289,14 +291,13 @@ namespace Tutorial8___Optical_Marker_Tracking
          *  * 0 = start splash page 
          *  * 1 = turn in progress (game on!)
          *  * 2 = end phase
-         *  * 3 = cleanup phase -- remove destroyed monsters
+         *  * 3 = cleanup phase
          *  * 4 = end game
-         *  * 5 = cleanup phase -- card in wrong port
          */
         int state = 1;
         G2DPanel p1Frame, p2Frame;
-        G2DLabel p1LifeLab, p1m1LifeLab, p1m2LifeLab, p1m3LifeLab; 
-        G2DLabel p2LifeLab, p2m1LifeLab, p2m2LifeLab, p2m3LifeLab;
+        G2DLabel p1LifeLab, p1m1LifeLab, p1m2LifeLab, p1m3LifeLab, p1tLab, p1sLab;
+        G2DLabel p2LifeLab, p2m1LifeLab, p2m2LifeLab, p2m3LifeLab, p2tLab, p2sLab;
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -428,40 +429,40 @@ namespace Tutorial8___Optical_Marker_Tracking
         private void Create2DGUI()
         {
             p1Frame = new G2DPanel();
-            p1Frame.Bounds = new Rectangle(0, 0, 150, 80);
+            p1Frame.Bounds = new Rectangle(0, 0, 150, 120);
             p1Frame.Border = GoblinEnums.BorderFactory.LineBorder;
             p1Frame.Transparency = 1.0f;
             p1Frame.BackgroundColor = Color.CornflowerBlue;
 
             //Generic Label: P1
-            G2DLabel p1Label = new G2DLabel("P1: "); 
+            G2DLabel p1Label = new G2DLabel("P1: ");
             p1Label.Bounds = new Rectangle(10, 10, 10, 10);
             p1Label.TextFont = uiFont;
-            
+
             //Life Point Label: P1
             p1LifeLab = new G2DLabel();
-            p1LifeLab.Bounds = new Rectangle(25, 10, 20, 40);
+            p1LifeLab.Bounds = new Rectangle(30, 10, 20, 40);
             p1LifeLab.Text = p1life.ToString() + " LP";
             p1LifeLab.TextFont = uiFont;
 
             //Generic Label: P1M1
-            G2DLabel p1m1StatLab = new G2DLabel("M1: ");
+            G2DLabel p1m1StatLab = new G2DLabel("M1:    ");
             p1m1StatLab.Bounds = new Rectangle(10, 25, 10, 10);
             p1m1StatLab.TextFont = uiFont;
 
             //Status Label: P1M1
             p1m1LifeLab = new G2DLabel();
-            p1m1LifeLab.Bounds = new Rectangle(25, 25, 20, 40);
+            p1m1LifeLab.Bounds = new Rectangle(35, 25, 20, 40);
             p1m1LifeLab.TextFont = uiFont;
 
             //Generic Label: P1M2
-            G2DLabel p1m2StatLab = new G2DLabel("M2: ");
+            G2DLabel p1m2StatLab = new G2DLabel("M2:    ");
             p1m2StatLab.Bounds = new Rectangle(10, 40, 10, 10);
             p1m2StatLab.TextFont = uiFont;
 
             //Status Label: P1M2
             p1m2LifeLab = new G2DLabel();
-            p1m2LifeLab.Bounds = new Rectangle(25, 40, 20, 40);
+            p1m2LifeLab.Bounds = new Rectangle(35, 40, 20, 40);
             p1m2LifeLab.TextFont = uiFont;
 
             //Generic Label: P1M3
@@ -471,10 +472,29 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //Status Label: P1M3
             p1m3LifeLab = new G2DLabel();
-            p1m3LifeLab.Bounds = new Rectangle(25, 55, 20, 40);
+            p1m3LifeLab.Bounds = new Rectangle(35, 55, 20, 40);
             p1m3LifeLab.TextFont = uiFont;
 
-            
+            //Generic Label: P1T
+            G2DLabel p1tStatLab = new G2DLabel("Trap: ");
+            p1tStatLab.Bounds = new Rectangle(10, 70, 10, 10);
+            p1tStatLab.TextFont = uiFont;
+
+            //Status Label: P1T
+            p1tLab = new G2DLabel();
+            p1tLab.Bounds = new Rectangle(40, 70, 20, 40);
+            p1tLab.TextFont = uiFont;
+
+            //Generic Label: P1S
+            G2DLabel p1sStatLab = new G2DLabel("Spell: ");
+            p1sStatLab.Bounds = new Rectangle(10, 85, 10, 10);
+            p1sStatLab.TextFont = uiFont;
+
+            //Status Label: P1S
+            p1sLab = new G2DLabel();
+            p1sLab.Bounds = new Rectangle(40, 85, 20, 40);
+            p1sLab.TextFont = uiFont;
+
             p1Frame.AddChild(p1Label);
             p1Frame.AddChild(p1LifeLab);
             p1Frame.AddChild(p1m1StatLab);
@@ -483,29 +503,33 @@ namespace Tutorial8___Optical_Marker_Tracking
             p1Frame.AddChild(p1m2LifeLab);
             p1Frame.AddChild(p1m3StatLab);
             p1Frame.AddChild(p1m3LifeLab);
+            p1Frame.AddChild(p1tStatLab);
+            p1Frame.AddChild(p1tLab);
+            p1Frame.AddChild(p1sStatLab);
+            p1Frame.AddChild(p1sLab);
             scene.UIRenderer.Add2DComponent(p1Frame);
-            
-            
+
+
             p2Frame = new G2DPanel();
-            p2Frame.Bounds = new Rectangle(650, 0, 150, 80);
+            p2Frame.Bounds = new Rectangle(650, 0, 150, 120);
             p2Frame.Border = GoblinEnums.BorderFactory.LineBorder;
             p2Frame.Transparency = 1.0f;
             p2Frame.BackgroundColor = Color.CornflowerBlue;
 
             //Generic Label: P2
             G2DLabel p2Label = new G2DLabel("P2: ");
-            p2Label.Bounds = new Rectangle(15, 10, 10, 10);
+            p2Label.Bounds = new Rectangle(10, 10, 10, 10);
             p2Label.TextFont = uiFont;
 
             //Life Point Label: P2
             p2LifeLab = new G2DLabel();
-            p2LifeLab.Bounds = new Rectangle(35, 10, 40, 40);
+            p2LifeLab.Bounds = new Rectangle(30, 10, 40, 40);
             p2LifeLab.Text = p2life.ToString() + " LP";
             p2LifeLab.TextFont = uiFont;
 
             //Generic Label: P2M1
             G2DLabel p2m1StatLab = new G2DLabel("M1: ");
-            p2m1StatLab.Bounds = new Rectangle(15, 25, 10, 10);
+            p2m1StatLab.Bounds = new Rectangle(10, 25, 10, 10);
             p2m1StatLab.TextFont = uiFont;
 
             //Status Label: P2M1
@@ -515,7 +539,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //Generic Label: P2M2
             G2DLabel p2m2StatLab = new G2DLabel("M2: ");
-            p2m2StatLab.Bounds = new Rectangle(15, 40, 10, 10);
+            p2m2StatLab.Bounds = new Rectangle(10, 40, 10, 10);
             p2m2StatLab.TextFont = uiFont;
 
             //Status Label: P2M2
@@ -525,7 +549,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             //Generic Label: P2M3
             G2DLabel p2m3StatLab = new G2DLabel("M3: ");
-            p2m3StatLab.Bounds = new Rectangle(15, 55, 10, 10);
+            p2m3StatLab.Bounds = new Rectangle(10, 55, 10, 10);
             p2m3StatLab.TextFont = uiFont;
 
             //Status Label: P2M3
@@ -533,7 +557,26 @@ namespace Tutorial8___Optical_Marker_Tracking
             p2m3LifeLab.Bounds = new Rectangle(35, 55, 20, 40);
             p2m3LifeLab.TextFont = uiFont;
 
-            
+            //Generic Label: P2T
+            G2DLabel p2tStatLab = new G2DLabel("Trap: ");
+            p2tStatLab.Bounds = new Rectangle(10, 70, 10, 10);
+            p2tStatLab.TextFont = uiFont;
+
+            //Status Label: P2T
+            p2tLab = new G2DLabel();
+            p2tLab.Bounds = new Rectangle(40, 70, 20, 40);
+            p2tLab.TextFont = uiFont;
+
+            //Generic Label: P2S
+            G2DLabel p2sStatLab = new G2DLabel("Spell: ");
+            p2sStatLab.Bounds = new Rectangle(10, 85, 10, 10);
+            p2sStatLab.TextFont = uiFont;
+
+            //Status Label: P2S
+            p2sLab = new G2DLabel();
+            p2sLab.Bounds = new Rectangle(40, 85, 20, 40);
+            p2sLab.TextFont = uiFont;
+
             p2Frame.AddChild(p2Label);
             p2Frame.AddChild(p2LifeLab);
             p2Frame.AddChild(p2m1StatLab);
@@ -542,6 +585,11 @@ namespace Tutorial8___Optical_Marker_Tracking
             p2Frame.AddChild(p2m2LifeLab);
             p2Frame.AddChild(p2m3StatLab);
             p2Frame.AddChild(p2m3LifeLab);
+            p2Frame.AddChild(p2tStatLab);
+            p2Frame.AddChild(p2tLab);
+            p2Frame.AddChild(p2sStatLab);
+            p2Frame.AddChild(p2sLab);
+
             scene.UIRenderer.Add2DComponent(p2Frame);
 
         }
@@ -562,43 +610,8 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             Material sphereMaterial3 = new Material();
             sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial3.Specular = Color.Red.ToVector4();
+            sphereMaterial3.Specular = Color.Black.ToVector4();
             sphereMaterial3.SpecularPower = 10;
-
-            Material sphereMaterial4 = new Material();
-            sphereMaterial4.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial4.Specular = Color.Cyan.ToVector4();
-            sphereMaterial4.SpecularPower = 10;
-
-            Material sphereMaterial5 = new Material();
-            sphereMaterial5.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial5.Specular = Color.Magenta.ToVector4();
-            sphereMaterial5.SpecularPower = 10;
-
-            Material sphereMaterial6 = new Material();
-            sphereMaterial6.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial6.Specular = Color.Yellow.ToVector4();
-            sphereMaterial6.SpecularPower = 10;
-
-            Material sphereMaterial7 = new Material();
-            sphereMaterial7.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial7.Specular = Color.DarkGray.ToVector4();
-            sphereMaterial7.SpecularPower = 10;
-
-            Material sphereMaterial8 = new Material();
-            sphereMaterial8.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial8.Specular = Color.Orange.ToVector4();
-            sphereMaterial8.SpecularPower = 10;
-
-            Material sphereMaterial9 = new Material();
-            sphereMaterial9.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial9.Specular = Color.Purple.ToVector4();
-            sphereMaterial9.SpecularPower = 10;
-
-            Material sphereMaterial10 = new Material();
-            sphereMaterial10.Diffuse = new Vector4(0.5f, 0, 0, 1);
-            sphereMaterial10.Specular = Color.Pink.ToVector4();
-            sphereMaterial10.SpecularPower = 10;
 
             int[] zero = new int[1];
             int[] first = new int[1];
@@ -633,15 +646,15 @@ namespace Tutorial8___Optical_Marker_Tracking
             int[] thirty = new int[1];
             int[] thirtyone = new int[1];
             int[] thirtytwo = new int[1];
-            int[] thirtythree = new int[1]{133};
-            int[] thirtyfour = new int[1]{134};
-            int[] thirtyfive = new int[1]{135};
-            int[] thirtysix = new int[1]{136};
-            int[] thirtyseven = new int[1]{137};
+            int[] thirtythree = new int[1] { 133 };
+            int[] thirtyfour = new int[1] { 134 };
+            int[] thirtyfive = new int[1] { 135 };
+            int[] thirtysix = new int[1] { 136 };
+            int[] thirtyseven = new int[1] { 137 };
             int[] thirtyeight = new int[1] { 138 };
             int[] thirtynine = new int[1] { 139 };
             int[] forty = new int[1] { 140 };
-            int[] fortyone = new int[1] { 141 }; 
+            int[] fortyone = new int[1] { 141 };
 
 
             zero[0] = 100;
@@ -718,10 +731,10 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode0.Model = monsterModel0;
             ((Model)cylinderNode0.Model).UseInternalMaterials = false;
-            
+
 
             cylinderNode0.Material = sphereMaterial;
-            
+
             TransformNode cylinderTransNode0 = new TransformNode();
             cylinderTransNode0.Scale = new Vector3(5, 5, 5);
             cylinderTransNode0.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
@@ -740,7 +753,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode1.Model = monsterModel1;
             ((Model)cylinderNode1.Model).UseInternalMaterials = false;
 
-            cylinderNode1.Material = sphereMaterial2;
+            cylinderNode1.Material = sphereMaterial;
 
             TransformNode cylinderTransNode1 = new TransformNode();
 
@@ -760,7 +773,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode2.Model = monsterModel2;
             ((Model)cylinderNode2.Model).UseInternalMaterials = false;
 
-            cylinderNode2.Material = sphereMaterial3;
+            cylinderNode2.Material = sphereMaterial;
 
             TransformNode cylinderTransNode2 = new TransformNode();
 
@@ -779,7 +792,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode3.Model = monsterModel3;
             ((Model)cylinderNode3.Model).UseInternalMaterials = false;
-            cylinderNode3.Material = sphereMaterial4;
+            cylinderNode3.Material = sphereMaterial;
 
             TransformNode cylinderTransNode3 = new TransformNode();
 
@@ -799,7 +812,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode4.Model = monsterModel4;
             ((Model)cylinderNode4.Model).UseInternalMaterials = false;
 
-            cylinderNode4.Material = sphereMaterial5;
+            cylinderNode4.Material = sphereMaterial;
 
             TransformNode cylinderTransNode4 = new TransformNode();
 
@@ -819,7 +832,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode5.Model = monsterModel5;
             ((Model)cylinderNode5.Model).UseInternalMaterials = false;
 
-            cylinderNode5.Material = sphereMaterial6;
+            cylinderNode5.Material = sphereMaterial;
 
             TransformNode cylinderTransNode5 = new TransformNode();
 
@@ -839,7 +852,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode6.Model = monsterModel6;
             ((Model)cylinderNode6.Model).UseInternalMaterials = false;
 
-            cylinderNode6.Material = sphereMaterial7;
+            cylinderNode6.Material = sphereMaterial;
 
             TransformNode cylinderTransNode6 = new TransformNode();
 
@@ -859,7 +872,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode7.Model = monsterModel7;
             ((Model)cylinderNode7.Model).UseInternalMaterials = false;
 
-            cylinderNode7.Material = sphereMaterial8;
+            cylinderNode7.Material = sphereMaterial;
 
             TransformNode cylinderTransNode7 = new TransformNode();
 
@@ -879,7 +892,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode8.Model = monsterModel8;
             ((Model)cylinderNode8.Model).UseInternalMaterials = false;
 
-            cylinderNode8.Material = sphereMaterial9;
+            cylinderNode8.Material = sphereMaterial;
 
             TransformNode cylinderTransNode8 = new TransformNode();
 
@@ -899,7 +912,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode9.Model = monsterModel9;
             ((Model)cylinderNode9.Model).UseInternalMaterials = false;
 
-            cylinderNode9.Material = sphereMaterial10;
+            cylinderNode9.Material = sphereMaterial;
 
             TransformNode cylinderTransNode9 = new TransformNode();
 
@@ -930,7 +943,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode10.AddChild(cylinderNode10);
 
             //add to Card array here: generic spell card here
-            cards[10] = new Card('S', cylinderMarkerNode110, 100, 100, "Cards from the Sky", "All of your monsters are healed for 100 hp.");
+            cards[10] = new Card('S', cylinderMarkerNode110, 100, 100, "CS", "All of your monsters are healed for 100 hp.");
 
             //Marker 111
             cylinderMarkerNode111 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML111.xml", eleven);
@@ -950,7 +963,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode11.AddChild(cylinderNode11);
 
             //add to Card array here: generic spell card here
-            cards[11] = new Card('S', cylinderMarkerNode111, 100, 100, "Valhalla, Hall of the Fallen", "All of your monsters are completly healed.");
+            cards[11] = new Card('S', cylinderMarkerNode111, 100, 100, "V", "All of your monsters are completly healed.");
 
             //Marker 112
             cylinderMarkerNode112 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML112.xml", twelve);
@@ -959,7 +972,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode12.Model = spellModel2;
             ((Model)cylinderNode12.Model).UseInternalMaterials = false;
 
-            cylinderNode12.Material = sphereMaterial3;
+            cylinderNode12.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode12 = new TransformNode();
 
@@ -970,7 +983,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode12.AddChild(cylinderNode12);
 
             //add to Card array here: generic spell card here
-            cards[12] = new Card('S', cylinderMarkerNode112, 100, 100, "Terraforming", "All of your monsters are healed for 1 hp.");
+            cards[12] = new Card('S', cylinderMarkerNode112, 100, 100, "TF", "All of your monsters are healed for 1 hp.");
 
             //Marker 113
             cylinderMarkerNode113 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML113.xml", thirteen);
@@ -979,7 +992,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode13.Model = spellModel3;
             ((Model)cylinderNode13.Model).UseInternalMaterials = false;
 
-            cylinderNode13.Material = sphereMaterial4;
+            cylinderNode13.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode13 = new TransformNode();
 
@@ -990,7 +1003,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode13.AddChild(cylinderNode13);
 
             //add to Card array here: generic spell card here
-            cards[13] = new Card('S', cylinderMarkerNode113, 100, 100, "Smashing Ground", "All of your monsters are healed for 20 hp.");
+            cards[13] = new Card('S', cylinderMarkerNode113, 100, 100, "SG", "All of your monsters are healed for 20 hp.");
 
             //Marker 114
             cylinderMarkerNode114 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML114.xml", fourteen);
@@ -999,7 +1012,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode14.Model = spellModel4;
             ((Model)cylinderNode14.Model).UseInternalMaterials = false;
 
-            cylinderNode14.Material = sphereMaterial5;
+            cylinderNode14.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode14 = new TransformNode();
 
@@ -1010,7 +1023,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode14.AddChild(cylinderNode14);
 
             //add to Card array here: generic spell card here
-            cards[14] = new Card('S', cylinderMarkerNode114, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
+            cards[14] = new Card('S', cylinderMarkerNode114, 100, 100, "SS", "All of your monsters are healed for 75 hp.");
 
             //Marker 115
             cylinderMarkerNode115 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML115.xml", fifteen);
@@ -1019,7 +1032,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode15.Model = spellModel5;
             ((Model)cylinderNode15.Model).UseInternalMaterials = false;
 
-            cylinderNode15.Material = sphereMaterial6;
+            cylinderNode15.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode15 = new TransformNode();
 
@@ -1030,7 +1043,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderTransNode15.AddChild(cylinderNode15);
 
             //add to Card array here: generic spell card here
-            cards[15] = new Card('S', cylinderMarkerNode115, 100, 100, "The Sanctuary in the Sky", "All of your monsters are healed for 75 hp.");
+            cards[15] = new Card('S', cylinderMarkerNode115, 100, 100, "SS", "All of your monsters are healed for 75 hp.");
 
             //Marker 116
             cylinderMarkerNode116 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML116.xml", sixteen);
@@ -1039,7 +1052,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode16.Model = spellModel6;
             ((Model)cylinderNode16.Model).UseInternalMaterials = false;
 
-            cylinderNode16.Material = sphereMaterial7;
+            cylinderNode16.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode16 = new TransformNode();
 
@@ -1050,7 +1063,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode116.AddChild(cylinderTransNode16);
 
             //add to Card array here: generic spell card here
-            cards[16] = new Card('S', cylinderMarkerNode116, 100, 100, "Celestial Transformation", "All of your monsters are healed for half of their hp.");
+            cards[16] = new Card('S', cylinderMarkerNode116, 100, 100, "CT", "All of your monsters are healed for half of their hp.");
 
             //Marker 117
             cylinderMarkerNode117 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML117.xml", seventeen);
@@ -1059,7 +1072,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode17.Model = spellModel7;
             ((Model)cylinderNode17.Model).UseInternalMaterials = false;
 
-            cylinderNode17.Material = sphereMaterial8;
+            cylinderNode17.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode17 = new TransformNode();
 
@@ -1070,7 +1083,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode117.AddChild(cylinderTransNode17);
 
             //add to Card array here: generic spell card here
-            cards[17] = new Card('S', cylinderMarkerNode117, 100, 100, "Burial from a Different Dimension", "You're protected from 1 trap.");
+            cards[17] = new Card('S', cylinderMarkerNode117, 100, 100, "BDD", "You're protected from 1 trap.");
 
             //Marker 118
             cylinderMarkerNode118 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML118.xml", eighteen);
@@ -1079,7 +1092,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode18.Model = spellModel8;
             ((Model)cylinderNode18.Model).UseInternalMaterials = false;
 
-            cylinderNode18.Material = sphereMaterial9;
+            cylinderNode18.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode18 = new TransformNode();
 
@@ -1090,7 +1103,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode118.AddChild(cylinderTransNode18);
 
             //add to Card array here: generic spell card here
-            cards[18] = new Card('S', cylinderMarkerNode118, 100, 100, "Mausoleum of the Emperor", "All of your monsters are healed for 75% of their HP.");
+            cards[18] = new Card('S', cylinderMarkerNode118, 100, 100, "ME", "All of your monsters are healed for 75% of their HP.");
 
             //Marker 119
             cylinderMarkerNode119 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML119.xml", nineteen);
@@ -1099,7 +1112,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode19.Model = spellModel9;
             ((Model)cylinderNode19.Model).UseInternalMaterials = false;
 
-            cylinderNode19.Material = sphereMaterial10;
+            cylinderNode19.Material = sphereMaterial2;
 
             TransformNode cylinderTransNode19 = new TransformNode();
 
@@ -1110,7 +1123,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode119.AddChild(cylinderTransNode19);
 
             //add to Card array here: generic spell card here
-            cards[19] = new Card('S', cylinderMarkerNode119, 100, 100, "The Fountain in the Sky ", "All of your monsters are healed for 25% of their HP.");
+            cards[19] = new Card('S', cylinderMarkerNode119, 100, 100, "FS", "All of your monsters are healed for 25% of their HP.");
 
             //Marker 120
             cylinderMarkerNode120 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML120.xml", twenty);
@@ -1129,7 +1142,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode120.AddChild(cylinderTransNode20);
 
             //add to Card array here: generic trap card here
-            cards[20] = new Card('T', cylinderMarkerNode120, 0, 100, "Divine Punishment", 
+            cards[20] = new Card('T', cylinderMarkerNode120, 0, 100, "DP",
                 "All of your opponent's monsters take damage equal to half of their current health.");
 
             //Marker 121
@@ -1138,7 +1151,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode21.Model = trapModel1;
             ((Model)cylinderNode21.Model).UseInternalMaterials = false;
-            cylinderNode21.Material = sphereMaterial2;
+            cylinderNode21.Material = sphereMaterial3;
 
 
             TransformNode cylinderTransNode21 = new TransformNode();
@@ -1149,7 +1162,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode121.AddChild(cylinderTransNode21);
 
             //add to Card array here: generic trap card here
-            cards[21] = new Card('T', cylinderMarkerNode121, 0, 100, "Return from the Different Dimension",
+            cards[21] = new Card('T', cylinderMarkerNode121, 0, 100, "RD",
                 "Your opponent may not attack for the remainder of their turn.");
 
             //Marker 122
@@ -1168,7 +1181,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode122.AddChild(cylinderTransNode22);
 
             //add to Card array here: generic trap card here
-            cards[22] = new Card('T', cylinderMarkerNode122, 0, 100, "Torrential Tribute", "Destroy a spell card.");
+            cards[22] = new Card('T', cylinderMarkerNode122, 0, 100, "TT", "Destroy a spell card.");
 
             //Marker 123
             cylinderMarkerNode123 = new MarkerNode(scene.MarkerTracker, "ALVARConfigFromXML123.xml", twentythree);
@@ -1176,7 +1189,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode23.Model = trapModel3;
             ((Model)cylinderNode23.Model).UseInternalMaterials = false;
-            cylinderNode23.Material = sphereMaterial4;
+            cylinderNode23.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode23 = new TransformNode();
 
@@ -1187,7 +1200,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode123.AddChild(cylinderTransNode23);
 
             //add to Card array here: generic trap card here
-            cards[23] = new Card('T', cylinderMarkerNode123, 0, 100, "Beckoning Light",
+            cards[23] = new Card('T', cylinderMarkerNode123, 0, 100, "BL",
                 "Your opponent may not activate a trap during your next turn.");
 
             //Marker 124
@@ -1196,7 +1209,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode24.Model = trapModel4;
             ((Model)cylinderNode24.Model).UseInternalMaterials = false;
-            cylinderNode24.Material = sphereMaterial5;
+            cylinderNode24.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode24 = new TransformNode();
 
@@ -1207,7 +1220,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode124.AddChild(cylinderTransNode24);
 
             //add to Card array here: generic trap card here
-            cards[24] = new Card('T', cylinderMarkerNode124, 0, 100, "Miraculous Descent",
+            cards[24] = new Card('T', cylinderMarkerNode124, 0, 100, "MD",
                 "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
 
             //Marker 125
@@ -1217,7 +1230,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode25.Model = trapModel5;
             ((Model)cylinderNode25.Model).UseInternalMaterials = false;
 
-            cylinderNode25.Material = sphereMaterial6;
+            cylinderNode25.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode25 = new TransformNode();
 
@@ -1228,7 +1241,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode125.AddChild(cylinderTransNode25);
 
             //add to Card array here: generic trap card here
-            cards[25] = new Card('T', cylinderMarkerNode125, 0, 100, "Miraculous Descent",
+            cards[25] = new Card('T', cylinderMarkerNode125, 0, 100, "MD",
                 "Reduce the damage taken to your life points to 0 for the remainder of your opponent's turn.");
 
             //Marker 126
@@ -1238,7 +1251,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode26.Model = trapModel6;
             ((Model)cylinderNode26.Model).UseInternalMaterials = false;
 
-            cylinderNode26.Material = sphereMaterial7;
+            cylinderNode26.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode26 = new TransformNode();
 
@@ -1249,7 +1262,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode126.AddChild(cylinderTransNode26);
 
             //add to Card array here: generic trap card here
-            cards[26] = new Card('T', cylinderMarkerNode126, 0, 100, "Solemn Judgment",
+            cards[26] = new Card('T', cylinderMarkerNode126, 0, 100, "SJ",
                 "Your opponent may not activate spells until the end of their turn.");
 
             //Marker 127
@@ -1258,7 +1271,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode27.Model = trapModel7;
             ((Model)cylinderNode27.Model).UseInternalMaterials = false;
-            cylinderNode27.Material = sphereMaterial8;
+            cylinderNode27.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode27 = new TransformNode();
 
@@ -1270,7 +1283,7 @@ namespace Tutorial8___Optical_Marker_Tracking
 
 
             //add to Card array here: generic trap card here
-            cards[27] = new Card('T', cylinderMarkerNode127, 0, 100, "Power Break",
+            cards[27] = new Card('T', cylinderMarkerNode127, 0, 100, "PB",
                 "Reduce a monster's attack by 50 for the remainder of your opponent's turn.");
 
             //Marker 128
@@ -1280,11 +1293,11 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderNode28.Model = trapModel8;
             ((Model)cylinderNode28.Model).UseInternalMaterials = false;
 
-            cylinderNode28.Material = sphereMaterial9;
+            cylinderNode28.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode28 = new TransformNode();
 
-            
+
             cylinderTransNode28.Scale = new Vector3(5, 5, 5);
             cylinderTransNode28.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
             cylinderTransNode28.AddChild(cylinderNode28);
@@ -1292,7 +1305,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode128.AddChild(cylinderTransNode28);
 
             //add to Card array here: generic trap card here
-            cards[28] = new Card('T', cylinderMarkerNode128, 0, 100, "Reinforcements",
+            cards[28] = new Card('T', cylinderMarkerNode128, 0, 100, "RE",
                 "Increase a target monster's attack by 40 for the remainder of your opponent's turn.");
 
             //Marker 129
@@ -1301,11 +1314,11 @@ namespace Tutorial8___Optical_Marker_Tracking
 
             cylinderNode29.Model = trapModel9;
             ((Model)cylinderNode29.Model).UseInternalMaterials = false;
-            cylinderNode29.Material = sphereMaterial10;
+            cylinderNode29.Material = sphereMaterial3;
 
             TransformNode cylinderTransNode29 = new TransformNode();
 
-            
+
             cylinderTransNode29.Scale = new Vector3(5, 5, 5);
             cylinderTransNode29.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
             cylinderTransNode29.AddChild(cylinderNode29);
@@ -1313,7 +1326,7 @@ namespace Tutorial8___Optical_Marker_Tracking
             cylinderMarkerNode129.AddChild(cylinderTransNode29);
 
             //add to Card array here: generic trap card here
-            cards[29] = new Card('T', cylinderMarkerNode129, 0, 100, "Earthshaker",
+            cards[29] = new Card('T', cylinderMarkerNode129, 0, 100, "ES",
                 "For the remainder of your opponent's turn, reduce the attack of a monster to 0.");
 
             //Marker 30 = Player 1 Marker
@@ -1436,425 +1449,445 @@ namespace Tutorial8___Optical_Marker_Tracking
             //i.e. P1 can only engage traps when P2's turn. 
 
             if (trap == null)
-                return; 
+                return;
             if (!p1Turn) //P2 turn
             {
                 if (p1NoTrap) //check if P2 has NoTrap effect active on P1
                 {
-                    if(p2SpellFlag=="BDD")
+                    if (p2SpellFlag == "BDD")
                     {
                         p2SpellFlag = "none";
                         p1NoTrap = false;
                         p2Spell.destroy();
+                        p2sLab.Text = "";
                     }
                     return;
                 }
-                else if(p1TrapFlag!="none")
+                else if (p1TrapFlag != "none")
                     return;
             }
             else //P1 turn
             {
                 if (p2NoTrap)
                 {
-                    if(p1SpellFlag=="BDD")
+                    if (p1SpellFlag == "BDD")
                     {
                         p1SpellFlag = "none";
                         p2NoTrap = false;
                         p1Spell.destroy();
+                        p1sLab.Text = "";
                     }
                     return;
                 }
-                else if(p2TrapFlag!="none")
+                else if (p2TrapFlag != "none")
                     return;
             }
             string name = trap.getName();
-                if (name == "Divine Punishment")
+            if (name == "DP")
+            {
+                if (p1Turn)
                 {
-                    if(p1Turn)
-                    {
-                        if(p1Monster1!=null)
-                            p1Monster1.debuff((int)Math.Ceiling(p1Monster1.getHealth()/2.0));
-                        if (p1Monster2 != null)
-                            p1Monster2.debuff((int)Math.Ceiling(p1Monster2.getHealth()/2.0));
-                        if (p1Monster3 != null)
-                            p1Monster3.debuff((int)Math.Ceiling(p1Monster3.getHealth()/2.0));
-                        p2TrapFlag = "DP";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.debuff((int)Math.Ceiling(p2Monster1.getHealth()/2.0));
-                        if (p2Monster2 != null)
-                            p2Monster2.debuff((int)Math.Ceiling(p2Monster2.getHealth()/2.0));
-                        if (p2Monster3 != null)
-                            p2Monster3.debuff((int)Math.Ceiling(p2Monster3.getHealth()/2.0));
-                        p1TrapFlag = "DP";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.debuff((int)Math.Ceiling(p1Monster1.getHealth() / 2.0));
+                    if (p1Monster2 != null)
+                        p1Monster2.debuff((int)Math.Ceiling(p1Monster2.getHealth() / 2.0));
+                    if (p1Monster3 != null)
+                        p1Monster3.debuff((int)Math.Ceiling(p1Monster3.getHealth() / 2.0));
+                    p2TrapFlag = "DP";
                 }
-                else if (name == "Power Break")
+                else
                 {
-                    if(p1Turn)
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.debuff(50);
-                        if (p1Monster2 != null)
-                            p1Monster2.debuff(50);
-                        if (p1Monster3 != null)
-                            p1Monster3.debuff(50);
-                        p2TrapEffectCnt = 1;
-                        p2TrapFlag = "PB";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.debuff(50);
-                        if (p2Monster2 != null)
-                            p2Monster2.debuff(50);
-                        if (p2Monster3 != null)
-                            p2Monster3.debuff(50);
-                        p1TrapEffectCnt = 1;
-                        p1TrapFlag = "PB";
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.debuff((int)Math.Ceiling(p2Monster1.getHealth() / 2.0));
+                    if (p2Monster2 != null)
+                        p2Monster2.debuff((int)Math.Ceiling(p2Monster2.getHealth() / 2.0));
+                    if (p2Monster3 != null)
+                        p2Monster3.debuff((int)Math.Ceiling(p2Monster3.getHealth() / 2.0));
+                    p1TrapFlag = "DP";
                 }
-                else if (name == "Reinforcements")
+            }
+            else if (name == "PB")
+            {
+                if (p1Turn)
                 {
-                    if(p1Turn)
-                    {
-                        if(p2Monster1!=null)
-                            p2Monster1.buff(40);
-                        if (p2Monster2!= null)
-                            p2Monster2.buff(40);
-                        if (p2Monster3 != null)
-                            p2Monster3.buff(40);
-                        p2TrapEffectCnt = 1;
-                        p2TrapFlag = "RE";
-                    }
-                    else
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.debuff(40);
-                        if(p1Monster2!=null)
-                            p1Monster2.debuff(40);
-                        if(p1Monster3!=null)
-                            p1Monster3.debuff(40);
-                        p1TrapEffectCnt = 1;
-                        p1TrapFlag = "RE";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.debuff(50);
+                    if (p1Monster2 != null)
+                        p1Monster2.debuff(50);
+                    if (p1Monster3 != null)
+                        p1Monster3.debuff(50);
+                    p2TrapEffectCnt = 1;
+                    p2TrapFlag = "PB";
                 }
-                else if (name == "Earthshaker")
+                else
                 {
-                    if(p1Turn)
-                    {
-                        if(p1Monster1!=null)
-                            p1Monster1.debuff(p1Monster1.getAttackPower());
-                        if (p1Monster2 != null)
-                            p1Monster2.debuff(p1Monster2.getAttackPower());
-                        if (p1Monster3 != null)
-                            p1Monster3.debuff(p1Monster3.getAttackPower());
-                        p2TrapEffectCnt = 1;
-                        p2TrapFlag = "ES";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.debuff(p2Monster1.getAttackPower());
-                        if (p2Monster2 != null)
-                            p2Monster2.debuff(p2Monster2.getAttackPower());
-                        if (p2Monster3 != null)
-                            p2Monster3.debuff(p2Monster3.getAttackPower());
-                        p1TrapEffectCnt = 1;
-                        p1TrapFlag = "ES"; 
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.debuff(50);
+                    if (p2Monster2 != null)
+                        p2Monster2.debuff(50);
+                    if (p2Monster3 != null)
+                        p2Monster3.debuff(50);
+                    p1TrapEffectCnt = 1;
+                    p1TrapFlag = "PB";
                 }
-                else if (name == "Torrential Tribute")
+            }
+            else if (name == "RE")
+            {
+                if (p1Turn)
                 {
-                    if(p1Turn)
-                    {
-                        if(p1Spell!=null)
-                            p1Spell.destroy();
-                        p2TrapFlag = "TT";
-                    }
-                    else
-                    {
-                        if (p2Spell != null)
-                            p2Spell.destroy();
-                        p1TrapFlag = "TT";
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.buff(40);
+                    if (p2Monster2 != null)
+                        p2Monster2.buff(40);
+                    if (p2Monster3 != null)
+                        p2Monster3.buff(40);
+                    p2TrapEffectCnt = 1;
+                    p2TrapFlag = "RE";
                 }
-                else if (name == "Solemn Judgment")
+                else
                 {
-                    if(p1Turn)
-                    {
-                        p1NoMagic = true;
-                        p2TrapEffectCnt = 1; 
-                        p2TrapFlag = "SJ";
-                    }
-                    else
-                    {
-                        p2NoMagic = true;
-                        p1TrapEffectCnt = 1;
-                        p1TrapFlag = "SJ";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.debuff(40);
+                    if (p1Monster2 != null)
+                        p1Monster2.debuff(40);
+                    if (p1Monster3 != null)
+                        p1Monster3.debuff(40);
+                    p1TrapEffectCnt = 1;
+                    p1TrapFlag = "RE";
                 }
-                else if (name == "Miraculous Descent")
+            }
+            else if (name == "ES")
+            {
+                if (p1Turn)
                 {
-                    if(p1Turn)
-                        p2TrapFlag = "MD";
-                    else
-                        p1TrapFlag = "MD";
+                    if (p1Monster1 != null)
+                        p1Monster1.debuff(p1Monster1.getAttackPower());
+                    if (p1Monster2 != null)
+                        p1Monster2.debuff(p1Monster2.getAttackPower());
+                    if (p1Monster3 != null)
+                        p1Monster3.debuff(p1Monster3.getAttackPower());
+                    p2TrapEffectCnt = 1;
+                    p2TrapFlag = "ES";
                 }
-                else if (name == "Return from the Different Dimension")
+                else
                 {
-                    if(p1Turn)
-                    {
-                        p1NoAttack = true;
-                        p2TrapEffectCnt = 1;
-                        p2TrapFlag = "RD";
-                    }
-                    else
-                    {
-                        p2NoAttack = true;
-                        p1TrapEffectCnt = 1;
-                        p1TrapFlag = "RD";
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.debuff(p2Monster1.getAttackPower());
+                    if (p2Monster2 != null)
+                        p2Monster2.debuff(p2Monster2.getAttackPower());
+                    if (p2Monster3 != null)
+                        p2Monster3.debuff(p2Monster3.getAttackPower());
+                    p1TrapEffectCnt = 1;
+                    p1TrapFlag = "ES";
                 }
-                else if (name == "Beckoning Light")
+            }
+            else if (name == "TT")
+            {
+                if (p1Turn)
                 {
-                    if(p1Turn)
+                    if (p1Spell != null)
                     {
-                        p1NoTrap = true;
-                        p2TrapEffectCnt = 1;
-                        p2TrapFlag = "BL";
+                        p1Spell.destroy();
+                        p1sLab.Text = "";
+                        p1SpellFlag = "none";
                     }
-                    else
-                    {
-                        p2NoTrap = true;
-                        p1TrapEffectCnt = 1;
-                        p1TrapFlag = "BL";
-                    }
+                    p2TrapFlag = "TT";
                 }
+                else
+                {
+                    if (p2Spell != null)
+                    {
+                        p2Spell.destroy();
+                        p1SpellFlag = "none";
+                        p2sLab.Text = "";
+                    }
+                    p1TrapFlag = "TT";
+                }
+            }
+            else if (name == "SJ")
+            {
+                if (p1Turn)
+                {
+                    p1NoMagic = true;
+                    p2TrapEffectCnt = 1;
+                    p2TrapFlag = "SJ";
+                }
+                else
+                {
+                    p2NoMagic = true;
+                    p1TrapEffectCnt = 1;
+                    p1TrapFlag = "SJ";
+                }
+            }
+            else if (name == "MD")
+            {
+                if (p1Turn)
+                    p2TrapFlag = "MD";
+                else
+                    p1TrapFlag = "MD";
+            }
+            else if (name == "RD")
+            {
+                if (p1Turn)
+                {
+                    p1NoAttack = true;
+                    p2TrapEffectCnt = 1;
+                    p2TrapFlag = "RD";
+                }
+                else
+                {
+                    p2NoAttack = true;
+                    p1TrapEffectCnt = 1;
+                    p1TrapFlag = "RD";
+                }
+            }
+            else if (name == "BL")
+            {
+                if (p1Turn)
+                {
+                    p1NoTrap = true;
+                    p2TrapEffectCnt = 1;
+                    p2TrapFlag = "BL";
+                }
+                else
+                {
+                    p2NoTrap = true;
+                    p1TrapEffectCnt = 1;
+                    p1TrapFlag = "BL";
+                }
+            }
         }
 
         private void processSpell(Card spell)
         {
             if (spell == null)
                 return;
-            if (p1Turn && p1SpellFlag!="none")
+            if (p1Turn && p1SpellFlag != "none")
                 return;
-            else if(p2SpellFlag!="none")
+            else if (p2SpellFlag != "none")
                 return;
             if (p1Turn && p1NoMagic)
                 return;
             else if (p2NoMagic)
                 return;
             string name = spell.getName();
-                if (name == "Cards from the Sky")
+            if (name == "CS")
+            {
+                if (p1Turn)
                 {
-                    if (p1Turn)
-                    {
-                        if(p1Monster1 != null)
-                            p1Monster1.setHealth((int)100);
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)100);
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)100);
-                        p1SpellFlag = "CS";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)100);
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)100);
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)100);
-                        p2SpellFlag = "CS";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)100);
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)100);
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)100);
+                    p1SpellFlag = "CS";
                 }
-                else if (name == "Valhalla, Hall of the Fallen")
+                else
                 {
-                    if(p1Turn){
-                        if (p1Monster1 != null)
-                            p1Monster1.setHealth((int)p1Monster1.getDefaultHealth());
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)p1Monster2.getDefaultHealth());
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)p1Monster3.getDefaultHealth());
-                        p1SpellFlag = "V"; 
-                    }
-                    else{
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)p2Monster1.getDefaultHealth());
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)p2Monster2.getDefaultHealth());
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)p2Monster3.getDefaultHealth());
-                        p2SpellFlag = "V";
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)100);
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)100);
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)100);
+                    p2SpellFlag = "CS";
                 }
-                else if (name == "Terraforming")
+            }
+            else if (name == "V")
+            {
+                if (p1Turn)
                 {
-                    if (p1Turn)
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.setHealth((int)1);
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)1);
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)1);
-                        p1SpellFlag = "TF";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)1);
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)1);
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)1);
-                        p2SpellFlag = "TF";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)p1Monster1.getDefaultHealth());
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)p1Monster2.getDefaultHealth());
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)p1Monster3.getDefaultHealth());
+                    p1SpellFlag = "V";
                 }
-                else if (name == "Smashing Ground")
+                else
                 {
-                    if (p1Turn)
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.setHealth((int)20);
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)20);
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)20);
-                        p1SpellFlag = "SG";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)20);
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)20);
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)20);
-                        p2SpellFlag = "SG";
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)p2Monster1.getDefaultHealth());
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)p2Monster2.getDefaultHealth());
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)p2Monster3.getDefaultHealth());
+                    p2SpellFlag = "V";
                 }
-                else if (name == "The Sanctuary in the Sky")
+            }
+            else if (name == "TF")
+            {
+                if (p1Turn)
                 {
-                    if (p1Turn)
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.setHealth((int)75);
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)75);
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)75);
-                        p1SpellFlag = "SS";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)75);
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)75);
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)75);
-                        p2SpellFlag = "SS";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)1);
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)1);
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)1);
+                    p1SpellFlag = "TF";
                 }
-                else if (name == "Celestial Transformation")
+                else
                 {
-                    if (p1Turn)
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.setHealth((int)p1Monster1.getDefaultHealth()/2);
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)p1Monster2.getDefaultHealth()/2);
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)p1Monster3.getDefaultHealth()/2);
-                        p1SpellFlag = "CT";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)p2Monster1.getDefaultHealth()/2);
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)p2Monster2.getDefaultHealth()/2);
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)p2Monster3.getDefaultHealth()/2);
-                        p2SpellFlag = "CT";
-                    }
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)1);
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)1);
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)1);
+                    p2SpellFlag = "TF";
                 }
-                else if (name == "Burial from a Different Dimension")
+            }
+            else if (name == "SG")
+            {
+                if (p1Turn)
                 {
-                    if (p1Turn)
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)20);
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)20);
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)20);
+                    p1SpellFlag = "SG";
+                }
+                else
+                {
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)20);
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)20);
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)20);
+                    p2SpellFlag = "SG";
+                }
+            }
+            else if (name == "SS")
+            {
+                if (p1Turn)
+                {
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)75);
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)75);
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)75);
+                    p1SpellFlag = "SS";
+                }
+                else
+                {
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)75);
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)75);
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)75);
+                    p2SpellFlag = "SS";
+                }
+            }
+            else if (name == "CT")
+            {
+                if (p1Turn)
+                {
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)p1Monster1.getDefaultHealth() / 2);
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)p1Monster2.getDefaultHealth() / 2);
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)p1Monster3.getDefaultHealth() / 2);
+                    p1SpellFlag = "CT";
+                }
+                else
+                {
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)p2Monster1.getDefaultHealth() / 2);
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)p2Monster2.getDefaultHealth() / 2);
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)p2Monster3.getDefaultHealth() / 2);
+                    p2SpellFlag = "CT";
+                }
+            }
+            else if (name == "BDD")
+            {
+                if (p1Turn)
+                {
+                    if (p2Trap != null)
                     {
-                        if (p2Trap != null)
-                            p2Trap.destroy();
-                        p1SpellFlag = "BDD";
+                        p2Trap.destroy();
+                        p2tLab.Text = "";
+                        p2TrapFlag = "none";
                     }
-                    else
-                    {
+                    p1SpellFlag = "BDD";
+                }
+                else
+                {
 
-                        if (p1Trap != null)
-                            p1Trap.destroy();
-                        p2SpellFlag = "BDD";
+                    if (p1Trap != null)
+                    {
+                        p1Trap.destroy();
+                        p1TrapFlag = "none";
+                        p1tLab.Text = "";
                     }
+                    p2SpellFlag = "BDD";
                 }
-                else if (name == "Mausoleum of the Emperor")
+            }
+            else if (name == "ME")
+            {
+                if (p1Turn)
                 {
-                    if (p1Turn)
-                    {
-                        if(p1Monster1 != null)
-                            p1Monster1.setHealth((int)(p1Monster1.getDefaultHealth() * .75));
-                        if(p1Monster2 != null)
-                            p1Monster2.setHealth((int)(p1Monster2.getDefaultHealth() * .75));
-                        if(p1Monster3 != null)
-                            p1Monster3.setHealth((int)(p1Monster3.getDefaultHealth() * .75));
-                        p1SpellFlag = "ME";
-                    }
-                    else
-                    {
-                        if(p2Monster1 != null)
-                            p2Monster1.setHealth((int)(p2Monster1.getDefaultHealth() * .75));
-                        if(p2Monster2 != null)
-                            p2Monster2.setHealth((int)(p2Monster2.getDefaultHealth() * .75));
-                        if(p2Monster3 != null)
-                            p2Monster3.setHealth((int)(p2Monster3.getDefaultHealth() * .75));
-                        p2SpellFlag = "ME";
-                    }
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)(p1Monster1.getDefaultHealth() * .75));
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)(p1Monster2.getDefaultHealth() * .75));
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)(p1Monster3.getDefaultHealth() * .75));
+                    p1SpellFlag = "ME";
                 }
-                else if (name == "The Fountain in the Sky")
+                else
                 {
-                    if (p1Turn)
-                    {
-                        if (p1Monster1 != null)
-                            p1Monster1.setHealth((int)(p1Monster1.getDefaultHealth() * .25));
-                        if (p1Monster2 != null)
-                            p1Monster2.setHealth((int)(p1Monster2.getDefaultHealth() * .25));
-                        if (p1Monster3 != null)
-                            p1Monster3.setHealth((int)(p1Monster3.getDefaultHealth() * .25));
-                        p1SpellFlag = "FS";
-                    }
-                    else
-                    {
-                        if (p2Monster1 != null)
-                            p2Monster1.setHealth((int)(p2Monster1.getDefaultHealth() * .25));
-                        if (p2Monster2 != null)
-                            p2Monster2.setHealth((int)(p2Monster2.getDefaultHealth() * .25));
-                        if (p2Monster3 != null)
-                            p2Monster3.setHealth((int)(p2Monster3.getDefaultHealth() * .25));
-                        p1SpellFlag = "FS";
-                    }
-                    
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)(p2Monster1.getDefaultHealth() * .75));
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)(p2Monster2.getDefaultHealth() * .75));
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)(p2Monster3.getDefaultHealth() * .75));
+                    p2SpellFlag = "ME";
                 }
+            }
+            else if (name == "FS")
+            {
+                if (p1Turn)
+                {
+                    if (p1Monster1 != null)
+                        p1Monster1.setHealth((int)(p1Monster1.getDefaultHealth() * .25));
+                    if (p1Monster2 != null)
+                        p1Monster2.setHealth((int)(p1Monster2.getDefaultHealth() * .25));
+                    if (p1Monster3 != null)
+                        p1Monster3.setHealth((int)(p1Monster3.getDefaultHealth() * .25));
+                    p1SpellFlag = "FS";
+                }
+                else
+                {
+                    if (p2Monster1 != null)
+                        p2Monster1.setHealth((int)(p2Monster1.getDefaultHealth() * .25));
+                    if (p2Monster2 != null)
+                        p2Monster2.setHealth((int)(p2Monster2.getDefaultHealth() * .25));
+                    if (p2Monster3 != null)
+                        p2Monster3.setHealth((int)(p2Monster3.getDefaultHealth() * .25));
+                    p1SpellFlag = "FS";
+                }
+
+            }
         }
 
         private void endTurn()
         {
-            state = 3; 
+            state = 3;
             if (p1Turn)
             {
-                if(p2Trap!=null && !p2Trap.isKO())
+                if (p2Trap != null && !p2Trap.isKO())
                     processTrap(p2Trap);
                 if (p1Spell != null && !p1Spell.isKO())
                     processSpell(p1Spell);
@@ -1894,7 +1927,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         if (p1Turn && !p1NoAttack)
                         {
                             registerAttack(p1Monster1, p2Monster1);
-                            if(p2Monster1.isKO())
+                            if (p2Monster1.isKO())
                             {
                                 if (p2TrapFlag != "MD")
                                 {
@@ -1903,18 +1936,21 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck1;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster1, p1Monster1);
                             if (p1Monster1.isKO())
                             {
-                                if(p1TrapFlag!="MD")
+                                if (p1TrapFlag != "MD")
                                     p1life += p1Monster1.getHealth();
                             }
                             goto nextPart;
                         }
                     }
                 }
+            nextCheck1:
                 //case 2:
                 if (p2Monster2 != null)
                 {
@@ -1931,7 +1967,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck2;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster2, p1Monster1);
                             if (p1Monster1.isKO())
@@ -1943,6 +1981,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck2:
                 //case 3:
                 if (p2Monster3 != null)
                 {
@@ -1959,7 +1998,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck3;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster3, p1Monster1);
                             if (p1Monster1.isKO())
@@ -1972,6 +2013,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     }
                 }
             }
+        nextCheck3:
             if (p1Monster2 != null)
             {
                 //case 4:
@@ -1990,7 +2032,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck4;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster1, p1Monster2);
                             if (p1Monster2.isKO())
@@ -2002,7 +2046,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
-                //case 5:
+            //case 5:
+            nextCheck4:
                 if (p2Monster2 != null)
                 {
                     if ((p1Monster2.getModel().WorldTransformation.Translation -
@@ -2018,7 +2063,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck5;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster2, p1Monster2);
                             if (p1Monster2.isKO())
@@ -2030,6 +2077,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck5:
                 //case 6:
                 if (p2Monster3 != null)
                 {
@@ -2046,7 +2094,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck6;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster3, p1Monster2);
                             if (p1Monster2.isKO())
@@ -2059,7 +2109,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                     }
                 }
             }
-
+        nextCheck6:
             if (p1Monster3 != null)
             {
                 //case 7: 
@@ -2078,7 +2128,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck7;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster1, p1Monster3);
                             if (p1Monster3.isKO())
@@ -2090,6 +2142,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck7:
                 if (p2Monster2 != null)
                 {
                     //case 8: 
@@ -2106,7 +2159,9 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
-                        else if (!p2NoAttack && p1NoAttack)
+                        else if (p1NoAttack)
+                            goto nextCheck8;
+                        else if (!p2NoAttack)
                         {
                             registerAttack(p2Monster2, p1Monster3);
                             if (p1Monster3.isKO())
@@ -2118,6 +2173,7 @@ namespace Tutorial8___Optical_Marker_Tracking
                         }
                     }
                 }
+            nextCheck8:
                 if (p2Monster3 != null)
                 {
                     //case 9: 
@@ -2134,6 +2190,8 @@ namespace Tutorial8___Optical_Marker_Tracking
                             }
                             goto nextPart;
                         }
+                        else if (p1NoAttack)
+                            goto nextPart;
                         else if (!p2NoAttack && p1NoAttack)
                         {
                             registerAttack(p2Monster3, p1Monster3);
@@ -2153,104 +2211,158 @@ namespace Tutorial8___Optical_Marker_Tracking
             if (p1Turn)
             {
                 p1Turn = false;
-                if (p1SpellFlag != "none")
+                if (p1sLab.Text != "")
+                //if (p1SpellFlag != "none")
                 {
+                    Console.WriteLine("p1 spell is not none!");
                     p1Spell.destroy();
                     p1SpellFlag = "none";
+                    p1sLab.Text = "";
                 }
             }
             else
             {
                 p1Turn = true;
-                if (p2SpellFlag != "none")
+                if (p2sLab.Text != "")
+                //if (p2SpellFlag != "none")
                 {
                     p2SpellFlag = "none";
                     p2Spell.destroy();
+                    p2sLab.Text = "";
                 }
             }
             //NOTE: At this point, if it WAS P1's turn, p1Turn is now set to false. 
             //Use this property in the rest of the code in this method to restore defaults.
             p1TrapEffectCnt--;
             p2TrapEffectCnt--;
-            if (p1TrapEffectCnt <= 0)
+            Console.WriteLine("{0} = p2tecnt", p2TrapEffectCnt);
+            if (p1TrapEffectCnt == 0)
             {
-                    p1TrapEffectCnt = 0;
-                    switch (p1TrapFlag)
-                    {
-                        case "none": return;
-                        case "PB":
-                        case "ES":
-                            p2Monster1.setLast();
-                            p2Monster2.setLast();
-                            p2Monster3.setLast();
-                            break;
-                        case "RE":
-                            p1Monster1.setLast();
-                            p1Monster2.setLast();
-                            p1Monster3.setLast();
-                            break;
-                        case "RD":
-                            p2NoAttack = false;
-                            break;
-                        case "BL":
-                            /*Note here: trap activated on P2's turn, 
-                             *P1 turn began, then at end on P1's turn, this will be reset to P2
-                            */
-                            p2NoTrap = false;
-                            break;
-                        case "SJ":
-                            p2NoMagic = false;
-                            break;
-                    }
-                    p1TrapFlag = "none";
-                if(p1Trap!=null)
+                if (p1tLab.Text != "")
+                {
                     p1Trap.destroy();
-            }
-            if (p2TrapEffectCnt <= 0)
-            {
-                    p2TrapEffectCnt = 0;
-                    switch (p2TrapFlag)
-                    {
-                        case "none": return;
-                        case "PB":
-                        case "ES":
-                            p1Monster1.setLast();
-                            p1Monster2.setLast();
-                            p1Monster3.setLast();
-                            break;
-                        case "RE":
+                    p1TrapFlag = "none";
+                    p1tLab.Text = "";
+                    Console.WriteLine("P1T destroyed.");
+                }
+                p1TrapEffectCnt = 0;
+                switch (p1tLab.Text)
+                {
+                    case "": return;
+                    case "PB":
+                        if (p2Monster1 != null)
                             p2Monster1.setLast();
+                        if (p2Monster2 != null)
                             p2Monster2.setLast();
+                        if (p2Monster3 != null)
                             p2Monster3.setLast();
-                            break;
-                        case "RD":
-                            p1NoAttack = false;
-                            break;
-                        case "BL":
-                            /*Note here: trap activated on P1's turn, 
-                             *P2 turn began, then at end on P2's turn, this will be reset to P1
-                            */
-                            p1NoTrap = false;
-                            break;
-                        case "SJ":
-                            p2NoMagic = false;
-                            break;
+                        break;
+                    case "ES":
+                        if (p2Monster1 != null)
+                            p2Monster1.setLast();
+                        if (p2Monster2 != null)
+                            p2Monster2.setLast();
+                        if (p2Monster3 != null)
+                            p2Monster3.setLast();
+                        break;
+                    case "RE":
+                        if (p1Monster1 != null)
+                            p1Monster1.setLast();
+                        if (p1Monster2 != null)
+                            p1Monster2.setLast();
+                        if (p1Monster3 != null)
+                            p1Monster3.setLast();
+                        break;
+                    case "RD":
+                        p2NoAttack = false;
+                        break;
+                    case "BL":
+                        /*Note here: trap activated on P2's turn, 
+                         *P1 turn began, then at end on P1's turn, this will be reset to P2
+                        */
+                        p2NoTrap = false;
+                        break;
+                    case "SJ":
+                        p2NoMagic = false;
+                        break;
+                }
+                p1TrapFlag = "none";
+                p1tLab.Text = "";
 
-                    }
-                    p2TrapFlag = "none";
-                if(p2Trap!=null)    
-                    p2Trap.destroy();
             }
-            
+            else if (p1TrapEffectCnt < 0)
+            {
+                p1TrapEffectCnt = 0;
+            }
+            if (p2TrapEffectCnt == 0)
+            {
+                if (p2tLab.Text != "")
+                {
+                    p2Trap.destroy();
+                    p2TrapFlag = "none";
+                    p2tLab.Text = "";
+                    Console.WriteLine("P2T destroyed.");
+                    
+                }
+                p2TrapEffectCnt = 0;
+                switch (p2tLab.Text)
+                {
+                    case "": return;
+                    case "PB":
+                        if (p1Monster1 != null)
+                            p1Monster1.setLast();
+                        if (p1Monster2 != null)
+                            p1Monster2.setLast();
+                        if (p1Monster3 != null)
+                            p1Monster3.setLast();
+                        break;
+                    case "ES":
+                        if (p1Monster1 != null)
+                            p1Monster1.setLast();
+                        if (p1Monster2 != null)
+                            p1Monster2.setLast();
+                        if (p1Monster3 != null)
+                            p1Monster3.setLast();
+                        break;
+                    case "RE":
+                        if (p2Monster1 != null)
+                            p2Monster1.setLast();
+                        if (p2Monster2 != null)
+                            p2Monster2.setLast();
+                        if (p2Monster3 != null)
+                            p2Monster3.setLast();
+                        break;
+                    case "RD":
+                        p1NoAttack = false;
+                        break;
+                    case "BL":
+                        /*Note here: trap activated on P1's turn, 
+                         *P2 turn began, then at end on P2's turn, this will be reset to P1
+                        */
+                        p1NoTrap = false;
+                        break;
+                    case "SJ":
+                        p2NoMagic = false;
+                        break;
 
-            
+                }
+                p2TrapFlag = "none";
+                p2tLab.Text = "";
+            }
+            else if (p2TrapEffectCnt < 0)
+            {
+                Console.WriteLine("asdfkal");
+                p2TrapEffectCnt = 0;
+            }
+
+
+
 
         }
 
         protected override void LoadContent()
         {
             uiFont = Content.Load<SpriteFont>("UIFont");
-            displayFont = Content.Load<SpriteFont>("DisplayFont");
             base.LoadContent();
         }
 
@@ -2270,228 +2382,6 @@ namespace Tutorial8___Optical_Marker_Tracking
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (state == 5)
-            {
-                bool flag = true;
-                int counter = 0; // counter = 0, break from state.
-                Vector3 cardPos;
-                switch (badPort)
-                {
-                    case "Player 1 Monster 1":
-                        Vector3 m32Pos = cylinderMarkerNode132.WorldTransformation.Translation;
-                        for (int x = 10; x < 30; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m32Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 1 Monster 2":
-                        Vector3 m33Pos = cylinderMarkerNode133.WorldTransformation.Translation;
-                        for (int x = 10; x < 30; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m33Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 1 Monster 3":
-                        Vector3 m34Pos = cylinderMarkerNode134.WorldTransformation.Translation;
-                        for (int x = 10; x < 30; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m34Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 2 Monster 1":
-                        Vector3 m35Pos = cylinderMarkerNode135.WorldTransformation.Translation;
-                        for (int x = 10; x < 30; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m35Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 2 Monster 2":
-                        Vector3 m36Pos = cylinderMarkerNode136.WorldTransformation.Translation;
-                        for (int x = 10; x < 30; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m36Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 2 Monster 3":
-                        Vector3 m37Pos = cylinderMarkerNode137.WorldTransformation.Translation;
-                        for (int x = 10; x < 30; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m37Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 1 Spell":
-                        Vector3 m38Pos = cylinderMarkerNode138.WorldTransformation.Translation;
-                        for (int x = 0; x < 30; x++)
-                        {
-                            if ((x >= 10 && x < 20)||!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m38Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 2 Spell":
-                        Vector3 m39Pos = cylinderMarkerNode139.WorldTransformation.Translation;
-                        for (int x = 0; x < 30; x++)
-                        {
-                            if ((x >= 10 && x < 20) || !(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m39Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 1 Trap":
-                        Vector3 m40Pos = cylinderMarkerNode139.WorldTransformation.Translation;
-                        for (int x = 0; x < 20; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m40Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                    case "Player 2 Trap":
-                        Vector3 m41Pos = cylinderMarkerNode139.WorldTransformation.Translation;
-                        for (int x = 0; x < 20; x++)
-                        {
-                            if (!(cards[x].getModel().MarkerFound))
-                            {
-                                continue;
-                            }
-                            cardPos = cards[x].getModel().WorldTransformation.Translation;
-                            if ((m41Pos - cardPos).Length() <= 20)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == 0)
-                        {
-                            state = prevState;
-                            flag = false;
-                        }
-                        break;
-                }
-                if (flag)
-                {
-                    text = "There is an invalid card near the " + badPort + " port. Please remove it.";
-                    UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
-                            displayFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
-                }
-                else
-                {
-                    text = "";
-                    UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
-                            displayFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
-                }
-                return;
-            }
             if (p1Turn && cylinderMarkerNode131.MarkerFound)
             {
                 endTurn();
@@ -2517,11 +2407,36 @@ namespace Tutorial8___Optical_Marker_Tracking
             {
                 Console.WriteLine("Entered state 3 clause.");
                 int checker = 0; //when checker = 0, break from state. 
+                ModelLoader loader = new ModelLoader();
                 if (p1Monster1 != null && p1Monster1.isKO())
                 {
+
+
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p1Monster1.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p1Monster1.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+
                     if (p1Monster1.getModel().MarkerFound)
                     {
                         //change model color to red
+
                         checker++;
                     }
                     else
@@ -2533,9 +2448,30 @@ namespace Tutorial8___Optical_Marker_Tracking
                 }
                 if (p1Monster2 != null && p1Monster2.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p1Monster2.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p1Monster2.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p1Monster2.getModel().MarkerFound)
                     {
-                        //change model color to red
                         checker++;
                     }
                     else
@@ -2548,9 +2484,30 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p1Monster3 != null && p1Monster3.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p1Monster3.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p1Monster3.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p1Monster3.getModel().MarkerFound)
                     {
-                        //change model color to red
                         checker++;
                     }
                     else
@@ -2563,6 +2520,28 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p2Monster1 != null && p2Monster1.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p2Monster1.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p2Monster1.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p2Monster1.getModel().MarkerFound)
                     {
                         //change model color to red
@@ -2578,6 +2557,28 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p2Monster2 != null && p2Monster2.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p2Monster2.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p2Monster2.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p2Monster2.getModel().MarkerFound)
                     {
                         //change model color to red
@@ -2593,6 +2594,28 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p2Monster3 != null && p2Monster3.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p2Monster3.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p2Monster3.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p2Monster3.getModel().MarkerFound)
                     {
                         //change model color to red
@@ -2608,6 +2631,28 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p1Spell != null && p1Spell.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p1Spell.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p1Spell.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p1Spell.getModel().MarkerFound)
                     {
                         //change model color to red
@@ -2621,6 +2666,28 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p1Trap != null && p1Trap.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p1Trap.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p1Trap.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p1Trap.getModel().MarkerFound)
                     {
                         //change model color to red
@@ -2634,9 +2701,31 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p2Spell != null && p2Spell.isKO())
                 {
+                    //change model color to red
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p2Spell.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p2Spell.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+
                     if (p2Spell.getModel().MarkerFound)
                     {
-                        //change model color to red
+
                         checker++;
                     }
                     else
@@ -2647,6 +2736,28 @@ namespace Tutorial8___Optical_Marker_Tracking
 
                 if (p2Trap != null && p2Trap.isKO())
                 {
+                    Model monsterModel0 = (Model)loader.Load("", "SlimeDead");
+                    p2Trap.getModel().RemoveChildren();
+                    GeometryNode cylinderNode5 = new GeometryNode("Cylinder");
+                    Material sphereMaterial3 = new Material();
+                    sphereMaterial3.Diffuse = new Vector4(0.5f, 0, 0, 1);
+                    sphereMaterial3.Specular = Color.Red.ToVector4();
+                    sphereMaterial3.SpecularPower = 10;
+
+                    cylinderNode5.Model = monsterModel0;
+                    ((Model)cylinderNode5.Model).UseInternalMaterials = false;
+
+                    cylinderNode5.Material = sphereMaterial3;
+
+                    TransformNode cylinderTransNode5 = new TransformNode();
+
+                    cylinderTransNode5.Scale = new Vector3(5, 5, 5);
+                    cylinderTransNode5.Rotation = Quaternion.CreateFromYawPitchRoll(0, 1.5f, 0);
+                    p2Trap.getModel().AddChild(cylinderTransNode5);
+
+                    cylinderTransNode5.AddChild(cylinderNode5);
+                    
+                    
                     if (p2Trap.getModel().MarkerFound)
                     {
                         //change model color to red
@@ -2657,40 +2768,39 @@ namespace Tutorial8___Optical_Marker_Tracking
                         p2Trap = null;
                     }
                 }
-                
-                    if (checker != 0)
-                        text = "There are destroyed cards on the board that have not been removed. Please remove them to continue.";
-                    else
-                    {
-                        text = "";
-                        state = 1; 
-                    }
-                    Console.WriteLine("checker = " + checker.ToString());
-                    UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
-                        displayFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
 
-                    if (p1Monster1 != null)
-                        p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
-                            p1Monster1.getHealth().ToString() + " HP";
-                    if (p1Monster2 != null)
-                        p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
-                            p1Monster2.getHealth().ToString() + " HP";
-                    if (p1Monster3 != null)
-                        p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
-                            p1Monster3.getHealth().ToString() + " HP";
+                if (checker != 0)
+                    text = "There are destroyed cards on the board that have not been removed. Please remove them to continue.";
+                else
+                {
+                    text = "";
+                    state = 1;
+                }
+                Console.WriteLine("checker = " + checker.ToString());
+                UI2DRenderer.WriteText(Vector2.Zero, text, Color.Red,
+                    uiFont, GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Top);
 
-                    if (p2Monster1 != null)
-                        p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
-                            p2Monster1.getHealth().ToString() + " HP";
-                    if (p2Monster2 != null)
-                        p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
-                            p2Monster2.getHealth().ToString() + " HP";
-                    if (p2Monster3 != null)
-                        p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
-                            p2Monster3.getHealth().ToString() + " HP";
-                p1LifeLab.Text = p1life.ToString() + " LP";    
+                if (p1Monster1 != null)
+                    p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
+                        p1Monster1.getHealth().ToString() + " HP";
+                if (p1Monster2 != null)
+                    p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
+                        p1Monster2.getHealth().ToString() + " HP";
+                if (p1Monster3 != null)
+                    p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
+                        p1Monster3.getHealth().ToString() + " HP";
+                if (p2Monster1 != null)
+                    p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
+                        p2Monster1.getHealth().ToString() + " HP";
+                if (p2Monster2 != null)
+                    p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
+                        p2Monster2.getHealth().ToString() + " HP";
+                if (p2Monster3 != null)
+                    p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
+                        p2Monster3.getHealth().ToString() + " HP";
+                p1LifeLab.Text = p1life.ToString() + " LP";
                 p2LifeLab.Text = p2life.ToString() + " LP";
-                    return;
+                return;
 
             }
             /*Checking for player cards via proximity checks
@@ -2711,145 +2821,97 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 m35Pos = cylinderMarkerNode135.WorldTransformation.Translation;
             Vector3 m36Pos = cylinderMarkerNode136.WorldTransformation.Translation;
             Vector3 m37Pos = cylinderMarkerNode137.WorldTransformation.Translation;
-            Vector3 monCardPos; 
+            Vector3 monCardPos;
             for (x = 0; x < 10; x++)
             {
                 if (!(cards[x].getModel().MarkerFound))
                 {
-                    continue; 
+                    continue;
                 }
                 monCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if (x < 10)
+                if (p1Monster1 == null && (m32Pos - monCardPos).Length() <= 20)
                 {
-                    if (p1Monster1 == null && (m32Pos - monCardPos).Length() <= 20)
-                    {
-                        if (p1Monster2 == cards[x])
-                            break;
-                        if (p1Monster3 == cards[x])
-                            break;
-                        if (p2Monster1 == cards[x])
-                            break;
-                        if (p2Monster2 == cards[x])
-                            break;
-                        if (p2Monster3 == cards[x])
-                            break;
-                        p1Monster1 = cards[x];
-                    }
-                    else if (p1Monster2 == null && (m33Pos - monCardPos).Length() <= 20)
-                    {
-                        if (p1Monster1 == cards[x])
-                            break;
-                        if (p1Monster3 == cards[x])
-                            break;
-                        if (p2Monster1 == cards[x])
-                            break;
-                        if (p2Monster2 == cards[x])
-                            break;
-                        if (p2Monster3 == cards[x])
-                            break;
-                        p1Monster2 = cards[x];
-                    }
-                    else if (p1Monster3 == null && (m34Pos - monCardPos).Length() <= 20)
-                    {
-                        if (p1Monster2 == cards[x])
-                            break;
-                        if (p1Monster1 == cards[x])
-                            break;
-                        if (p2Monster1 == cards[x])
-                            break;
-                        if (p2Monster2 == cards[x])
-                            break;
-                        if (p2Monster3 == cards[x])
-                            break;
-                        p1Monster3 = cards[x];
-                    }
-                    else if (p2Monster1 == null && (m35Pos - monCardPos).Length() <= 20)
-                    {
-                        if (p1Monster2 == cards[x])
-                            break;
-                        if (p1Monster3 == cards[x])
-                            break;
-                        if (p1Monster1 == cards[x])
-                            break;
-                        if (p2Monster2 == cards[x])
-                            break;
-                        if (p2Monster3 == cards[x])
-                            break;
-                        p2Monster1 = cards[x];
-                    }
-                    else if (p2Monster2 == null && (m36Pos - monCardPos).Length() <= 20)
-                    {
-                        if (p1Monster2 == cards[x])
-                            break;
-                        if (p1Monster3 == cards[x])
-                            break;
-                        if (p2Monster1 == cards[x])
-                            break;
-                        if (p1Monster1 == cards[x])
-                            break;
-                        if (p2Monster3 == cards[x])
-                            break;
-                        p2Monster2 = cards[x];
-                    }
-                    else if (p2Monster3 == null && (m37Pos - monCardPos).Length() <= 20)
-                    {
-                        if (p1Monster2 == cards[x])
-                            break;
-                        if (p1Monster3 == cards[x])
-                            break;
-                        if (p2Monster1 == cards[x])
-                            break;
-                        if (p2Monster2 == cards[x])
-                            break;
-                        if (p1Monster1 == cards[x])
-                            break;
-                        p2Monster3 = cards[x];
-                    }
+                    if (p1Monster2 == cards[x])
+                        break;
+                    if (p1Monster3 == cards[x])
+                        break;
+                    if (p2Monster1 == cards[x])
+                        break;
+                    if (p2Monster2 == cards[x])
+                        break;
+                    if (p2Monster3 == cards[x])
+                        break;
+                    p1Monster1 = cards[x];
                 }
-                else
+                else if (p1Monster2 == null && (m33Pos - monCardPos).Length() <= 20)
                 {
-                    if ((m32Pos - monCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 1 Monster 1";
-                        return;
-                    }
-                    else if ((m33Pos - monCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 1 Monster 2";
-                        return;
-                    }
-                    else if ((m34Pos - monCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 1 Monster 3";
-                        return;
-                    }
-                    else if ((m35Pos - monCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 2 Monster 1";
-                        return;
-                    }
-                    else if ((m36Pos - monCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 2 Monster 2";
-                        return;
-                    }
-                    else if ((m37Pos - monCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 2 Monster 3";
-                        return;
-                    }
+                    if (p1Monster1 == cards[x])
+                        break;
+                    if (p1Monster3 == cards[x])
+                        break;
+                    if (p2Monster1 == cards[x])
+                        break;
+                    if (p2Monster2 == cards[x])
+                        break;
+                    if (p2Monster3 == cards[x])
+                        break;
+                    p1Monster2 = cards[x];
+                }
+                else if (p1Monster3 == null && (m34Pos - monCardPos).Length() <= 20)
+                {
+                    if (p1Monster2 == cards[x])
+                        break;
+                    if (p1Monster1 == cards[x])
+                        break;
+                    if (p2Monster1 == cards[x])
+                        break;
+                    if (p2Monster2 == cards[x])
+                        break;
+                    if (p2Monster3 == cards[x])
+                        break;
+                    p1Monster3 = cards[x];
+                }
+                else if (p2Monster1 == null && (m35Pos - monCardPos).Length() <= 20)
+                {
+                    if (p1Monster2 == cards[x])
+                        break;
+                    if (p1Monster3 == cards[x])
+                        break;
+                    if (p1Monster1 == cards[x])
+                        break;
+                    if (p2Monster2 == cards[x])
+                        break;
+                    if (p2Monster3 == cards[x])
+                        break;
+                    p2Monster1 = cards[x];
+                }
+                else if (p2Monster2 == null && (m36Pos - monCardPos).Length() <= 20)
+                {
+                    if (p1Monster2 == cards[x])
+                        break;
+                    if (p1Monster3 == cards[x])
+                        break;
+                    if (p2Monster1 == cards[x])
+                        break;
+                    if (p1Monster1 == cards[x])
+                        break;
+                    if (p2Monster3 == cards[x])
+                        break;
+                    p2Monster2 = cards[x];
+                }
+                else if (p2Monster3 == null && (m37Pos - monCardPos).Length() <= 20)
+                {
+                    if (p1Monster2 == cards[x])
+                        break;
+                    if (p1Monster3 == cards[x])
+                        break;
+                    if (p2Monster1 == cards[x])
+                        break;
+                    if (p2Monster2 == cards[x])
+                        break;
+                    if (p1Monster1 == cards[x])
+                        break;
+                    p2Monster3 = cards[x];
                 }
             }
 
@@ -2857,102 +2919,71 @@ namespace Tutorial8___Optical_Marker_Tracking
             Vector3 m38Pos = cylinderMarkerNode138.WorldTransformation.Translation;
             Vector3 m39Pos = cylinderMarkerNode139.WorldTransformation.Translation;
             Vector3 spellCardPos;
-            for (x = 0; x < 30; x++)
+            for (x = 10; x < 20; x++)
             {
                 if (!(cards[x].getModel().MarkerFound))
                 {
                     continue;
                 }
                 spellCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if (x >= 10 && x < 20)
+                if (p1Spell == null && (m38Pos - spellCardPos).Length() <= 20)
                 {
-                    if (p1Spell == null && (m38Pos - spellCardPos).Length() <= 20)
-                    {
-                        p1Spell = cards[x];
-                    }
-                    else if (p2Spell == null && (m39Pos - spellCardPos).Length() <= 20)
-                    {
-                        p2Spell = cards[x];
-                    }
+                    p1Spell = cards[x];
                 }
-                else
+                else if (p2Spell == null && (m39Pos - spellCardPos).Length() <= 20)
                 {
-                    if ((m38Pos - spellCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 1 Spell";
-                        return;
-                    }
-                    else if ((m39Pos - spellCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 2 Spell";
-                        return;
-                    }
+                    p2Spell = cards[x];
                 }
             }
+            if (p1Spell != null)
+                p1sLab.Text = p1Spell.getName().ToString();
+            if (p2Spell != null)
+                p2sLab.Text = p2Spell.getName().ToString();
 
             //spell marker proximity checks
             Vector3 m40Pos = cylinderMarkerNode140.WorldTransformation.Translation;
             Vector3 m41Pos = cylinderMarkerNode141.WorldTransformation.Translation;
             Vector3 trapCardPos;
-            for (x = 0; x < 30; x++)
+            for (x = 20; x < 30; x++)
             {
                 if (!(cards[x].getModel().MarkerFound))
                     continue;
                 trapCardPos = cards[x].getModel().WorldTransformation.Translation;
-                if (x >= 20)
+                if (p1Trap == null && (m40Pos - trapCardPos).Length() <= 20)
                 {
-                    if (p1Trap == null && (m40Pos - trapCardPos).Length() <= 20)
-                    {
-                        p1Trap = cards[x];
-                    }
-                    else if (p2Trap == null && (m41Pos - trapCardPos).Length() <= 20)
-                    {
-                        p2Trap = cards[x];
-                    }
+                    p1Trap = cards[x];
                 }
-                else
+                else if (p2Trap == null && (m41Pos - trapCardPos).Length() <= 20)
                 {
-                    if ((m40Pos - trapCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 1 Trap";
-                        return;
-                    }
-                    else if ((m41Pos - trapCardPos).Length() <= 20)
-                    {
-                        prevState = state;
-                        state = 5;
-                        badPort = "Player 2 Trap";
-                        return;
-                    }
+                    p2Trap = cards[x];
                 }
             }
-            if(p1Monster1!=null)
+            if (p1Trap != null)
+                p1tLab.Text = p1Trap.getName().ToString();
+            if (p2Trap != null)
+                p2tLab.Text = p2Trap.getName().ToString();
+
+            if (p1Monster1 != null)
                 p1m1LifeLab.Text = p1Monster1.getAttackPower().ToString() + " ATK / " +
                     p1Monster1.getHealth().ToString() + " HP";
-            if(p1Monster2!=null)
+            if (p1Monster2 != null)
                 p1m2LifeLab.Text = p1Monster2.getAttackPower().ToString() + " ATK / " +
                     p1Monster2.getHealth().ToString() + " HP";
-            if(p1Monster3!=null)
+            if (p1Monster3 != null)
                 p1m3LifeLab.Text = p1Monster3.getAttackPower().ToString() + " ATK / " +
                     p1Monster3.getHealth().ToString() + " HP";
 
-            if(p2Monster1!=null)
+            if (p2Monster1 != null)
                 p2m1LifeLab.Text = p2Monster1.getAttackPower().ToString() + " ATK / " +
                     p2Monster1.getHealth().ToString() + " HP";
-            if(p2Monster2!=null)
+            if (p2Monster2 != null)
                 p2m2LifeLab.Text = p2Monster2.getAttackPower().ToString() + " ATK / " +
                     p2Monster2.getHealth().ToString() + " HP";
-            if(p2Monster3!=null)
+            if (p2Monster3 != null)
                 p2m3LifeLab.Text = p2Monster3.getAttackPower().ToString() + " ATK / " +
                     p2Monster3.getHealth().ToString() + " HP";
 
-            
+
 
             base.Update(gameTime);
         }
@@ -2977,13 +3008,13 @@ namespace Tutorial8___Optical_Marker_Tracking
                 {
                     UI2DRenderer.FillRectangle(new Rectangle(100, 100, 600, 400), null, Color.CornflowerBlue);
                     UI2DRenderer.WriteText(Vector2.Zero, "Player 1 has won the game!", Color.Black, uiFont,
-                        GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center); 
+                        GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center);
                 }
                 else
                 {
                     UI2DRenderer.FillRectangle(new Rectangle(100, 100, 600, 400), null, Color.CornflowerBlue);
                     UI2DRenderer.WriteText(Vector2.Zero, "Player 2 has won the game!", Color.Black, uiFont,
-                        GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center); 
+                        GoblinEnums.HorizontalAlignment.Center, GoblinEnums.VerticalAlignment.Center);
                 }
             }
             base.Draw(gameTime);

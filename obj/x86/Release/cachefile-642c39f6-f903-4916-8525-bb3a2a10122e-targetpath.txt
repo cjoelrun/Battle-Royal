@@ -1,0 +1,7 @@
+Content\DebugFont.xnb
+Content\PostScreenShadowBlur.xnb
+Content\ShadowMap.xnb
+Content\ShadowDistanceFadeoutMap.xnb
+Content\Boxwhite.xnb
+Content\MagicHat.xnb
+Content\Slime.xnb

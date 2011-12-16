@@ -5,3 +5,5 @@ Content\ShadowDistanceFadeoutMap.xnb
 Content\Boxwhite.xnb
 Content\MagicHat.xnb
 Content\Slime.xnb
+Content\SlimeDead.xnb
+Content\SlimeDead.fbx

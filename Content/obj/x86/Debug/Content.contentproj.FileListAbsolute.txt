@@ -5,3 +5,4 @@ G:\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Tutorial8 - Optical Marker Tracking\Con
 C:\Users\Chelsea\Desktop\ui\br\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 Z:\bin\GoblinXNAv3.6\projects\Battle-Royal\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 Z:\bin\Battle-Royale\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Chelsea\Documents\Visual Studio 2008\GoblinXNAv3.6\GoblinXNAv3.6\tutorials\Battle-Royal\Content\obj\x86\Debug\ResolveAssemblyReference.cache
